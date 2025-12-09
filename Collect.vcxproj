@@ -150,16 +150,21 @@
     <ClInclude Include="Collect\Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Collect\MNISTLoader.h" />
     <ClInclude Include="Collect\Network.h" />
     <ClInclude Include="Collect\pch.h" />
     <ClInclude Include="Collect\Process.h" />
     <ClInclude Include="Collect\Resource.h" />
+    <ClInclude Include="Collect\TrainingDialog.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
   </ItemGroup>
   <!-- CPP DOSYALARI -->
   <ItemGroup>
     <ClCompile Include="Collect\AssemblyInfo.cpp" />
     <ClCompile Include="Collect\CppCLR_WinformsProjekt.cpp" />
     <ClCompile Include="Collect\Form1.cpp" />
+    <ClCompile Include="Collect\MNISTLoader.cpp" />
     <ClCompile Include="Collect\Network.cpp" />
     <ClCompile Include="Collect\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

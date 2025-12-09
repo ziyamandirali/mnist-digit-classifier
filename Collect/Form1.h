@@ -1,6 +1,8 @@
 #pragma once
 #include "Process.h"
 #include "Network.h"
+#include "MNISTLoader.h"
+#include "TrainingDialog.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -99,6 +101,50 @@ namespace CppCLRWinformsProjekt {
 			delete[] Weights_ML;
 			Weights_ML = nullptr;
 		}
+	// MNIST cleanup
+	if (mnist_train_samples) {
+		delete[] mnist_train_samples;
+		mnist_train_samples = nullptr;
+	}
+	if (mnist_train_targets) {
+		delete[] mnist_train_targets;
+		mnist_train_targets = nullptr;
+	}
+	if (mnist_test_samples) {
+		delete[] mnist_test_samples;
+		mnist_test_samples = nullptr;
+	}
+	if (mnist_test_targets) {
+		delete[] mnist_test_targets;
+		mnist_test_targets = nullptr;
+	}
+	// MNIST weights cleanup
+	if (mnist_weights) {
+		int total_layers = mnist_hidden_layers + 1;
+		for (int i = 0; i < total_layers; i++) {
+			if (mnist_weights[i]) {
+				delete[] mnist_weights[i];
+				mnist_weights[i] = nullptr;
+			}
+		}
+		delete[] mnist_weights;
+		mnist_weights = nullptr;
+	}
+	if (mnist_bias) {
+		int total_layers = mnist_hidden_layers + 1;
+		for (int i = 0; i < total_layers; i++) {
+			if (mnist_bias[i]) {
+				delete[] mnist_bias[i];
+				mnist_bias[i] = nullptr;
+			}
+		}
+		delete[] mnist_bias;
+		mnist_bias = nullptr;
+	}
+	if (mnist_layer_sizes) {
+		delete[] mnist_layer_sizes;
+		mnist_layer_sizes = nullptr;
+	}
 		if (bias_ML) {
 			for (int i = 0; i < num_layers; i++) {
 				if (bias_ML[i]) {
@@ -174,6 +220,25 @@ namespace CppCLRWinformsProjekt {
 		float** bias_ML = nullptr;       // Multi-layer bias
 		bool is_multilayer = false;      // Flag: single or multi-layer
 
+	// MNIST variables
+	float* mnist_train_samples = nullptr;
+	float* mnist_train_targets = nullptr;
+	int mnist_train_count = 0;
+	float* mnist_test_samples = nullptr;
+	float* mnist_test_targets = nullptr;
+	int mnist_test_count = 0;
+	bool mnist_loaded = false;
+	System::String^ mnist_base_path = "MNIST dataset\\mnist-png";
+	
+	// MNIST network parameters (saved after training)
+	float** mnist_weights = nullptr;
+	float** mnist_bias = nullptr;
+	int* mnist_layer_sizes = nullptr;
+	int mnist_hidden_layers = 0;
+	int mnist_input_dim = 0;
+	int mnist_class_count = 0;
+	bool mnist_trained = false;
+
 	private: System::Windows::Forms::MenuStrip^ menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^ fileToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ readDataToolStripMenuItem;
@@ -185,6 +250,10 @@ namespace CppCLRWinformsProjekt {
 	private: System::Windows::Forms::ToolStripMenuItem^ trainingToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ testingToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ regressionToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ mnistToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ loadMNISTToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ trainMNISTToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ testMNISTToolStripMenuItem;
 
 	private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart1;
 	private: System::Windows::Forms::CheckBox^ checkBoxMomentum;
@@ -250,6 +319,10 @@ namespace CppCLRWinformsProjekt {
 			   this->trainingToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			   this->testingToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			   this->regressionToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			   this->mnistToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			   this->loadMNISTToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			   this->trainMNISTToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			   this->testMNISTToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			   this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			   this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			   this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
@@ -657,9 +730,10 @@ namespace CppCLRWinformsProjekt {
 			   // menuStrip1
 			   // 
 			   this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-			   this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+			   this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				   this->fileToolStripMenuItem,
-					   this->processToolStripMenuItem
+					   this->processToolStripMenuItem,
+					   this->mnistToolStripMenuItem
 			   });
 			   this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			   this->menuStrip1->Name = L"menuStrip1";
@@ -721,6 +795,38 @@ namespace CppCLRWinformsProjekt {
 			   this->regressionToolStripMenuItem->Size = System::Drawing::Size(164, 26);
 			   this->regressionToolStripMenuItem->Text = L"Regression";
 			   this->regressionToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::regressionToolStripMenuItem_Click);
+			   // 
+			   // mnistToolStripMenuItem
+			   // 
+			   this->mnistToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array<System::Windows::Forms::ToolStripItem^>(3) {
+				   this->loadMNISTToolStripMenuItem,
+				   this->trainMNISTToolStripMenuItem,
+				   this->testMNISTToolStripMenuItem
+			   });
+			   this->mnistToolStripMenuItem->Name = L"mnistToolStripMenuItem";
+			   this->mnistToolStripMenuItem->Size = System::Drawing::Size(70, 24);
+			   this->mnistToolStripMenuItem->Text = L"MNIST";
+			   // 
+			   // loadMNISTToolStripMenuItem
+			   // 
+			   this->loadMNISTToolStripMenuItem->Name = L"loadMNISTToolStripMenuItem";
+			   this->loadMNISTToolStripMenuItem->Size = System::Drawing::Size(180, 26);
+			   this->loadMNISTToolStripMenuItem->Text = L"Load Dataset";
+			   this->loadMNISTToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::loadMNISTToolStripMenuItem_Click);
+			   // 
+			   // trainMNISTToolStripMenuItem
+			   // 
+			   this->trainMNISTToolStripMenuItem->Name = L"trainMNISTToolStripMenuItem";
+			   this->trainMNISTToolStripMenuItem->Size = System::Drawing::Size(180, 26);
+			   this->trainMNISTToolStripMenuItem->Text = L"Train MNIST";
+			   this->trainMNISTToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::trainMNISTToolStripMenuItem_Click);
+			   // 
+			   // testMNISTToolStripMenuItem
+			   // 
+			   this->testMNISTToolStripMenuItem->Name = L"testMNISTToolStripMenuItem";
+			   this->testMNISTToolStripMenuItem->Size = System::Drawing::Size(180, 26);
+			   this->testMNISTToolStripMenuItem->Text = L"Test MNIST";
+			   this->testMNISTToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::testMNISTToolStripMenuItem_Click);
 			   // 
 			   // openFileDialog1
 			   // 
@@ -1396,6 +1502,7 @@ private: System::Void trainingToolStripMenuItem_Click(System::Object^ sender, Sy
 		
 		chart1->Series["Series1"]->Points->Clear();
 		chart1->Series["Series1"]->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+		chart1->Series["Series1"]->BorderWidth = 2;
 		for (int i = 0; i < epoch; i++) {
 			chart1->Series["Series1"]->Points->AddY(error_history[i]);
 		}
@@ -1601,6 +1708,7 @@ private: System::Void regressionToolStripMenuItem_Click(System::Object^ sender, 
 		// Plot error graph
 		chart1->Series["Series1"]->Points->Clear();
 		chart1->Series["Series1"]->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+		chart1->Series["Series1"]->BorderWidth = 2;
 		for (int i = 0; i < epoch; i++) {
 			chart1->Series["Series1"]->Points->AddY(error_history[i]);
 		}
@@ -1728,5 +1836,455 @@ private: System::Void buttonClearCanvas_Click(System::Object^ sender, System::Ev
 	MessageBox::Show("Canvas cleared successfully!", "Clear Canvas", 
 		MessageBoxButtons::OK, MessageBoxIcon::Information);
 }
+
+// ==================== MNIST EVENT HANDLERS ====================
+
+private: System::Void loadMNISTToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	textBox1->Clear();
+	textBox1->AppendText("=== Loading MNIST Dataset ===\r\n");
+	
+	try {
+		// Clean up previous MNIST data
+		if (mnist_train_samples) {
+			delete[] mnist_train_samples;
+			mnist_train_samples = nullptr;
+		}
+		if (mnist_train_targets) {
+			delete[] mnist_train_targets;
+			mnist_train_targets = nullptr;
+		}
+		if (mnist_test_samples) {
+			delete[] mnist_test_samples;
+			mnist_test_samples = nullptr;
+		}
+		if (mnist_test_targets) {
+			delete[] mnist_test_targets;
+			mnist_test_targets = nullptr;
+		}
+		
+	// Load training dataset (500 samples per digit = 5000 total)
+	textBox1->AppendText("Loading training set...\r\n");
+	float* temp_train_samples = nullptr;
+	float* temp_train_targets = nullptr;
+	int temp_train_count = 0;
+	MNISTLoader::LoadTrainDataset(mnist_base_path, 500, 
+		temp_train_samples, temp_train_targets, temp_train_count);
+	mnist_train_samples = temp_train_samples;
+	mnist_train_targets = temp_train_targets;
+	mnist_train_count = temp_train_count;
+	textBox1->AppendText("Training samples loaded: " + mnist_train_count + "\r\n");
+		
+		// Verify training data
+		if (mnist_train_samples == nullptr || mnist_train_count == 0) {
+			throw gcnew Exception("Failed to load training samples!");
+		}
+		
+	// Load test dataset (50 samples per digit = 500 total)
+	textBox1->AppendText("Loading test set...\r\n");
+	float* temp_test_samples = nullptr;
+	float* temp_test_targets = nullptr;
+	int temp_test_count = 0;
+	MNISTLoader::LoadTestDataset(mnist_base_path, 50, 
+		temp_test_samples, temp_test_targets, temp_test_count);
+	mnist_test_samples = temp_test_samples;
+	mnist_test_targets = temp_test_targets;
+	mnist_test_count = temp_test_count;
+	textBox1->AppendText("Test samples loaded: " + mnist_test_count + "\r\n");
+		
+		// Verify test data
+		if (mnist_test_samples == nullptr || mnist_test_count == 0) {
+			throw gcnew Exception("Failed to load test samples!");
+		}
+		
+		mnist_loaded = true;
+		
+		textBox1->AppendText("\r\n=== Dataset Summary ===\r\n");
+		textBox1->AppendText("Input Size: 784 (28x28 pixels)\r\n");
+		textBox1->AppendText("Classes: 10 (digits 0-9)\r\n");
+		textBox1->AppendText("Training Samples: " + mnist_train_count + "\r\n");
+		textBox1->AppendText("Test Samples: " + mnist_test_count + "\r\n");
+		textBox1->AppendText("\r\nDataset loaded successfully!\r\n");
+		
+		MessageBox::Show("MNIST dataset loaded successfully!\n\nTrain: " + mnist_train_count + 
+			" samples\nTest: " + mnist_test_count + " samples", 
+			"Load Complete", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+	catch (Exception^ ex) {
+		textBox1->AppendText("\r\nERROR: " + ex->Message + "\r\n");
+		MessageBox::Show("Failed to load MNIST dataset!\n\nError: " + ex->Message, 
+			"Load Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+}
+
+private: System::Void trainMNISTToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (!mnist_loaded) {
+		MessageBox::Show("Please load MNIST dataset first!\n\nUse: MNIST -> Load Dataset", 
+			"No Dataset", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+	
+	if (mnist_train_samples == nullptr || mnist_train_count == 0) {
+		MessageBox::Show("Training data is empty!\n\nPlease load dataset again.", 
+			"Data Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+	
+	// Show training options dialog
+	TrainingDialog^ dialog = gcnew TrainingDialog();
+	System::Windows::Forms::DialogResult result = dialog->ShowDialog(this);
+	
+	if (result != System::Windows::Forms::DialogResult::OK) {
+		// User cancelled
+		return;
+	}
+	
+	// Get parameters from dialog
+	float learning_rate = dialog->LearningRate;
+	int Max_epoch = dialog->MaxEpochs;
+	float momentum = dialog->UseMomentum ? dialog->MomentumValue : 0.0f;
+	
+	textBox1->Clear();
+	textBox1->AppendText("=== MNIST Training ===\r\n");
+	
+	try {
+		// Network configuration
+		int mnist_input_dim = 784;  // 28x28
+		int mnist_class_count = 10; // digits 0-9
+		
+		// Hidden layers: 128 -> 64
+		int mnist_hidden_layers = 2;
+		int* mnist_layer_sizes = new int[mnist_hidden_layers]; // Only hidden layers
+		mnist_layer_sizes[0] = 128; // Hidden layer 1
+		mnist_layer_sizes[1] = 64;  // Hidden layer 2
+		// Output layer (10 neurons) will be added by train_fcn_multilayer
+		
+		textBox1->AppendText("Network Architecture:\r\n");
+		textBox1->AppendText("  Input: 784 neurons\r\n");
+		textBox1->AppendText("  Hidden 1: 128 neurons\r\n");
+		textBox1->AppendText("  Hidden 2: 64 neurons\r\n");
+		textBox1->AppendText("  Output: 10 neurons\r\n\r\n");
+		
+		// Total layers = hidden + output
+		int total_layers = mnist_hidden_layers + 1;
+		
+		// Allocate weights and bias
+		float** mnist_weights = new float*[total_layers];
+		float** mnist_bias = new float*[total_layers];
+		
+		// Hidden layer 1: 784 inputs -> 128 neurons
+		mnist_weights[0] = new float[mnist_input_dim * mnist_layer_sizes[0]];
+		mnist_bias[0] = new float[mnist_layer_sizes[0]];
+		
+		// Hidden layer 2: 128 inputs -> 64 neurons
+		mnist_weights[1] = new float[mnist_layer_sizes[0] * mnist_layer_sizes[1]];
+		mnist_bias[1] = new float[mnist_layer_sizes[1]];
+		
+		// Output layer: 64 inputs -> 10 neurons
+		mnist_weights[2] = new float[mnist_layer_sizes[1] * mnist_class_count];
+		mnist_bias[2] = new float[mnist_class_count];
+		
+		// Initialize weights randomly
+		Random^ rng = gcnew Random();
+		for (int layer = 0; layer < total_layers; layer++) {
+			int input_size, output_size;
+			
+			if (layer == 0) {
+				// First hidden layer
+				input_size = mnist_input_dim;
+				output_size = mnist_layer_sizes[0];
+			}
+			else if (layer < mnist_hidden_layers) {
+				// Other hidden layers
+				input_size = mnist_layer_sizes[layer - 1];
+				output_size = mnist_layer_sizes[layer];
+			}
+			else {
+				// Output layer
+				input_size = mnist_layer_sizes[layer - 1];
+				output_size = mnist_class_count;
+			}
+			
+			for (int i = 0; i < input_size * output_size; i++) {
+				mnist_weights[layer][i] = (float)(rng->NextDouble() * 2.0 - 1.0) * 0.1f;
+			}
+			for (int i = 0; i < output_size; i++) {
+				mnist_bias[layer][i] = 0.0f;
+			}
+		}
+		
+		// Training parameters
+		float Min_Err = 0.01f;
+		int epoch = 0;
+		
+	textBox1->AppendText("Training Parameters:\r\n");
+	textBox1->AppendText("  Learning Rate: " + learning_rate + "\r\n");
+	textBox1->AppendText("  Momentum: " + momentum + "\r\n");
+	textBox1->AppendText("  Min Error: " + Min_Err + "\r\n");
+	textBox1->AppendText("  Max Epochs: " + Max_epoch + "\r\n\r\n");
+	
+	// CRITICAL: Shuffle training data to prevent class order bias
+	textBox1->AppendText("Shuffling training data...\r\n");
+	Random^ shuffle_rng = gcnew Random();
+	for (int i = mnist_train_count - 1; i > 0; i--) {
+		int j = shuffle_rng->Next(0, i + 1);
+		// Swap samples
+		for (int k = 0; k < mnist_input_dim; k++) {
+			float temp = mnist_train_samples[i * mnist_input_dim + k];
+			mnist_train_samples[i * mnist_input_dim + k] = mnist_train_samples[j * mnist_input_dim + k];
+			mnist_train_samples[j * mnist_input_dim + k] = temp;
+		}
+		// Swap targets
+		for (int k = 0; k < mnist_class_count; k++) {
+			float temp = mnist_train_targets[i * mnist_class_count + k];
+			mnist_train_targets[i * mnist_class_count + k] = mnist_train_targets[j * mnist_class_count + k];
+			mnist_train_targets[j * mnist_class_count + k] = temp;
+		}
+	}
+	textBox1->AppendText("Data shuffled!\r\n\r\n");
+	textBox1->AppendText("Training started...\r\n");
+	
+	// Clear chart
+	chart1->Series["Series1"]->Points->Clear();
+	
+	// Train the network
+		// Pass mnist_hidden_layers (NOT +1), because function expects ONLY hidden layer count
+		float* error_history = train_fcn_multilayer(
+			mnist_train_samples, mnist_train_count, mnist_train_targets,
+			mnist_input_dim, mnist_layer_sizes, mnist_hidden_layers, mnist_class_count,
+			mnist_weights, mnist_bias, learning_rate, Min_Err, Max_epoch, epoch, momentum
+		);
+		
+	// Display results
+	textBox1->AppendText("\r\n=== Training Complete ===\r\n");
+	textBox1->AppendText("Epochs: " + epoch + "\r\n");
+	textBox1->AppendText("Final Error: " + error_history[epoch - 1] + "\r\n");
+	
+	// Plot error history
+	chart1->Series["Series1"]->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+	chart1->Series["Series1"]->BorderWidth = 2;
+	for (int i = 0; i < epoch; i++) {
+		chart1->Series["Series1"]->Points->AddXY(i, error_history[i]);
+	}
+	
+	// Save weights to member variables for testing
+	// First, cleanup old weights if any
+	if (this->mnist_weights) {
+		int old_total_layers = this->mnist_hidden_layers + 1;
+		for (int i = 0; i < old_total_layers; i++) {
+			if (this->mnist_weights[i]) delete[] this->mnist_weights[i];
+		}
+		delete[] this->mnist_weights;
+	}
+	if (this->mnist_bias) {
+		int old_total_layers = this->mnist_hidden_layers + 1;
+		for (int i = 0; i < old_total_layers; i++) {
+			if (this->mnist_bias[i]) delete[] this->mnist_bias[i];
+		}
+		delete[] this->mnist_bias;
+	}
+	if (this->mnist_layer_sizes) {
+		delete[] this->mnist_layer_sizes;
+	}
+	
+	// Copy weights and parameters
+	this->mnist_weights = mnist_weights;
+	this->mnist_bias = mnist_bias;
+	this->mnist_layer_sizes = mnist_layer_sizes;
+	this->mnist_hidden_layers = mnist_hidden_layers;
+	this->mnist_input_dim = mnist_input_dim;
+	this->mnist_class_count = mnist_class_count;
+	this->mnist_trained = true;
+	
+	// Cleanup
+	delete[] error_history;
+	// Don't delete weights/bias/layer_sizes - they're saved now!
+	
+	textBox1->AppendText("\r\nNetwork is ready for testing!\r\n");
+	MessageBox::Show("Training completed!\n\nEpochs: " + epoch + "\n\nYou can now test the network using MNIST -> Test MNIST", 
+		"Training Complete", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+	catch (Exception^ ex) {
+		textBox1->AppendText("\r\nERROR: " + ex->Message + "\r\n");
+		MessageBox::Show("Training failed!\n\nError: " + ex->Message, 
+			"Training Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+}
+
+private: System::Void testMNISTToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (!mnist_loaded) {
+		MessageBox::Show("Please load MNIST dataset first!\n\nUse: MNIST -> Load Dataset", 
+			"No Dataset", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+	
+	if (!mnist_trained) {
+		MessageBox::Show("Please train the network first!\n\nUse: MNIST -> Train MNIST", 
+			"No Trained Network", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+	
+	textBox1->Clear();
+	textBox1->AppendText("=== MNIST Testing ===\r\n\r\n");
+	
+	// Debug: Check if weights are loaded
+	textBox1->AppendText("DEBUG Info:\r\n");
+	textBox1->AppendText("  mnist_trained: " + mnist_trained + "\r\n");
+	textBox1->AppendText("  mnist_weights: " + (mnist_weights != nullptr ? "Not null" : "NULL!") + "\r\n");
+	textBox1->AppendText("  mnist_bias: " + (mnist_bias != nullptr ? "Not null" : "NULL!") + "\r\n");
+	textBox1->AppendText("  mnist_hidden_layers: " + mnist_hidden_layers + "\r\n");
+	textBox1->AppendText("  mnist_input_dim: " + mnist_input_dim + "\r\n");
+	textBox1->AppendText("  mnist_class_count: " + mnist_class_count + "\r\n\r\n");
+	
+	try {
+		// Test on test dataset
+		int correct = 0;
+		int total = mnist_test_count;
+		
+		// Confusion matrix: [actual_class][predicted_class]
+		int confusion_matrix[10][10] = {0};
+		
+		textBox1->AppendText("Testing " + total + " samples...\r\n\r\n");
+		
+		for (int i = 0; i < total; i++) {
+			// Get current sample
+			float* current_sample = &mnist_test_samples[i * mnist_input_dim];
+			
+			// Get actual class (from one-hot encoded target)
+			int actual_class = -1;
+			for (int c = 0; c < mnist_class_count; c++) {
+				if (mnist_test_targets[i * mnist_class_count + c] > 0) {
+					actual_class = c;
+					break;
+				}
+			}
+			
+			// Predict using trained network
+			int predicted_class = Test_Forward_MultiLayer(
+				current_sample, 
+				mnist_weights, 
+				mnist_bias, 
+				mnist_input_dim, 
+				mnist_layer_sizes, 
+				mnist_hidden_layers, 
+				mnist_class_count
+			);
+			
+		// Debug: Print first 3 predictions with detailed output
+		if (i < 3) {
+			// Manual forward pass to get output values
+			float** layer_outputs = new float*[3];
+			layer_outputs[0] = new float[mnist_layer_sizes[0]]; // 128
+			layer_outputs[1] = new float[mnist_layer_sizes[1]]; // 64
+			layer_outputs[2] = new float[mnist_class_count];     // 10
+			
+			// Forward pass - Layer 0 (input -> hidden1)
+			for (int j = 0; j < mnist_layer_sizes[0]; j++) {
+				float net = mnist_bias[0][j];
+				for (int k = 0; k < mnist_input_dim; k++) {
+					net += mnist_weights[0][j * mnist_input_dim + k] * current_sample[k];
+				}
+				layer_outputs[0][j] = tanh(net);
+			}
+			
+			// Forward pass - Layer 1 (hidden1 -> hidden2)
+			for (int j = 0; j < mnist_layer_sizes[1]; j++) {
+				float net = mnist_bias[1][j];
+				for (int k = 0; k < mnist_layer_sizes[0]; k++) {
+					net += mnist_weights[1][j * mnist_layer_sizes[0] + k] * layer_outputs[0][k];
+				}
+				layer_outputs[1][j] = tanh(net);
+			}
+			
+			// Forward pass - Layer 2 (hidden2 -> output)
+			for (int j = 0; j < mnist_class_count; j++) {
+				float net = mnist_bias[2][j];
+				for (int k = 0; k < mnist_layer_sizes[1]; k++) {
+					net += mnist_weights[2][j * mnist_layer_sizes[1] + k] * layer_outputs[1][k];
+				}
+				layer_outputs[2][j] = tanh(net);
+			}
+			
+			textBox1->AppendText("Sample " + i + ": Actual=" + actual_class + ", Predicted=" + predicted_class + "\r\n");
+			textBox1->AppendText("  Output layer values: ");
+			for (int j = 0; j < mnist_class_count; j++) {
+				textBox1->AppendText(layer_outputs[2][j].ToString("F3") + " ");
+			}
+			textBox1->AppendText("\r\n");
+			
+			delete[] layer_outputs[0];
+			delete[] layer_outputs[1];
+			delete[] layer_outputs[2];
+			delete[] layer_outputs;
+		}
+			
+			// Update confusion matrix
+			if (actual_class >= 0 && actual_class < 10 && predicted_class >= 0 && predicted_class < 10) {
+				confusion_matrix[actual_class][predicted_class]++;
+				
+				if (predicted_class == actual_class) {
+					correct++;
+				}
+			}
+		}
+		textBox1->AppendText("\r\n");
+		
+		// Calculate accuracy
+		float accuracy = (float)correct / total * 100.0f;
+		
+		// Display results
+		textBox1->AppendText("=== Test Results ===\r\n");
+		textBox1->AppendText("Total Samples: " + total + "\r\n");
+		textBox1->AppendText("Correct: " + correct + "\r\n");
+		textBox1->AppendText("Incorrect: " + (total - correct) + "\r\n");
+		textBox1->AppendText("Accuracy: " + accuracy.ToString("F2") + "%\r\n\r\n");
+		
+		// Display confusion matrix
+		textBox1->AppendText("=== Confusion Matrix ===\r\n");
+		textBox1->AppendText("(Rows: Actual, Columns: Predicted)\r\n\r\n");
+		textBox1->AppendText("    ");
+		for (int i = 0; i < 10; i++) {
+			textBox1->AppendText(i.ToString()->PadLeft(3));
+		}
+		textBox1->AppendText("\r\n");
+		textBox1->AppendText("   --------------------------------\r\n");
+		
+		for (int actual = 0; actual < 10; actual++) {
+			textBox1->AppendText(actual.ToString() + " | ");
+			for (int pred = 0; pred < 10; pred++) {
+				textBox1->AppendText(confusion_matrix[actual][pred].ToString()->PadLeft(3));
+			}
+			textBox1->AppendText("\r\n");
+		}
+		
+		// Display per-class accuracy
+		textBox1->AppendText("\r\n=== Per-Class Accuracy ===\r\n");
+		for (int c = 0; c < 10; c++) {
+			int class_total = 0;
+			int class_correct = confusion_matrix[c][c];
+			for (int pred = 0; pred < 10; pred++) {
+				class_total += confusion_matrix[c][pred];
+			}
+			if (class_total > 0) {
+				float class_accuracy = (float)class_correct / class_total * 100.0f;
+				textBox1->AppendText("Digit " + c + ": " + class_accuracy.ToString("F1") + "% (" + 
+					class_correct + "/" + class_total + ")\r\n");
+			}
+		}
+		
+		// Show summary message
+		String^ message = "Test completed!\n\n" +
+			"Accuracy: " + accuracy.ToString("F2") + "%\n" +
+			"Correct: " + correct + "/" + total;
+		
+		MessageBox::Show(message, "Test Results", 
+			MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+	catch (Exception^ ex) {
+		textBox1->AppendText("\r\nERROR: " + ex->Message + "\r\n");
+		MessageBox::Show("Testing failed!\n\nError: " + ex->Message, 
+			"Test Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+}
+
 };
 }

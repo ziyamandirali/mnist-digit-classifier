@@ -64,6 +64,18 @@ float* train_fcn(float* Samples, int numSample, float* targets, int inputDim, in
 		if (epoch < Max_epoch) {
 			temp[epoch] = total_err;
 			epoch++;
+			
+			// Progress reporting: Print every 10% of epochs
+			int progress_interval = Max_epoch / 10;
+			if (progress_interval == 0) progress_interval = 1;
+			
+			if (epoch % progress_interval == 0 || epoch == 1) {
+				float progress_percent = (float)epoch / Max_epoch * 100.0f;
+				System::String^ msg = System::String::Format(
+					"[SINGLE-LAYER] Epoch {0}/{1} ({2:F1}%) | Error: {3:F6}",
+					epoch, Max_epoch, progress_percent, total_err);
+				System::Diagnostics::Debug::WriteLine(msg);
+			}
 		}
 	} while ((total_err > Min_Err) && (epoch < Max_epoch));
 	delete[] net;
@@ -145,21 +157,38 @@ float* train_fcn_multilayer(float* Samples, int numSample, float* targets,
 	int output_size = layer_sizes[num_layers - 1];
 	float* desired = new float[output_size];
 
+	// Create shuffle indices array
+	int* shuffle_indices = new int[numSample];
+	for (int i = 0; i < numSample; i++) {
+		shuffle_indices[i] = i;
+	}
+
 	do {
 		total_err = 0.0f;
 
+		// Shuffle training data every epoch (Fisher-Yates shuffle)
+		for (int i = numSample - 1; i > 0; i--) {
+			int j = rand() % (i + 1);
+			// Swap indices
+			int temp = shuffle_indices[i];
+			shuffle_indices[i] = shuffle_indices[j];
+			shuffle_indices[j] = temp;
+		}
+
 		for (int step = 0; step < numSample; step++) {
+			// Use shuffled index
+			int sample_idx = shuffle_indices[step];
 			// ===== FORWARD PROPAGATION =====
 			for (int layer = 0; layer < num_layers; layer++) {
 				// Determine input for this layer
 				float* input;
 				int input_size;
 
-				if (layer == 0) {
-					// First layer: input is the sample
-					input = &Samples[step * inputDim];
-					input_size = inputDim;
-				}
+			if (layer == 0) {
+				// First layer: input is the sample (use shuffled index)
+				input = &Samples[sample_idx * inputDim];
+				input_size = inputDim;
+			}
 				else {
 					// Hidden/output layers: input is previous layer's output
 					input = layer_outputs[layer - 1];
@@ -189,15 +218,16 @@ float* train_fcn_multilayer(float* Samples, int numSample, float* targets,
 			// Output layer error
 			int output_layer = num_layers - 1;
 			for (int j = 0; j < output_size; j++) {
-				// Desired output (one-hot or bipolar encoding)
-				if (output_size == 1) {
-					// Binary classification
-					desired[j] = (targets[step] == 0) ? 1.0f : -1.0f;
-				}
-				else {
-					// Multi-class classification
-					desired[j] = (targets[step] == j) ? 1.0f : -1.0f;
-				}
+			// Desired output (one-hot or bipolar encoding)
+			if (output_size == 1) {
+				// Binary classification
+				desired[j] = (targets[sample_idx] == 0) ? 1.0f : -1.0f;
+			}
+			else {
+				// Multi-class classification (targets are one-hot encoded)
+				// For MNIST: targets[sample_idx * class_count + j] gives the target for class j
+				desired[j] = targets[sample_idx * output_size + j];
+			}
 
 				// Calculate error
 				float error = desired[j] - layer_outputs[output_layer][j];
@@ -308,6 +338,18 @@ float* train_fcn_multilayer(float* Samples, int numSample, float* targets,
 		if (epoch < Max_epoch) {
 			error_history[epoch] = total_err;
 			epoch++;
+			
+			// Progress reporting: Print every 10% of epochs
+			int progress_interval = Max_epoch / 10;
+			if (progress_interval == 0) progress_interval = 1;
+			
+			if (epoch % progress_interval == 0 || epoch == 1) {
+				float progress_percent = (float)epoch / Max_epoch * 100.0f;
+				System::String^ msg = System::String::Format(
+					"Epoch {0}/{1} ({2:F1}%) | Error: {3:F6}",
+					epoch, Max_epoch, progress_percent, total_err);
+				System::Diagnostics::Debug::WriteLine(msg);
+			}
 		}
 
 	} while ((total_err > Min_Err) && (epoch < Max_epoch));
@@ -339,6 +381,7 @@ float* train_fcn_multilayer(float* Samples, int numSample, float* targets,
 	delete[] deltas;
 	delete[] desired;
 	delete[] layer_sizes;
+	delete[] shuffle_indices;
 
 	return error_history;
 } //train_fcn_multilayer
@@ -550,6 +593,18 @@ float* train_fcn_multilayer_regression(float* Samples, int numSample, float* tar
 		float mse = total_error / numSample;
 		error_history[epoch] = mse;
 
+		// Progress reporting: Print every 10% of epochs
+		int progress_interval = Max_epoch / 10;
+		if (progress_interval == 0) progress_interval = 1;
+		
+		if ((epoch + 1) % progress_interval == 0 || epoch == 0) {
+			float progress_percent = (float)(epoch + 1) / Max_epoch * 100.0f;
+			System::String^ msg = System::String::Format(
+				"[REGRESSION] Epoch {0}/{1} ({2:F1}%) | Error: {3:F6}",
+				epoch + 1, Max_epoch, progress_percent, mse);
+			System::Diagnostics::Debug::WriteLine(msg);
+		}
+
 		// Check convergence
 		if (mse < Min_Err) {
 			epoch++;
@@ -637,6 +692,18 @@ float* regression_train(float* x, float* y, int numSample, float& slope, float& 
 		if (epoch < Max_epoch) {
 			error_history[epoch] = total_err;
 			epoch++;
+			
+			// Progress reporting: Print every 10% of epochs
+			int progress_interval = Max_epoch / 10;
+			if (progress_interval == 0) progress_interval = 1;
+			
+			if (epoch % progress_interval == 0 || epoch == 1) {
+				float progress_percent = (float)epoch / Max_epoch * 100.0f;
+				System::String^ msg = System::String::Format(
+					"[LINEAR REGRESSION] Epoch {0}/{1} ({2:F1}%) | Error: {3:F6}",
+					epoch, Max_epoch, progress_percent, total_err);
+				System::Diagnostics::Debug::WriteLine(msg);
+			}
 		}
 		
 	} while ((total_err > Min_Err) && (epoch < Max_epoch));

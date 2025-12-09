@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Emre\\source\\repos\\Collect\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Form1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form",
-      "RelativeMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|solutionrelative:Collect\\Form1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Form1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|solutionrelative:Collect\\Form1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|solutionrelative:Collect\\Network.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|solutionrelative:Collect\\Network.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Process.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|solutionrelative:Collect\\Process.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\TrainingDialog.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|solutionrelative:Collect\\TrainingDialog.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,27 +38,67 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Form1.h [Tasar\u0131m]",
-              "DocumentMoniker": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Form1.h",
-              "RelativeDocumentMoniker": "Collect\\Form1.h",
-              "ToolTip": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Form1.h [Tasar\u0131m]",
-              "RelativeToolTip": "Collect\\Form1.h [Tasar\u0131m]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-07T12:52:39.653Z",
-              "EditorCaption": " [Tasar\u0131m]"
+              "DocumentIndex": 1,
+              "Title": "Network.cpp",
+              "DocumentMoniker": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.cpp",
+              "RelativeDocumentMoniker": "Collect\\Network.cpp",
+              "ToolTip": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.cpp",
+              "RelativeToolTip": "Collect\\Network.cpp",
+              "ViewState": "AgIAALUCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-09T18:02:39.394Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "Network.h",
+              "DocumentMoniker": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.h",
+              "RelativeDocumentMoniker": "Collect\\Network.h",
+              "ToolTip": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.h",
+              "RelativeToolTip": "Collect\\Network.h",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-09T18:02:34.079Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Process.h",
+              "DocumentMoniker": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Process.h",
+              "RelativeDocumentMoniker": "Collect\\Process.h",
+              "ToolTip": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Process.h",
+              "RelativeToolTip": "Collect\\Process.h",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-09T18:01:56.898Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TrainingDialog.h",
+              "DocumentMoniker": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\TrainingDialog.h",
+              "RelativeDocumentMoniker": "Collect\\TrainingDialog.h",
+              "ToolTip": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\TrainingDialog.h",
+              "RelativeToolTip": "Collect\\TrainingDialog.h",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAewEoAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-09T15:16:07.502Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Form1.h",
               "DocumentMoniker": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Form1.h",
               "RelativeDocumentMoniker": "Collect\\Form1.h",
               "ToolTip": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Form1.h",
               "RelativeToolTip": "Collect\\Form1.h",
-              "ViewState": "AgIAAJsGAAAAAAAAAAAewKkGAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAB4FAAAAAAAAAAAewE0FAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-07T10:28:27.833Z",
+              "WhenOpened": "2025-12-09T14:41:54.824Z",
               "EditorCaption": ""
             }
           ]
