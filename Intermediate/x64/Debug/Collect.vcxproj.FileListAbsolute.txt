@@ -1,0 +1,3 @@
+C:\Users\Emre\source\repos\Collect\Intermediate\x64\Debug\Collect.vcxproj.AssemblyReference.cache
+C:\Users\Emre\source\repos\Collect\Intermediate\x64\Debug\Collect.Collect.Form1.resources
+C:\Users\Emre\source\repos\Collect\Intermediate\x64\Debug\Collect.vcxproj.GenerateResource.cache
