@@ -1,6 +1,4 @@
-﻿  pch.cpp
-  AssemblyInfo.cpp
-  CppCLR_WinformsProjekt.cpp
+﻿  CppCLR_WinformsProjekt.cpp
 C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1133,21): warning C4101: 'ex': yerel değişken başvurusu kaldırıldı
   ('/Collect/CppCLR_WinformsProjekt.cpp' kaynak dosyası derleniyor)
   
@@ -31,7 +29,5 @@ C:\Users\Emre\source\repos\Collect\Collect\MNISTLoader.cpp(39,23): warning C4101
   ('/Collect/MNISTLoader.cpp' kaynak dosyası derleniyor)
   
   Network.cpp
-  Process.cpp
   Kod Üretiliyor...
-  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
   Collect.vcxproj -> C:\Users\Emre\source\repos\Collect\x64\Release\Collect.exe

@@ -144,7 +144,7 @@ namespace CppCLRWinformsProjekt {
 	if (mnist_layer_sizes) {
 		delete[] mnist_layer_sizes;
 		mnist_layer_sizes = nullptr;
-	}
+		}
 		if (bias_ML) {
 			for (int i = 0; i < num_layers; i++) {
 				if (bias_ML[i]) {
@@ -277,8 +277,8 @@ namespace CppCLRWinformsProjekt {
 			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea2 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
 			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
 			   System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			   this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
-			   this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+		   this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+		   this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			   this->labelMomentumValue = (gcnew System::Windows::Forms::Label());
 			   this->textBoxMomentumValue = (gcnew System::Windows::Forms::TextBox());
 			   this->checkBoxMomentum = (gcnew System::Windows::Forms::CheckBox());
@@ -304,10 +304,10 @@ namespace CppCLRWinformsProjekt {
 			   this->labelLayer1 = (gcnew System::Windows::Forms::Label());
 			   this->HiddenLayerCountBox = (gcnew System::Windows::Forms::ComboBox());
 			   this->labelHiddenLayers = (gcnew System::Windows::Forms::Label());
-			   this->Set_Net = (gcnew System::Windows::Forms::Button());
-			   this->label1 = (gcnew System::Windows::Forms::Label());
-			   this->ClassCountBox = (gcnew System::Windows::Forms::ComboBox());
-			   this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+		   this->Set_Net = (gcnew System::Windows::Forms::Button());
+		   this->label1 = (gcnew System::Windows::Forms::Label());
+		   this->ClassCountBox = (gcnew System::Windows::Forms::ComboBox());
+		   this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
 			   this->label2 = (gcnew System::Windows::Forms::Label());
 			   this->ClassNoBox = (gcnew System::Windows::Forms::ComboBox());
 			   this->label3 = (gcnew System::Windows::Forms::Label());
@@ -346,9 +346,9 @@ namespace CppCLRWinformsProjekt {
 			   this->pictureBox1->TabStop = false;
 			   this->pictureBox1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Form1::pictureBox1_Paint);
 			   this->pictureBox1->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::pictureBox1_MouseClick);
-			   // 
-			   // groupBox1
-			   // 
+		   // 
+		   // groupBox1
+		   // 
 			   this->groupBox1->Controls->Add(this->labelMomentumValue);
 			   this->groupBox1->Controls->Add(this->textBoxMomentumValue);
 			   this->groupBox1->Controls->Add(this->checkBoxMomentum);
@@ -373,20 +373,20 @@ namespace CppCLRWinformsProjekt {
 			   this->groupBox1->Controls->Add(this->Layer1TextBox);
 			   this->groupBox1->Controls->Add(this->labelLayer1);
 			   this->groupBox1->Controls->Add(this->HiddenLayerCountBox);
-			   this->groupBox1->Controls->Add(this->labelHiddenLayers);
-			   this->groupBox1->Controls->Add(this->Set_Net);
-			   this->groupBox1->Controls->Add(this->label1);
-			   this->groupBox1->Controls->Add(this->ClassCountBox);
-			   this->groupBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				   static_cast<System::Byte>(162)));
+		   this->groupBox1->Controls->Add(this->labelHiddenLayers);
+		   this->groupBox1->Controls->Add(this->Set_Net);
+		   this->groupBox1->Controls->Add(this->label1);
+		   this->groupBox1->Controls->Add(this->ClassCountBox);
+		   this->groupBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			   static_cast<System::Byte>(162)));
 			   this->groupBox1->Location = System::Drawing::Point(1159, 62);
 			   this->groupBox1->Margin = System::Windows::Forms::Padding(4);
-			   this->groupBox1->Name = L"groupBox1";
+		   this->groupBox1->Name = L"groupBox1";
 			   this->groupBox1->Padding = System::Windows::Forms::Padding(4);
 			   this->groupBox1->Size = System::Drawing::Size(267, 508);
-			   this->groupBox1->TabIndex = 1;
-			   this->groupBox1->TabStop = false;
-			   this->groupBox1->Text = L"Network Architecture";
+		   this->groupBox1->TabIndex = 1;
+		   this->groupBox1->TabStop = false;
+		   this->groupBox1->Text = L"Network Architecture";
 			   // 
 			   // labelMomentumValue
 			   // 
@@ -645,17 +645,17 @@ namespace CppCLRWinformsProjekt {
 			   this->labelHiddenLayers->Size = System::Drawing::Size(118, 17);
 			   this->labelHiddenLayers->TabIndex = 3;
 			   this->labelHiddenLayers->Text = L"Hidden Layers:";
-			   // 
-			   // Set_Net
-			   // 
+		   // 
+		   // Set_Net
+		   // 
 			   this->Set_Net->Location = System::Drawing::Point(12, 450);
 			   this->Set_Net->Margin = System::Windows::Forms::Padding(4);
-			   this->Set_Net->Name = L"Set_Net";
+		   this->Set_Net->Name = L"Set_Net";
 			   this->Set_Net->Size = System::Drawing::Size(240, 41);
-			   this->Set_Net->TabIndex = 2;
-			   this->Set_Net->Text = L"Network Setting";
-			   this->Set_Net->UseVisualStyleBackColor = true;
-			   this->Set_Net->Click += gcnew System::EventHandler(this, &Form1::Set_Net_Click);
+		   this->Set_Net->TabIndex = 2;
+		   this->Set_Net->Text = L"Network Setting";
+		   this->Set_Net->UseVisualStyleBackColor = true;
+		   this->Set_Net->Click += gcnew System::EventHandler(this, &Form1::Set_Net_Click);
 			   // 
 			   // label1
 			   // 
@@ -675,23 +675,23 @@ namespace CppCLRWinformsProjekt {
 			   this->ClassCountBox->Margin = System::Windows::Forms::Padding(4);
 			   this->ClassCountBox->Name = L"ClassCountBox";
 			   this->ClassCountBox->Size = System::Drawing::Size(108, 25);
-			   this->ClassCountBox->TabIndex = 0;
-			   this->ClassCountBox->Text = L"2";
-			   // 
-			   // groupBox2
-			   // 
-			   this->groupBox2->Controls->Add(this->label2);
-			   this->groupBox2->Controls->Add(this->ClassNoBox);
-			   this->groupBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				   static_cast<System::Byte>(162)));
+		   this->ClassCountBox->TabIndex = 0;
+		   this->ClassCountBox->Text = L"2";
+		   // 
+		   // groupBox2
+		   // 
+		   this->groupBox2->Controls->Add(this->label2);
+		   this->groupBox2->Controls->Add(this->ClassNoBox);
+		   this->groupBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			   static_cast<System::Byte>(162)));
 			   this->groupBox2->Location = System::Drawing::Point(1440, 62);
 			   this->groupBox2->Margin = System::Windows::Forms::Padding(4);
-			   this->groupBox2->Name = L"groupBox2";
+		   this->groupBox2->Name = L"groupBox2";
 			   this->groupBox2->Padding = System::Windows::Forms::Padding(4);
 			   this->groupBox2->Size = System::Drawing::Size(253, 86);
-			   this->groupBox2->TabIndex = 2;
-			   this->groupBox2->TabStop = false;
-			   this->groupBox2->Text = L"Data Collection";
+		   this->groupBox2->TabIndex = 2;
+		   this->groupBox2->TabStop = false;
+		   this->groupBox2->Text = L"Data Collection";
 			   // 
 			   // label2
 			   // 
@@ -716,16 +716,16 @@ namespace CppCLRWinformsProjekt {
 			   this->ClassNoBox->Size = System::Drawing::Size(99, 25);
 			   this->ClassNoBox->TabIndex = 0;
 			   this->ClassNoBox->Text = L"1";
-			   // 
-			   // label3
-			   // 
-			   this->label3->AutoSize = true;
+		   // 
+		   // label3
+		   // 
+		   this->label3->AutoSize = true;
 			   this->label3->Location = System::Drawing::Point(1436, 160);
 			   this->label3->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-			   this->label3->Name = L"label3";
+		   this->label3->Name = L"label3";
 			   this->label3->Size = System::Drawing::Size(44, 16);
-			   this->label3->TabIndex = 3;
-			   this->label3->Text = L"label3";
+		   this->label3->TabIndex = 3;
+		   this->label3->Text = L"label3";
 			   // 
 			   // menuStrip1
 			   // 
@@ -966,23 +966,23 @@ namespace CppCLRWinformsProjekt {
 			
 			if (!regression_is_multilayer) {
 				// ===== SINGLE-LAYER: Draw straight line =====
-				int x1_screen = 0;
-				int x2_screen = pictureBox1->Width;
-				
-				// Convert screen to data coordinates
-				float x1_data = float(x1_screen - center_width);
-				float x2_data = float(x2_screen - center_width);
-				
-				// Calculate y values using y = slope * x + intercept
-				float y1_data = regression_slope * x1_data + regression_intercept;
-				float y2_data = regression_slope * x2_data + regression_intercept;
-				
-				// Convert back to screen coordinates
-				int y1_screen = center_height - (int)y1_data;
-				int y2_screen = center_height - (int)y2_data;
-				
-				// Draw the regression line
-				e->Graphics->DrawLine(regPen, x1_screen, y1_screen, x2_screen, y2_screen);
+			int x1_screen = 0;
+			int x2_screen = pictureBox1->Width;
+			
+			// Convert screen to data coordinates
+			float x1_data = float(x1_screen - center_width);
+			float x2_data = float(x2_screen - center_width);
+			
+			// Calculate y values using y = slope * x + intercept
+			float y1_data = regression_slope * x1_data + regression_intercept;
+			float y2_data = regression_slope * x2_data + regression_intercept;
+			
+			// Convert back to screen coordinates
+			int y1_screen = center_height - (int)y1_data;
+			int y2_screen = center_height - (int)y2_data;
+			
+			// Draw the regression line
+			e->Graphics->DrawLine(regPen, x1_screen, y1_screen, x2_screen, y2_screen);
 			}
 			else {
 				// ===== MULTI-LAYER: Draw curved line =====
@@ -1023,13 +1023,13 @@ namespace CppCLRWinformsProjekt {
 			}
 		}
 	}
-private: System::Void Set_Net_Click(System::Object^ sender, System::EventArgs^ e) {
-	// Network is constructed
-	class_count = Convert::ToInt32(ClassCountBox->Text);
-	
+	private: System::Void Set_Net_Click(System::Object^ sender, System::EventArgs^ e) {
+		// Network is constructed
+		class_count = Convert::ToInt32(ClassCountBox->Text);
+		
 	// Calculate actual neuron count for output layer
-	neuron_count = (class_count > 2) ? class_count : 1;
-	
+		neuron_count = (class_count > 2) ? class_count : 1;
+		
 	// Check if multi-layer or single-layer
 	int hidden_layer_count = Convert::ToInt32(HiddenLayerCountBox->Text);
 	
@@ -1184,7 +1184,7 @@ private: System::Void Set_Net_Click(System::Object^ sender, System::EventArgs^ e
 		Set_Net->Text = "Multi-Layer Ready";
 		MessageBox::Show(arch);
 	}
-}//Set_Net
+	}//Set_Net
 	private: System::Void readDataToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 		char** c = new char* [2];
 		// Veri K�mesini okunacak 
@@ -1299,10 +1299,13 @@ private: System::Void Set_Net_Click(System::Object^ sender, System::EventArgs^ e
 		}
 		else MessageBox::Show("At least one sample should be given");
 	}//Save_Data
-	private: System::Void testingToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	// Helper function to perform classification testing
+	private: void PerformClassificationTest(bool showMessage) {
 		// Check if training was performed
 		if (!mean || !std) {
-			MessageBox::Show("Please perform training first!");
+			if (showMessage) {
+				MessageBox::Show("Please perform training first!");
+			}
 			return;
 		}
 		
@@ -1315,9 +1318,9 @@ private: System::Void Set_Net_Click(System::Object^ sender, System::EventArgs^ e
 			for (int column = 0; column < pictureBox1->Width; column += 2) {
 				x[0] = (float)(column - (pictureBox1->Width / 2));
 				x[1] = (float)((pictureBox1->Height / 2) - row);
-			// Use training normalization parameters
-			x[0] = (x[0] - mean[0]) / std[0];
-			x[1] = (x[1] - mean[1]) / std[1];
+				// Use training normalization parameters
+				x[0] = (x[0] - mean[0]) / std[0];
+				x[1] = (x[1] - mean[1]) / std[1];
 			
 			// Call appropriate test function
 			if (is_multilayer) {
@@ -1328,7 +1331,7 @@ private: System::Void Set_Net_Click(System::Object^ sender, System::EventArgs^ e
 			else {
 				num = Test_Forward(x, Weights, bias, neuron_count, inputDim);
 			}
-			//MessageBox::Show("merhaba: class :" + System::Convert::ToString(numClass));
+				//MessageBox::Show("merhaba: class :" + System::Convert::ToString(numClass));
 				switch (num) {
 				case 0: c = Color::FromArgb(0, 0, 0); break;
 				case 1: c = Color::FromArgb(255, 0, 0); break;
@@ -1338,11 +1341,14 @@ private: System::Void Set_Net_Click(System::Object^ sender, System::EventArgs^ e
 				}//switch
 				surface->SetPixel(column, row, c);
 			}//column
-			//MessageBox::Show("merhaba2: class :" + System::Convert::ToString(numClass));
 		}
-		//Samples Draw
-		Pen^ pen;// = gcnew Pen(Color::Black, 3.0f);
-		MessageBox::Show("�rnekler cizilecek");
+		
+		// Draw samples on the bitmap (not on temporary graphics!)
+		Graphics^ g = Graphics::FromImage(surface);
+		Pen^ pen;
+		if (showMessage) {
+			MessageBox::Show("Örnekler çizilecek");
+		}
 		for (int i = 0; i < numSample; i++) {
 			switch (int(targets[i])) {
 			case 0: pen = gcnew Pen(Color::Black, 3.0f); break;
@@ -1355,10 +1361,20 @@ private: System::Void Set_Net_Click(System::Object^ sender, System::EventArgs^ e
 			}//switch
 			temp_x = int(Samples[i * inputDim]) + pictureBox1->Width / 2;
 			temp_y = pictureBox1->Height / 2 - int(Samples[i * inputDim + 1]);
-			pictureBox1->CreateGraphics()->DrawLine(pen, temp_x - 5, temp_y, temp_x + 5, temp_y);
-			pictureBox1->CreateGraphics()->DrawLine(pen, temp_x, temp_y - 5, temp_x, temp_y + 5);
+			// Draw on bitmap, not temporary graphics
+			g->DrawLine(pen, temp_x - 5, temp_y, temp_x + 5, temp_y);
+			g->DrawLine(pen, temp_x, temp_y - 5, temp_x, temp_y + 5);
 		}
+		
+		// Refresh the picture box to show the updated bitmap
+		pictureBox1->Refresh();
+		
 		delete[] x;
+		delete g;
+	}
+
+	private: System::Void testingToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		PerformClassificationTest(true);
 	}//Testing
 private: System::Void trainingToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 	int Max_epoch = 1000;
@@ -1396,7 +1412,7 @@ private: System::Void trainingToolStripMenuItem_Click(System::Object^ sender, Sy
 		textBox1->Text += "Output Neurons: " + neuron_count + "\r\n";
 	}
 	textBox1->Text += "Learning Rate: " + learning_rate.ToString("F4") + "\r\n\r\n";
-	
+
 	// Calculate and save normalization parameters
 	if (mean) delete[] mean;
 	if (std) delete[] std;
@@ -1456,10 +1472,10 @@ private: System::Void trainingToolStripMenuItem_Click(System::Object^ sender, Sy
 	else {
 		// ===== SINGLE-LAYER TRAINING (Original) =====
 		error_history = train_fcn(normSamples, numSample, targets,
-			inputDim, neuron_count,
-			Weights, bias,
-			learning_rate, Min_Err,
-			Max_epoch, epoch);
+		inputDim, neuron_count,
+		Weights, bias,
+		learning_rate, Min_Err,
+		Max_epoch, epoch);
 	}
 	
 	delete[] normSamples;
@@ -1476,12 +1492,12 @@ private: System::Void trainingToolStripMenuItem_Click(System::Object^ sender, Sy
 				int prev_size = (layer == 0) ? inputDim : layer_sizes[layer - 1];
 				debugMsg += "  Layer " + layer + ": [" + layer_sizes[layer] + " x " + prev_size + "] = " + 
 					(layer_sizes[layer] * prev_size) + " weights\r\n";
-			}
+		}
 		}
 		else {
 			// Single-layer weights details
 			debugMsg += "Weights:\r\n";
-			for (int i = 0; i < neuron_count; i++) {
+		for (int i = 0; i < neuron_count; i++) {
 				debugMsg += "  Neuron " + i + ": [";
 				for (int j = 0; j < inputDim; j++) {
 					debugMsg += Weights[i * inputDim + j].ToString("F4");
@@ -1493,7 +1509,7 @@ private: System::Void trainingToolStripMenuItem_Click(System::Object^ sender, Sy
 			for (int i = 0; i < neuron_count; i++) {
 				debugMsg += bias[i].ToString("F4");
 				if (i < neuron_count - 1) debugMsg += ", ";
-			}
+		}
 			debugMsg += "]\r\n";
 		}
 		
@@ -1505,6 +1521,13 @@ private: System::Void trainingToolStripMenuItem_Click(System::Object^ sender, Sy
 		chart1->Series["Series1"]->BorderWidth = 2;
 		for (int i = 0; i < epoch; i++) {
 			chart1->Series["Series1"]->Points->AddY(error_history[i]);
+		}
+		
+		// Auto-update decision boundary if testing was previously performed
+		if (pictureBox1->Image != nullptr) {
+			textBox1->Text += "\r\n[Auto-updating decision boundary...]\r\n";
+			PerformClassificationTest(false);  // Silent update (no MessageBox)
+			textBox1->Text += "[Decision boundary updated!]\r\n";
 		}
 	}
 
@@ -1642,22 +1665,22 @@ private: System::Void regressionToolStripMenuItem_Click(System::Object^ sender, 
 	}
 	else {
 		// ===== SINGLE-LAYER LINEAR REGRESSION =====
-		float slope_norm = 0.0f;
-		float intercept_norm = 0.0f;
-		
+	float slope_norm = 0.0f;
+	float intercept_norm = 0.0f;
+	
 		// Train linear regression on normalized data
 		error_history = regression_train(x_norm, y_norm, numSample,
-			slope_norm, intercept_norm,
-			learning_rate, Min_Err, Max_epoch, epoch);
-		
-		// Denormalize parameters: y = slope*x + intercept
-		// y_norm = slope_norm * x_norm + intercept_norm
-		// (y - mean_y)/std_y = slope_norm * (x - mean_x)/std_x + intercept_norm
-		// y = slope_norm * (std_y/std_x) * x + (intercept_norm*std_y + mean_y - slope_norm*(std_y/std_x)*mean_x)
-		
-		float slope = slope_norm * (std_xy[1] / std_xy[0]);
-		float intercept = intercept_norm * std_xy[1] + mean_xy[1] - slope * mean_xy[0];
-		
+		slope_norm, intercept_norm,
+		learning_rate, Min_Err, Max_epoch, epoch);
+	
+	// Denormalize parameters: y = slope*x + intercept
+	// y_norm = slope_norm * x_norm + intercept_norm
+	// (y - mean_y)/std_y = slope_norm * (x - mean_x)/std_x + intercept_norm
+	// y = slope_norm * (std_y/std_x) * x + (intercept_norm*std_y + mean_y - slope_norm*(std_y/std_x)*mean_x)
+	
+	float slope = slope_norm * (std_xy[1] / std_xy[0]);
+	float intercept = intercept_norm * std_xy[1] + mean_xy[1] - slope * mean_xy[0];
+	
 		String^ normParamsMsg = "\r\nNormalized Parameters:\r\n";
 		normParamsMsg += "  Slope: " + slope_norm.ToString("F6") + " | Intercept: " + intercept_norm.ToString("F6") + "\r\n";
 		System::Diagnostics::Debug::WriteLine(normParamsMsg);
@@ -1667,10 +1690,10 @@ private: System::Void regressionToolStripMenuItem_Click(System::Object^ sender, 
 		denormParamsMsg += "  Slope: " + slope.ToString("F6") + " | Intercept: " + intercept.ToString("F6") + "\r\n";
 		System::Diagnostics::Debug::WriteLine(denormParamsMsg);
 		textBox1->Text += denormParamsMsg;
-		
-		// Copy results to class variables
-		regression_slope = slope;
-		regression_intercept = intercept;
+	
+	// Copy results to class variables
+	regression_slope = slope;
+	regression_intercept = intercept;
 		regression_is_multilayer = false;
 		regression_trained = true;
 		
@@ -1695,7 +1718,7 @@ private: System::Void regressionToolStripMenuItem_Click(System::Object^ sender, 
 		
 		if (!is_multilayer && regression_trained) {
 			resultMsg += "Final Equation: y = " + regression_slope.ToString("F4") + 
-				"*x + " + regression_intercept.ToString("F4") + "\r\n";
+			"*x + " + regression_intercept.ToString("F4") + "\r\n";
 		}
 		else if (is_multilayer) {
 			resultMsg += "Multi-Layer Network trained for regression.\r\n";
@@ -1819,7 +1842,8 @@ private: System::Void buttonClearCanvas_Click(System::Object^ sender, System::Ev
 	numSample = 0;
 	label3->Text = "Samples Count: 0";
 	
-	// Clear the canvas
+	// Clear the canvas and classification decision boundary
+	pictureBox1->Image = nullptr;  // Clear classification testing bitmap
 	pictureBox1->Invalidate();
 	pictureBox1->Refresh();
 	
@@ -2286,5 +2310,5 @@ private: System::Void testMNISTToolStripMenuItem_Click(System::Object^ sender, S
 	}
 }
 
-};
+	};
 }
