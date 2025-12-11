@@ -24,10 +24,5 @@ C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1234,46): warning C4244: 'ba�
 C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1234,39): warning C4244: 'bağımsız değişken': 'float' - 'int' dönüşümü; veri kaybı olabilir
   ('/Collect/Form1.cpp' kaynak dosyası derleniyor)
   
-  MNISTLoader.cpp
-C:\Users\Emre\source\repos\Collect\Collect\MNISTLoader.cpp(39,23): warning C4101: 'ex': yerel değişken başvurusu kaldırıldı
-  ('/Collect/MNISTLoader.cpp' kaynak dosyası derleniyor)
-  
-  Network.cpp
   Kod Üretiliyor...
   Collect.vcxproj -> C:\Users\Emre\source\repos\Collect\x64\Release\Collect.exe

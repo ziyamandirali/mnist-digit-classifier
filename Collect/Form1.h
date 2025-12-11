@@ -406,7 +406,7 @@ namespace CppCLRWinformsProjekt {
 			   this->textBoxMomentumValue->Name = L"textBoxMomentumValue";
 			   this->textBoxMomentumValue->Size = System::Drawing::Size(45, 23);
 			   this->textBoxMomentumValue->TabIndex = 24;
-			   this->textBoxMomentumValue->Text = L"0.9";
+			   this->textBoxMomentumValue->Text = L"0.5";
 			   this->textBoxMomentumValue->Visible = false;
 			   // 
 			   // checkBoxMomentum
@@ -1386,7 +1386,7 @@ private: System::Void trainingToolStripMenuItem_Click(System::Object^ sender, Sy
 	textBox1->Text = "";
 	
 	// Check if network is set up
-	if (is_multilayer && !layer_sizes) {
+	if (is_multilayer && (!layer_sizes || !Weights_ML)) {
 		MessageBox::Show("Please set up the network first!");
 		return;
 	}
@@ -1446,14 +1446,14 @@ private: System::Void trainingToolStripMenuItem_Click(System::Object^ sender, Sy
 		float momentum = 0.0f;
 		if (checkBoxMomentum->Checked) {
 			try {
-				momentum = Convert::ToSingle(textBoxMomentumValue->Text);
+				momentum = Convert::ToSingle(textBoxMomentumValue->Text, System::Globalization::CultureInfo::InvariantCulture);
 				// Clamp to valid range
 				if (momentum < 0.0f) momentum = 0.0f;
 				if (momentum >= 1.0f) momentum = 0.99f;
 			}
 			catch (...) {
-				momentum = 0.9f;  // Default on error
-				textBoxMomentumValue->Text = "0.9";
+				momentum = 0.5f;  // Default on error
+				textBoxMomentumValue->Text = "0.5";
 			}
 		}
 		
@@ -1624,14 +1624,14 @@ private: System::Void regressionToolStripMenuItem_Click(System::Object^ sender, 
 		float momentum = 0.0f;
 		if (checkBoxMomentum->Checked) {
 			try {
-				momentum = Convert::ToSingle(textBoxMomentumValue->Text);
+				momentum = Convert::ToSingle(textBoxMomentumValue->Text, System::Globalization::CultureInfo::InvariantCulture);
 				// Clamp to valid range
 				if (momentum < 0.0f) momentum = 0.0f;
 				if (momentum >= 1.0f) momentum = 0.99f;
 			}
 			catch (...) {
-				momentum = 0.9f;  // Default on error
-				textBoxMomentumValue->Text = "0.9";
+				momentum = 0.5f;  // Default on error
+				textBoxMomentumValue->Text = "0.5";
 			}
 		}
 		
@@ -1838,9 +1838,62 @@ private: System::Void buttonClearCanvas_Click(System::Object^ sender, System::Ev
 		targets = nullptr;
 	}
 	
+	// Clear single-layer weights and bias
+	if (Weights) {
+		delete[] Weights;
+		Weights = nullptr;
+	}
+	if (bias) {
+		delete[] bias;
+		bias = nullptr;
+	}
+	
+	// Clear multi-layer weights and bias
+	if (Weights_ML) {
+		// Total layers = hidden layers + output layer
+		int total_layers = num_layers;
+		for (int layer = 0; layer < total_layers; layer++) {
+			if (Weights_ML[layer]) {
+				delete[] Weights_ML[layer];
+			}
+		}
+		delete[] Weights_ML;
+		Weights_ML = nullptr;
+	}
+	if (bias_ML) {
+		for (int layer = 0; layer < num_layers; layer++) {
+			if (bias_ML[layer]) {
+				delete[] bias_ML[layer];
+			}
+		}
+		delete[] bias_ML;
+		bias_ML = nullptr;
+	}
+	if (layer_sizes) {
+		delete[] layer_sizes;
+		layer_sizes = nullptr;
+	}
+	
+	// Reset network state
+	num_layers = 0;
+	is_multilayer = false;
+	
+	// Clear normalization parameters
+	if (mean) {
+		delete[] mean;
+		mean = nullptr;
+	}
+	if (std) {
+		delete[] std;
+		std = nullptr;
+	}
+	
 	// Reset sample count
 	numSample = 0;
 	label3->Text = "Samples Count: 0";
+	
+	// Reset UI controls
+	Set_Net->Text = "Network Setting";  // Reset button text
 	
 	// Clear the canvas and classification decision boundary
 	pictureBox1->Image = nullptr;  // Clear classification testing bitmap
@@ -1852,12 +1905,13 @@ private: System::Void buttonClearCanvas_Click(System::Object^ sender, System::Ev
 	
 	// Clear text box info
 	textBox1->Clear();
-	textBox1->Text = "Canvas cleared! Ready for new data.\r\n";
+	textBox1->Text = "Canvas and training data cleared! Ready for new data.\r\n";
+	textBox1->Text += "Please set up the network again before training.\r\n";
 	
 	// Clear chart
 	chart1->Series["Series1"]->Points->Clear();
 	
-	MessageBox::Show("Canvas cleared successfully!", "Clear Canvas", 
+	MessageBox::Show("Canvas and all training data cleared successfully!", "Clear Canvas", 
 		MessageBoxButtons::OK, MessageBoxIcon::Information);
 }
 
