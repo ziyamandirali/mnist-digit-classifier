@@ -1,28 +1,37 @@
-﻿  CppCLR_WinformsProjekt.cpp
-C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1133,21): warning C4101: 'ex': yerel değişken başvurusu kaldırıldı
+﻿  pch.cpp
+  AssemblyInfo.cpp
+  CppCLR_WinformsProjekt.cpp
+C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1271,21): warning C4101: 'ex': yerel değişken başvurusu kaldırıldı
   ('/Collect/CppCLR_WinformsProjekt.cpp' kaynak dosyası derleniyor)
   
-C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1234,84): warning C4244: 'bağımsız değişken': 'float' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1372,84): warning C4244: 'bağımsız değişken': 'float' - 'int' dönüşümü; veri kaybı olabilir
   ('/Collect/CppCLR_WinformsProjekt.cpp' kaynak dosyası derleniyor)
   
-C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1234,46): warning C4244: 'bağımsız değişken': 'float' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1372,46): warning C4244: 'bağımsız değişken': 'float' - 'int' dönüşümü; veri kaybı olabilir
   ('/Collect/CppCLR_WinformsProjekt.cpp' kaynak dosyası derleniyor)
   
-C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1234,39): warning C4244: 'bağımsız değişken': 'float' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1372,39): warning C4244: 'bağımsız değişken': 'float' - 'int' dönüşümü; veri kaybı olabilir
   ('/Collect/CppCLR_WinformsProjekt.cpp' kaynak dosyası derleniyor)
   
   Form1.cpp
-C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1133,21): warning C4101: 'ex': yerel değişken başvurusu kaldırıldı
+C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1271,21): warning C4101: 'ex': yerel değişken başvurusu kaldırıldı
   ('/Collect/Form1.cpp' kaynak dosyası derleniyor)
   
-C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1234,84): warning C4244: 'bağımsız değişken': 'float' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1372,84): warning C4244: 'bağımsız değişken': 'float' - 'int' dönüşümü; veri kaybı olabilir
   ('/Collect/Form1.cpp' kaynak dosyası derleniyor)
   
-C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1234,46): warning C4244: 'bağımsız değişken': 'float' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1372,46): warning C4244: 'bağımsız değişken': 'float' - 'int' dönüşümü; veri kaybı olabilir
   ('/Collect/Form1.cpp' kaynak dosyası derleniyor)
   
-C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1234,39): warning C4244: 'bağımsız değişken': 'float' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Emre\source\repos\Collect\Collect\Form1.h(1372,39): warning C4244: 'bağımsız değişken': 'float' - 'int' dönüşümü; veri kaybı olabilir
   ('/Collect/Form1.cpp' kaynak dosyası derleniyor)
   
+  MNISTLoader.cpp
+C:\Users\Emre\source\repos\Collect\Collect\MNISTLoader.cpp(39,23): warning C4101: 'ex': yerel değişken başvurusu kaldırıldı
+  ('/Collect/MNISTLoader.cpp' kaynak dosyası derleniyor)
+  
+  Network.cpp
+  Process.cpp
   Kod Üretiliyor...
+  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
   Collect.vcxproj -> C:\Users\Emre\source\repos\Collect\x64\Release\Collect.exe

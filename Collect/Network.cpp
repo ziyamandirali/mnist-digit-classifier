@@ -268,7 +268,7 @@ float* train_fcn_multilayer(float* Samples, int numSample, float* targets,
 				int input_size;
 
 				if (layer == 0) {
-					input = &Samples[step * inputDim];
+					input = &Samples[sample_idx * inputDim];  // FIX: Use shuffled index!
 					input_size = inputDim;
 				}
 				else {

@@ -45,6 +45,23 @@ namespace CppCLRWinformsProjekt {
 		Weights_ML = nullptr;
 		bias_ML = nullptr;
 		is_multilayer = false;
+
+		// Autoencoder initialization
+		autoencoder_weights = nullptr;
+		autoencoder_bias = nullptr;
+		autoencoder_layer_sizes = nullptr;
+		autoencoder_num_layers = 0;
+		autoencoder_latent_dim = 0;
+		autoencoder_trained = false;
+		encoder_weights = nullptr;
+		encoder_bias = nullptr;
+
+		// Encoder-based classifier initialization
+		encoder_classifier_weights = nullptr;
+		encoder_classifier_bias = nullptr;
+		encoder_classifier_layers = nullptr;
+		encoder_classifier_num_layers = 0;
+		encoder_classifier_trained = false;
 	}
 
 	protected:
@@ -144,7 +161,81 @@ namespace CppCLRWinformsProjekt {
 	if (mnist_layer_sizes) {
 		delete[] mnist_layer_sizes;
 		mnist_layer_sizes = nullptr;
+	}
+	
+	// Autoencoder cleanup
+	if (autoencoder_weights) {
+		for (int i = 0; i < autoencoder_num_layers; i++) {
+			if (autoencoder_weights[i]) {
+				delete[] autoencoder_weights[i];
+				autoencoder_weights[i] = nullptr;
+			}
 		}
+		delete[] autoencoder_weights;
+		autoencoder_weights = nullptr;
+	}
+	if (autoencoder_bias) {
+		for (int i = 0; i < autoencoder_num_layers; i++) {
+			if (autoencoder_bias[i]) {
+				delete[] autoencoder_bias[i];
+				autoencoder_bias[i] = nullptr;
+			}
+		}
+		delete[] autoencoder_bias;
+		autoencoder_bias = nullptr;
+	}
+	if (autoencoder_layer_sizes) {
+		delete[] autoencoder_layer_sizes;
+		autoencoder_layer_sizes = nullptr;
+	}
+	if (encoder_weights) {
+		int encoder_layers = autoencoder_num_layers / 2;
+		for (int i = 0; i < encoder_layers; i++) {
+			if (encoder_weights[i]) {
+				delete[] encoder_weights[i];
+				encoder_weights[i] = nullptr;
+			}
+		}
+		delete[] encoder_weights;
+		encoder_weights = nullptr;
+	}
+	if (encoder_bias) {
+		int encoder_layers = autoencoder_num_layers / 2;
+		for (int i = 0; i < encoder_layers; i++) {
+			if (encoder_bias[i]) {
+				delete[] encoder_bias[i];
+				encoder_bias[i] = nullptr;
+			}
+		}
+		delete[] encoder_bias;
+		encoder_bias = nullptr;
+	}
+	
+	// Encoder-based classifier cleanup
+	if (encoder_classifier_weights) {
+		for (int i = 0; i < encoder_classifier_num_layers; i++) {
+			if (encoder_classifier_weights[i]) {
+				delete[] encoder_classifier_weights[i];
+				encoder_classifier_weights[i] = nullptr;
+			}
+		}
+		delete[] encoder_classifier_weights;
+		encoder_classifier_weights = nullptr;
+	}
+	if (encoder_classifier_bias) {
+		for (int i = 0; i < encoder_classifier_num_layers; i++) {
+			if (encoder_classifier_bias[i]) {
+				delete[] encoder_classifier_bias[i];
+				encoder_classifier_bias[i] = nullptr;
+			}
+		}
+		delete[] encoder_classifier_bias;
+		encoder_classifier_bias = nullptr;
+	}
+	if (encoder_classifier_layers) {
+		delete[] encoder_classifier_layers;
+		encoder_classifier_layers = nullptr;
+	}
 		if (bias_ML) {
 			for (int i = 0; i < num_layers; i++) {
 				if (bias_ML[i]) {
@@ -239,6 +330,23 @@ namespace CppCLRWinformsProjekt {
 	int mnist_class_count = 0;
 	bool mnist_trained = false;
 
+	// Autoencoder variables
+	float** autoencoder_weights = nullptr;  // Encoder + Decoder weights
+	float** autoencoder_bias = nullptr;     // Encoder + Decoder bias
+	int* autoencoder_layer_sizes = nullptr; // Layer sizes (excluding input/output)
+	int autoencoder_num_layers = 0;         // Total layers (encoder + decoder)
+	int autoencoder_latent_dim = 0;         // Latent space dimensionality
+	bool autoencoder_trained = false;       // Training status
+	float** encoder_weights = nullptr;      // Just encoder part (for feature extraction)
+	float** encoder_bias = nullptr;         // Just encoder bias
+
+	// Encoder-based classification variables
+	float** encoder_classifier_weights = nullptr;  // Classification weights on encoded features
+	float** encoder_classifier_bias = nullptr;     // Classification bias
+	int* encoder_classifier_layers = nullptr;      // Hidden layers for classifier
+	int encoder_classifier_num_layers = 0;         // Number of layers in classifier
+	bool encoder_classifier_trained = false;       // Training status
+
 	private: System::Windows::Forms::MenuStrip^ menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^ fileToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ readDataToolStripMenuItem;
@@ -254,6 +362,9 @@ namespace CppCLRWinformsProjekt {
 	private: System::Windows::Forms::ToolStripMenuItem^ loadMNISTToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ trainMNISTToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ testMNISTToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ trainAutoencoderToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ testReconstructionToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ trainWithEncoderToolStripMenuItem;
 
 	private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart1;
 	private: System::Windows::Forms::CheckBox^ checkBoxMomentum;
@@ -319,11 +430,14 @@ namespace CppCLRWinformsProjekt {
 			   this->trainingToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			   this->testingToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			   this->regressionToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			   this->mnistToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			   this->loadMNISTToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			   this->trainMNISTToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			   this->testMNISTToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			   this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
+		   this->mnistToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+		   this->loadMNISTToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+		   this->trainMNISTToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+		   this->testMNISTToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+		   this->trainAutoencoderToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+		   this->testReconstructionToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+		   this->trainWithEncoderToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+		   this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			   this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			   this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
 			   this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
@@ -796,16 +910,19 @@ namespace CppCLRWinformsProjekt {
 			   this->regressionToolStripMenuItem->Text = L"Regression";
 			   this->regressionToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::regressionToolStripMenuItem_Click);
 			   // 
-			   // mnistToolStripMenuItem
-			   // 
-			   this->mnistToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array<System::Windows::Forms::ToolStripItem^>(3) {
-				   this->loadMNISTToolStripMenuItem,
-				   this->trainMNISTToolStripMenuItem,
-				   this->testMNISTToolStripMenuItem
-			   });
-			   this->mnistToolStripMenuItem->Name = L"mnistToolStripMenuItem";
-			   this->mnistToolStripMenuItem->Size = System::Drawing::Size(70, 24);
-			   this->mnistToolStripMenuItem->Text = L"MNIST";
+		   // mnistToolStripMenuItem
+		   // 
+		   this->mnistToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array<System::Windows::Forms::ToolStripItem^>(6) {
+			   this->loadMNISTToolStripMenuItem,
+			   this->trainMNISTToolStripMenuItem,
+			   this->testMNISTToolStripMenuItem,
+			   this->trainAutoencoderToolStripMenuItem,
+			   this->testReconstructionToolStripMenuItem,
+			   this->trainWithEncoderToolStripMenuItem
+		   });
+		   this->mnistToolStripMenuItem->Name = L"mnistToolStripMenuItem";
+		   this->mnistToolStripMenuItem->Size = System::Drawing::Size(70, 24);
+		   this->mnistToolStripMenuItem->Text = L"MNIST";
 			   // 
 			   // loadMNISTToolStripMenuItem
 			   // 
@@ -821,14 +938,35 @@ namespace CppCLRWinformsProjekt {
 			   this->trainMNISTToolStripMenuItem->Text = L"Train MNIST";
 			   this->trainMNISTToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::trainMNISTToolStripMenuItem_Click);
 			   // 
-			   // testMNISTToolStripMenuItem
-			   // 
-			   this->testMNISTToolStripMenuItem->Name = L"testMNISTToolStripMenuItem";
-			   this->testMNISTToolStripMenuItem->Size = System::Drawing::Size(180, 26);
-			   this->testMNISTToolStripMenuItem->Text = L"Test MNIST";
-			   this->testMNISTToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::testMNISTToolStripMenuItem_Click);
-			   // 
-			   // openFileDialog1
+		   // testMNISTToolStripMenuItem
+		   // 
+		   this->testMNISTToolStripMenuItem->Name = L"testMNISTToolStripMenuItem";
+		   this->testMNISTToolStripMenuItem->Size = System::Drawing::Size(220, 26);
+		   this->testMNISTToolStripMenuItem->Text = L"Test MNIST";
+		   this->testMNISTToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::testMNISTToolStripMenuItem_Click);
+		   // 
+		   // trainAutoencoderToolStripMenuItem
+		   // 
+		   this->trainAutoencoderToolStripMenuItem->Name = L"trainAutoencoderToolStripMenuItem";
+		   this->trainAutoencoderToolStripMenuItem->Size = System::Drawing::Size(220, 26);
+		   this->trainAutoencoderToolStripMenuItem->Text = L"Train Autoencoder";
+		   this->trainAutoencoderToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::trainAutoencoderToolStripMenuItem_Click);
+		   // 
+		   // testReconstructionToolStripMenuItem
+		   // 
+		   this->testReconstructionToolStripMenuItem->Name = L"testReconstructionToolStripMenuItem";
+		   this->testReconstructionToolStripMenuItem->Size = System::Drawing::Size(230, 26);
+		   this->testReconstructionToolStripMenuItem->Text = L"Test Reconstruction";
+		   this->testReconstructionToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::testReconstructionToolStripMenuItem_Click);
+		   // 
+		   // trainWithEncoderToolStripMenuItem
+		   // 
+		   this->trainWithEncoderToolStripMenuItem->Name = L"trainWithEncoderToolStripMenuItem";
+		   this->trainWithEncoderToolStripMenuItem->Size = System::Drawing::Size(230, 26);
+		   this->trainWithEncoderToolStripMenuItem->Text = L"Train with Encoder Features";
+		   this->trainWithEncoderToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::trainWithEncoderToolStripMenuItem_Click);
+		   // 
+		   // openFileDialog1
 			   // 
 			   this->openFileDialog1->FileName = L"openFileDialog1";
 			   // 
@@ -1940,12 +2078,12 @@ private: System::Void loadMNISTToolStripMenuItem_Click(System::Object^ sender, S
 			mnist_test_targets = nullptr;
 		}
 		
-	// Load training dataset (500 samples per digit = 5000 total)
+	// Load training dataset (100 samples per digit = 1000 total)
 	textBox1->AppendText("Loading training set...\r\n");
 	float* temp_train_samples = nullptr;
 	float* temp_train_targets = nullptr;
 	int temp_train_count = 0;
-	MNISTLoader::LoadTrainDataset(mnist_base_path, 500, 
+	MNISTLoader::LoadTrainDataset(mnist_base_path, 100, 
 		temp_train_samples, temp_train_targets, temp_train_count);
 	mnist_train_samples = temp_train_samples;
 	mnist_train_targets = temp_train_targets;
@@ -1957,12 +2095,12 @@ private: System::Void loadMNISTToolStripMenuItem_Click(System::Object^ sender, S
 			throw gcnew Exception("Failed to load training samples!");
 		}
 		
-	// Load test dataset (50 samples per digit = 500 total)
+	// Load test dataset (10 samples per digit = 100 total)
 	textBox1->AppendText("Loading test set...\r\n");
 	float* temp_test_samples = nullptr;
 	float* temp_test_targets = nullptr;
 	int temp_test_count = 0;
-	MNISTLoader::LoadTestDataset(mnist_base_path, 50, 
+	MNISTLoader::LoadTestDataset(mnist_base_path, 10, 
 		temp_test_samples, temp_test_targets, temp_test_count);
 	mnist_test_samples = temp_test_samples;
 	mnist_test_targets = temp_test_targets;
@@ -1973,6 +2111,10 @@ private: System::Void loadMNISTToolStripMenuItem_Click(System::Object^ sender, S
 		if (mnist_test_samples == nullptr || mnist_test_count == 0) {
 			throw gcnew Exception("Failed to load test samples!");
 		}
+		
+		// Set dataset dimensions (CRITICAL for testing!)
+		mnist_input_dim = 784;  // 28x28 pixels
+		mnist_class_count = 10; // 10 digits
 		
 		mnist_loaded = true;
 		
@@ -2195,8 +2337,8 @@ private: System::Void testMNISTToolStripMenuItem_Click(System::Object^ sender, S
 		return;
 	}
 	
-	if (!mnist_trained) {
-		MessageBox::Show("Please train the network first!\n\nUse: MNIST -> Train MNIST", 
+	if (!mnist_trained && !encoder_classifier_trained) {
+		MessageBox::Show("Please train a network first!\n\nUse: MNIST -> Train MNIST\nor\nMNIST -> Train with Encoder Features", 
 			"No Trained Network", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
 	}
@@ -2204,14 +2346,23 @@ private: System::Void testMNISTToolStripMenuItem_Click(System::Object^ sender, S
 	textBox1->Clear();
 	textBox1->AppendText("=== MNIST Testing ===\r\n\r\n");
 	
+	// Check which mode we're in
+	bool using_encoder = encoder_classifier_trained;
+	
+	textBox1->AppendText("Testing Mode: ");
+	textBox1->AppendText(using_encoder ? "Encoder + Classifier (64-dim features)\r\n" : "Direct Classification (784-dim input)\r\n");
+	textBox1->AppendText("\r\n");
+	
 	// Debug: Check if weights are loaded
-	textBox1->AppendText("DEBUG Info:\r\n");
-	textBox1->AppendText("  mnist_trained: " + mnist_trained + "\r\n");
-	textBox1->AppendText("  mnist_weights: " + (mnist_weights != nullptr ? "Not null" : "NULL!") + "\r\n");
-	textBox1->AppendText("  mnist_bias: " + (mnist_bias != nullptr ? "Not null" : "NULL!") + "\r\n");
-	textBox1->AppendText("  mnist_hidden_layers: " + mnist_hidden_layers + "\r\n");
-	textBox1->AppendText("  mnist_input_dim: " + mnist_input_dim + "\r\n");
-	textBox1->AppendText("  mnist_class_count: " + mnist_class_count + "\r\n\r\n");
+	if (!using_encoder) {
+		textBox1->AppendText("DEBUG Info:\r\n");
+		textBox1->AppendText("  mnist_trained: " + mnist_trained + "\r\n");
+		textBox1->AppendText("  mnist_weights: " + (mnist_weights != nullptr ? "Not null" : "NULL!") + "\r\n");
+		textBox1->AppendText("  mnist_bias: " + (mnist_bias != nullptr ? "Not null" : "NULL!") + "\r\n");
+		textBox1->AppendText("  mnist_hidden_layers: " + mnist_hidden_layers + "\r\n");
+		textBox1->AppendText("  mnist_input_dim: " + mnist_input_dim + "\r\n");
+		textBox1->AppendText("  mnist_class_count: " + mnist_class_count + "\r\n\r\n");
+	}
 	
 	try {
 		// Test on test dataset
@@ -2221,7 +2372,18 @@ private: System::Void testMNISTToolStripMenuItem_Click(System::Object^ sender, S
 		// Confusion matrix: [actual_class][predicted_class]
 		int confusion_matrix[10][10] = {0};
 		
-		textBox1->AppendText("Testing " + total + " samples...\r\n\r\n");
+		textBox1->AppendText("Testing " + total + " samples...\r\n");
+		if (using_encoder) {
+			textBox1->AppendText("DEBUG - Encoder latent dim: " + autoencoder_latent_dim + "\r\n");
+			textBox1->AppendText("DEBUG - Classifier input dim: " + autoencoder_latent_dim + "\r\n");
+		}
+		
+		// DEBUG: Check first test target
+		textBox1->AppendText("DEBUG - First test target: ");
+		for (int c = 0; c < mnist_class_count; c++) {
+			textBox1->AppendText(mnist_test_targets[c].ToString("F1") + " ");
+		}
+		textBox1->AppendText("\r\n\r\n");
 		
 		for (int i = 0; i < total; i++) {
 			// Get current sample
@@ -2230,26 +2392,80 @@ private: System::Void testMNISTToolStripMenuItem_Click(System::Object^ sender, S
 			// Get actual class (from one-hot encoded target)
 			int actual_class = -1;
 			for (int c = 0; c < mnist_class_count; c++) {
-				if (mnist_test_targets[i * mnist_class_count + c] > 0) {
+				if (mnist_test_targets[i * mnist_class_count + c] > 0.5f) {
 					actual_class = c;
 					break;
 				}
 			}
 			
-			// Predict using trained network
-			int predicted_class = Test_Forward_MultiLayer(
-				current_sample, 
-				mnist_weights, 
-				mnist_bias, 
-				mnist_input_dim, 
-				mnist_layer_sizes, 
-				mnist_hidden_layers, 
-				mnist_class_count
-			);
+			int predicted_class = -1;
+			
+			if (using_encoder) {
+				// Use encoder + classifier
+				int feature_dim = autoencoder_latent_dim;  // 10 dimensions
+				
+				// Convert input to BIPOLAR (encoder was trained on bipolar data!)
+				float* bipolar_input = new float[mnist_input_dim];
+				for (int b = 0; b < mnist_input_dim; b++) {
+					bipolar_input[b] = 2.0f * current_sample[b] - 1.0f;
+				}
+				
+				// Extract features using encoder (2 layers: 128, 10)
+				float** layer_outputs = new float*[3];  // input + 2 encoder layers
+				layer_outputs[0] = bipolar_input;
+				
+				for (int layer = 0; layer < 2; layer++) {
+					int prev_size = (layer == 0) ? mnist_input_dim : autoencoder_layer_sizes[layer - 1];
+					int curr_size = autoencoder_layer_sizes[layer];
+					
+					layer_outputs[layer + 1] = new float[curr_size];
+					
+					for (int j = 0; j < curr_size; j++) {
+						float net = encoder_bias[layer][j];
+						for (int k = 0; k < prev_size; k++) {
+							net += encoder_weights[layer][j * prev_size + k] * layer_outputs[layer][k];
+						}
+						layer_outputs[layer + 1][j] = tanh(net);
+					}
+				}
+				
+				// Classify using encoded features
+				float* features = layer_outputs[2];  // 10-dim latent features
+				// NO scaling - using raw encoder features!
+				
+				predicted_class = Test_Forward_MultiLayer(
+					features,
+					encoder_classifier_weights,
+					encoder_classifier_bias,
+					feature_dim,
+					encoder_classifier_layers,
+					1,  // 1 hidden layer
+					mnist_class_count
+				);
+				
+				// Cleanup
+				delete[] bipolar_input;
+				for (int layer = 1; layer <= 2; layer++) {
+					delete[] layer_outputs[layer];
+				}
+				delete[] layer_outputs;
+			}
+			else {
+				// Direct classification
+				predicted_class = Test_Forward_MultiLayer(
+					current_sample, 
+					mnist_weights, 
+					mnist_bias, 
+					mnist_input_dim, 
+					mnist_layer_sizes, 
+					mnist_hidden_layers, 
+					mnist_class_count
+				);
+			}
 			
 		// Debug: Print first 3 predictions with detailed output
-		if (i < 3) {
-			// Manual forward pass to get output values
+		if (i < 3 && !using_encoder) {
+			// Manual forward pass to get output values (only for direct classification)
 			float** layer_outputs = new float*[3];
 			layer_outputs[0] = new float[mnist_layer_sizes[0]]; // 128
 			layer_outputs[1] = new float[mnist_layer_sizes[1]]; // 64
@@ -2294,6 +2510,11 @@ private: System::Void testMNISTToolStripMenuItem_Click(System::Object^ sender, S
 			delete[] layer_outputs[2];
 			delete[] layer_outputs;
 		}
+			
+			// DEBUG: Show first 5 predictions
+			if (i < 5) {
+				textBox1->AppendText("Sample " + i + ": Actual=" + actual_class + ", Predicted=" + predicted_class + "\r\n");
+			}
 			
 			// Update confusion matrix
 			if (actual_class >= 0 && actual_class < 10 && predicted_class >= 0 && predicted_class < 10) {
@@ -2361,6 +2582,585 @@ private: System::Void testMNISTToolStripMenuItem_Click(System::Object^ sender, S
 		textBox1->AppendText("\r\nERROR: " + ex->Message + "\r\n");
 		MessageBox::Show("Testing failed!\n\nError: " + ex->Message, 
 			"Test Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+}
+
+private: System::Void trainAutoencoderToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (!mnist_loaded) {
+		MessageBox::Show("Please load MNIST dataset first!\n\nUse: MNIST -> Load Dataset", 
+			"No Dataset", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+	
+	textBox1->Clear();
+	textBox1->AppendText("=== Autoencoder Training ===\r\n\r\n");
+	
+	// Validate data is loaded
+	if (!mnist_train_samples || mnist_train_count == 0) {
+		MessageBox::Show("Training data is not loaded properly!\n\nPlease reload the dataset.", 
+			"Data Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return;
+	}
+	
+	try {
+		// Debug info
+		textBox1->AppendText("DEBUG: Checking data...\r\n");
+		textBox1->AppendText("  mnist_train_samples: " + (mnist_train_samples != nullptr ? "OK" : "NULL!") + "\r\n");
+		textBox1->AppendText("  mnist_train_count: " + mnist_train_count + "\r\n\r\n");
+		
+		// Autoencoder architecture : 784 -> 128 -> 10 -> 128 -> 784
+		// Simple symmetric structure!
+		int input_dim = 784;
+		int output_dim = 784;  // Reconstruction output
+		autoencoder_latent_dim = 10;  // Bottleneck layer (10 features!)
+		
+		// Define all layers EXCEPT output (train_fcn_multilayer adds output automatically)
+		// Encoder: 784 -> 420 -> 10
+		// Decoder: 10 -> 420
+		// Output: 420 -> 784 (added by train_fcn_multilayer)
+		int hidden_layers = 3;  // 2 encoder + 1 decoder (before output)
+		
+		// Use LOCAL variables (not member variables) for training
+		int* layer_sizes = new int[hidden_layers];
+		
+		// Encoder layers
+		layer_sizes[0] = 420;  // Encoder hidden layer (LARGER!)
+		layer_sizes[1] = 10;   // Latent space (bottleneck) - 10 features!
+		
+		// Decoder layers (mirror of encoder, excluding final output)
+		layer_sizes[2] = 420;  // Decoder hidden layer - SYMMETRIC!
+		// Output layer (784) will be added by train_fcn_multilayer
+		
+		int total_layers = hidden_layers + 1; // Total including output
+		
+		// ALLOCATE weights and bias (train_fcn_multilayer does NOT allocate!)
+		float** weights = new float*[total_layers];
+		float** bias = new float*[total_layers];
+		
+		textBox1->AppendText("Allocating weights and biases...\r\n");
+		
+		Random^ rng = gcnew Random();
+		for (int layer = 0; layer < total_layers; layer++) {
+			int input_size, output_size;
+			
+			if (layer == 0) {
+				// First layer: 784 -> 256
+				input_size = input_dim;
+				output_size = layer_sizes[0];
+			}
+			else if (layer < hidden_layers) {
+				// Hidden layers
+				input_size = layer_sizes[layer - 1];
+				output_size = layer_sizes[layer];
+			}
+			else {
+				// Output layer: 256 -> 784
+				input_size = layer_sizes[layer - 1];
+				output_size = output_dim;
+			}
+			
+			textBox1->AppendText("  Layer " + layer + ": " + input_size + " -> " + output_size + "\r\n");
+			
+			weights[layer] = new float[output_size * input_size];
+			bias[layer] = new float[output_size];
+			
+			// Standard Xavier initialization (network should be active!)
+			float limit = sqrt(2.0f / input_size);  // Standard Xavier - no scaling!
+			for (int i = 0; i < output_size * input_size; i++) {
+				weights[layer][i] = ((float)rng->NextDouble() * 2.0f - 1.0f) * limit;
+			}
+			for (int i = 0; i < output_size; i++) {
+				bias[layer][i] = 0.0f;
+			}
+		}
+		textBox1->AppendText("Weight allocation complete!\r\n\r\n");
+		
+		textBox1->AppendText("Autoencoder Architecture (Symmetric):\r\n");
+		textBox1->AppendText("  Input: 784 neurons (28×28 image)\r\n");
+		textBox1->AppendText("  Encoder: 784 → 420 → 10 (latent)\r\n");
+		textBox1->AppendText("  Decoder: 10 (latent) → 420 → 784\r\n");
+		textBox1->AppendText("  Latent Space: 10 dimensions\r\n");
+		textBox1->AppendText("  Total Parameters: ~670K (wider network!)\r\n\r\n");
+		
+		// DON'T allocate weights/bias here - train_fcn_multilayer will do it!
+		// Just declare the pointers (already nullptr from initialization)
+		
+		// Prepare training data: BOTH input and target must be BIPOLAR [-1,+1]!
+		textBox1->AppendText("Preparing BIPOLAR training data...\r\n");
+		float* autoencoder_inputs = nullptr;
+		float* autoencoder_targets = nullptr;
+		try {
+			// Allocate bipolar input array
+			autoencoder_inputs = new float[mnist_train_count * input_dim];
+			autoencoder_targets = new float[mnist_train_count * output_dim];
+			textBox1->AppendText("  Allocated memory for bipolar data\r\n");
+			
+			// Convert BOTH input AND target: [0,1] → [-1,+1]
+			for (int i = 0; i < mnist_train_count * input_dim; i++) {
+				float bipolar_val = 2.0f * mnist_train_samples[i] - 1.0f;
+				autoencoder_inputs[i] = bipolar_val;
+				autoencoder_targets[i] = bipolar_val;  // target = input (reconstruction!)
+			}
+			textBox1->AppendText("  Input & Target converted to BIPOLAR [-1,+1]\r\n\r\n");
+		}
+		catch (Exception^ ex) {
+			textBox1->AppendText("ERROR allocating data: " + ex->Message + "\r\n");
+			if (autoencoder_inputs) delete[] autoencoder_inputs;
+			throw;
+		}
+		
+		textBox1->AppendText("Training Parameters:\r\n");
+		textBox1->AppendText("  Input: BIPOLAR [-1,+1] (converted from MNIST!)\r\n");
+		textBox1->AppendText("  Target: BIPOLAR [-1,+1] (same as input - reconstruction!)\r\n");
+		textBox1->AppendText("  Learning Rate: 0.05 (FAST!)\r\n");
+		textBox1->AppendText("  Momentum: 0.9 (accelerate learning!)\r\n");
+		textBox1->AppendText("  Max Epochs: 50 (faster training)\r\n");
+		textBox1->AppendText("  Weight Init: Standard Xavier\r\n");
+		textBox1->AppendText("  Training Samples: " + mnist_train_count + "\r\n\r\n");
+		textBox1->AppendText("Calling train_fcn_multilayer...\r\n\r\n");
+		
+		// Train autoencoder using train_fcn_multilayer
+		// It treats this as a multi-class problem where each "class" is a pixel value
+		int epoch = 0;
+		float* error_history = nullptr;
+		
+		try {
+			textBox1->AppendText("Starting training loop...\r\n");
+			textBox1->AppendText("  Input dim: " + input_dim + "\r\n");
+			textBox1->AppendText("  Hidden layers: " + hidden_layers + "\r\n");
+			textBox1->AppendText("  Output dim: " + output_dim + "\r\n");
+			
+			// train_fcn_multilayer - BOTH input and target are BIPOLAR [-1,+1]!
+			error_history = train_fcn_multilayer(
+				autoencoder_inputs,         // Input samples (BIPOLAR [-1,+1]!)
+				mnist_train_count,          // Number of samples
+				autoencoder_targets,        // Targets = same as input (reconstruction!)
+				input_dim,                  // Input dimension (784)
+				layer_sizes,                // Hidden layer sizes [420, 10, 420]
+				hidden_layers,              // Number of hidden layers (3)
+				output_dim,                 // Output dimension (784)
+				weights,                    // Weights (allocated above)
+				bias,                       // Bias (allocated above)
+				0.05f,                      // learning_rate (FAST!)
+				5.0f,                       // min_error (reasonable for autoencoder)
+				50,                         // max_epochs (faster training)
+				epoch,                      // epoch counter (output)
+				0.9f                        // momentum (accelerate learning!)
+			);
+			
+			textBox1->AppendText("Training function completed!\r\n");
+		}
+		catch (Exception^ ex) {
+			textBox1->AppendText("ERROR in train_fcn_multilayer: " + ex->Message + "\r\n");
+			if (autoencoder_inputs) delete[] autoencoder_inputs;
+			if (autoencoder_targets) delete[] autoencoder_targets;
+			if (layer_sizes) delete[] layer_sizes;
+			throw;
+		}
+		
+		// Get final error from error history
+		float final_error = (error_history && epoch > 0) ? error_history[epoch - 1] : 0.0f;
+		
+		textBox1->AppendText("\r\n=== Training Complete ===\r\n");
+		textBox1->AppendText("Epochs: " + epoch + "\r\n");
+		textBox1->AppendText("Final Reconstruction Error: " + final_error.ToString("F6") + "\r\n\r\n");
+		
+		// Plot error history to chart
+		textBox1->AppendText("Plotting training error to chart...\r\n");
+		chart1->Series["Series1"]->Points->Clear();
+		chart1->Series["Series1"]->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+		chart1->Series["Series1"]->BorderWidth = 2;
+		chart1->Series["Series1"]->Color = System::Drawing::Color::Blue;
+		chart1->Titles->Clear();
+		chart1->Titles->Add("Autoencoder Training Error (MSE)");
+		
+		for (int i = 0; i < epoch; i++) {
+			chart1->Series["Series1"]->Points->AddXY(i + 1, error_history[i]);
+		}
+		
+		// Cleanup error history
+		if (error_history) {
+			delete[] error_history;
+		}
+		
+		// Save trained weights to member variables
+		autoencoder_num_layers = total_layers;
+		autoencoder_latent_dim = 10;  // FIXED: 10-dim latent space!
+		
+		// Save layer sizes
+		autoencoder_layer_sizes = new int[hidden_layers];
+		for (int i = 0; i < hidden_layers; i++) {
+			autoencoder_layer_sizes[i] = layer_sizes[i];
+		}
+		delete[] layer_sizes;  // Cleanup local
+		
+		// Save weights and bias
+		autoencoder_weights = weights;  // Transfer ownership
+		autoencoder_bias = bias;        // Transfer ownership
+		
+		textBox1->AppendText("Network saved to member variables\r\n\r\n");
+		
+		// Extract encoder weights (first 2 layers: 128, 10) for feature extraction
+		int encoder_layer_count = 2;
+		encoder_weights = new float*[encoder_layer_count];
+		encoder_bias = new float*[encoder_layer_count];
+		
+		textBox1->AppendText("Extracting encoder (784 → 128 → 10):\r\n");
+		
+		for (int i = 0; i < encoder_layer_count; i++) {
+			// Layer 0: 784 → 128
+			// Layer 1: 128 → 10
+			int curr_size = autoencoder_layer_sizes[i];
+			int prev_size = (i == 0) ? input_dim : autoencoder_layer_sizes[i-1];
+			int weight_count = curr_size * prev_size;
+			
+			textBox1->AppendText("  Layer " + i + ": " + prev_size + " → " + curr_size + "\r\n");
+			
+			encoder_weights[i] = new float[weight_count];
+			encoder_bias[i] = new float[curr_size];
+			
+			// Copy from autoencoder
+			for (int j = 0; j < weight_count; j++) {
+				encoder_weights[i][j] = autoencoder_weights[i][j];
+			}
+			for (int j = 0; j < curr_size; j++) {
+				encoder_bias[i][j] = autoencoder_bias[i][j];
+			}
+		}
+		textBox1->AppendText("Encoder extracted successfully!\r\n\r\n");
+		
+		autoencoder_trained = true;
+		delete[] autoencoder_inputs;
+		delete[] autoencoder_targets;
+		
+		textBox1->AppendText("Encoder extracted successfully!\r\n");
+		textBox1->AppendText("You can now test reconstruction or use encoder for feature extraction.\r\n");
+		
+		MessageBox::Show("Autoencoder training completed!\n\n" +
+			"Epochs: " + epoch + "\n" +
+			"Final Error: " + final_error.ToString("F6") + "\n\n" +
+			"Encoder is ready for feature extraction!",
+			"Training Complete", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+	catch (Exception^ ex) {
+		textBox1->AppendText("\r\nERROR: " + ex->Message + "\r\n");
+		MessageBox::Show("Autoencoder training failed!\n\nError: " + ex->Message, 
+			"Training Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+}
+
+private: System::Void testReconstructionToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (!autoencoder_trained) {
+		MessageBox::Show("Please train the autoencoder first!\n\nUse: MNIST -> Train Autoencoder", 
+			"No Trained Autoencoder", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+	
+	if (!mnist_loaded) {
+		MessageBox::Show("Please load MNIST dataset first!\n\nUse: MNIST -> Load Dataset", 
+			"No Dataset", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+	
+	textBox1->Clear();
+	textBox1->AppendText("=== Testing Autoencoder Reconstruction ===\r\n\r\n");
+	
+	try {
+		// Test reconstruction on a few samples
+		int test_samples = Math::Min(10, mnist_test_count);
+		float total_error = 0.0f;
+		int input_dim = 784;
+		int output_dim = 784;
+		
+		textBox1->AppendText("Testing " + test_samples + " samples...\r\n\r\n");
+		
+		for (int sample = 0; sample < test_samples; sample++) {
+			float* input = &mnist_test_samples[sample * input_dim];
+			
+			// Forward pass through autoencoder
+			float** layer_outputs = new float*[autoencoder_num_layers + 1];
+			layer_outputs[0] = input;  // Input layer
+			
+			// Forward through all layers
+			for (int layer = 0; layer < autoencoder_num_layers; layer++) {
+				int prev_size, curr_size;
+				
+				if (layer == 0) {
+					prev_size = input_dim;
+					curr_size = autoencoder_layer_sizes[0];
+				}
+				else if (layer < autoencoder_num_layers - 1) {
+					prev_size = autoencoder_layer_sizes[layer - 1];
+					curr_size = autoencoder_layer_sizes[layer];
+				}
+				else {
+					// Last layer (output)
+					prev_size = autoencoder_layer_sizes[layer - 1];
+					curr_size = output_dim;
+				}
+				
+				layer_outputs[layer + 1] = new float[curr_size];
+				
+				for (int i = 0; i < curr_size; i++) {
+					float net = autoencoder_bias[layer][i];
+					for (int j = 0; j < prev_size; j++) {
+						net += autoencoder_weights[layer][i * prev_size + j] * layer_outputs[layer][j];
+					}
+					layer_outputs[layer + 1][i] = tanh(net);
+				}
+			}
+			
+			// Calculate reconstruction error (MSE)
+			float sample_error = 0.0f;
+			for (int i = 0; i < output_dim; i++) {
+				float diff = input[i] - layer_outputs[autoencoder_num_layers][i];
+				sample_error += diff * diff;
+			}
+			sample_error /= output_dim;
+			total_error += sample_error;
+			
+			textBox1->AppendText("Sample " + sample + ": Reconstruction MSE = " + 
+				sample_error.ToString("F6") + "\r\n");
+			
+			// Cleanup
+			for (int layer = 1; layer <= autoencoder_num_layers; layer++) {
+				delete[] layer_outputs[layer];
+			}
+			delete[] layer_outputs;
+		}
+		
+		float avg_error = total_error / test_samples;
+		textBox1->AppendText("\r\n=== Results ===\r\n");
+		textBox1->AppendText("Average Reconstruction Error: " + avg_error.ToString("F6") + "\r\n");
+		textBox1->AppendText("\r\nLower error = better reconstruction!\r\n");
+		
+		MessageBox::Show("Reconstruction test completed!\n\n" +
+			"Average MSE: " + avg_error.ToString("F6"),
+			"Test Results", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+	catch (Exception^ ex) {
+		textBox1->AppendText("\r\nERROR: " + ex->Message + "\r\n");
+		MessageBox::Show("Reconstruction test failed!\n\nError: " + ex->Message, 
+			"Test Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+}
+
+private: System::Void trainWithEncoderToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (!autoencoder_trained) {
+		MessageBox::Show("Please train the autoencoder first!\n\nUse: MNIST -> Train Autoencoder", 
+			"No Trained Autoencoder", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+	
+	if (!mnist_loaded) {
+		MessageBox::Show("Please load MNIST dataset first!\n\nUse: MNIST -> Load Dataset", 
+			"No Dataset", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+	
+	textBox1->Clear();
+	textBox1->AppendText("=== Training Classifier with Encoder Features ===\r\n\r\n");
+	
+	try {
+		// Step 1: Extract features using encoder
+		textBox1->AppendText("Step 1: Extracting features using encoder...\r\n");
+		
+		int input_dim = 784;
+		int feature_dim = autoencoder_latent_dim;  // 10 dimensions
+		int num_classes = 10;
+		
+		textBox1->AppendText("  Encoder: 784 → 420 → 10\r\n");
+		
+		// Allocate feature arrays
+		float* train_features = new float[mnist_train_count * feature_dim];
+		
+		// Convert targets to bipolar (-1, +1) for tanh output
+		float* bipolar_targets = new float[mnist_train_count * num_classes];
+		for (int i = 0; i < mnist_train_count * num_classes; i++) {
+			bipolar_targets[i] = (mnist_train_targets[i] > 0.5f) ? 1.0f : -1.0f;
+		}
+		
+		// Extract features for training data
+		for (int sample = 0; sample < mnist_train_count; sample++) {
+			float* original_input = &mnist_train_samples[sample * input_dim];
+			float* features = &train_features[sample * feature_dim];
+			
+			// Convert input to BIPOLAR (encoder was trained on bipolar data!)
+			float* bipolar_input = new float[input_dim];
+			for (int i = 0; i < input_dim; i++) {
+				bipolar_input[i] = 2.0f * original_input[i] - 1.0f;
+			}
+			
+			// Forward pass through encoder (2 layers: 128, 10)
+			float** layer_outputs = new float*[3];  // input + 2 hidden
+			layer_outputs[0] = bipolar_input;
+			
+			for (int layer = 0; layer < 2; layer++) {
+				int prev_size = (layer == 0) ? input_dim : autoencoder_layer_sizes[layer - 1];
+				int curr_size = autoencoder_layer_sizes[layer];
+				
+				layer_outputs[layer + 1] = new float[curr_size];
+				
+				for (int i = 0; i < curr_size; i++) {
+					float net = encoder_bias[layer][i];
+					for (int j = 0; j < prev_size; j++) {
+						net += encoder_weights[layer][i * prev_size + j] * layer_outputs[layer][j];
+					}
+					layer_outputs[layer + 1][i] = tanh(net);
+				}
+			}
+			
+			// Copy latent features (output of 2nd layer = 10 dims)
+			// NO SCALING - autoencoder should produce varied features now!
+			for (int i = 0; i < feature_dim; i++) {
+				features[i] = layer_outputs[2][i];  // Direct copy, no scaling
+			}
+			
+			// Cleanup
+			delete[] bipolar_input;
+			for (int layer = 1; layer <= 2; layer++) {
+				delete[] layer_outputs[layer];
+			}
+			delete[] layer_outputs;
+		}
+		
+		textBox1->AppendText("Features extracted: " + mnist_train_count + " samples x " + feature_dim + " features\r\n");
+		
+		// DEBUG: Show sample features (RAW!)
+		textBox1->AppendText("DEBUG - First sample features (raw): ");
+		int show_count = (feature_dim < 5) ? feature_dim : 5;
+		for (int i = 0; i < show_count; i++) {
+			textBox1->AppendText(train_features[i].ToString("F3") + " ");
+		}
+		textBox1->AppendText("...\r\n");
+		textBox1->AppendText("  (Raw encoder features - no scaling!)\r\n\r\n");
+		
+		// Step 2: Train classifier on encoded features
+		textBox1->AppendText("Step 2: Training classifier on encoded features...\r\n");
+		
+		// Balanced classifier: 10 -> 64 -> 10 (moderate capacity)
+		int classifier_hidden_layers = 1;
+		
+		// Use LOCAL variables for training
+		int* classifier_layer_sizes = new int[classifier_hidden_layers];
+		classifier_layer_sizes[0] = 64;  // Moderate hidden layer (balance between capacity and stability)
+		
+		int classifier_total_layers = classifier_hidden_layers + 1;
+		
+		// ALLOCATE weights and bias (train_fcn_multilayer does NOT allocate!)
+		float** classifier_weights = new float*[classifier_total_layers];
+		float** classifier_bias = new float*[classifier_total_layers];
+		
+		Random^ rng = gcnew Random();
+		
+		int hidden_size = classifier_layer_sizes[0];  // 32
+		
+		// Hidden layer: 10 -> 64 (small initialization for stability!)
+		classifier_weights[0] = new float[hidden_size * feature_dim];
+		classifier_bias[0] = new float[hidden_size];
+		float init_scale = 0.1f;  // Small init (features already scaled!)
+		for (int i = 0; i < hidden_size * feature_dim; i++) {
+			classifier_weights[0][i] = ((float)rng->NextDouble() * 2.0f - 1.0f) * init_scale;
+		}
+		for (int i = 0; i < hidden_size; i++) {
+			classifier_bias[0][i] = 0.0f;
+		}
+		
+		// Output layer: 64 -> 10 (small init for stability)
+		classifier_weights[1] = new float[num_classes * hidden_size];
+		classifier_bias[1] = new float[num_classes];
+		for (int i = 0; i < num_classes * hidden_size; i++) {
+			classifier_weights[1][i] = ((float)rng->NextDouble() * 2.0f - 1.0f) * init_scale;  // Same small scale
+		}
+		for (int i = 0; i < num_classes; i++) {
+			classifier_bias[1][i] = 0.0f;
+		}
+		
+		textBox1->AppendText("Classifier Architecture: " + feature_dim + " -> " + hidden_size + " -> " + num_classes + "\r\n");
+		textBox1->AppendText("  (Training on 10-dimensional encoded features)\r\n");
+		textBox1->AppendText("Weights allocated successfully!\r\n\r\n");
+		textBox1->AppendText("Training classifier...\r\n");
+		textBox1->AppendText("  Architecture: 10 → 64 → 10 (balanced capacity)\r\n");
+		textBox1->AppendText("  Features: RAW encoder output\r\n");
+		textBox1->AppendText("  Targets: Bipolar (-1, +1) for tanh activation\r\n");
+		textBox1->AppendText("  Weight Init: 0.1 (small & stable)\r\n");
+		textBox1->AppendText("  Learning Rate: 0.01 (moderate)\r\n");
+		textBox1->AppendText("  Momentum: 0.0 (no momentum)\r\n");
+		textBox1->AppendText("  Max Epochs: 1000 (sufficient training)\r\n");
+		textBox1->AppendText("  Min Error: 0.001 (reasonable target)\r\n\r\n");
+		
+		// Train classifier
+		int epoch = 0;
+		float* error_history = train_fcn_multilayer(
+			train_features,                 // Encoded features (10-dim)
+			mnist_train_count,              // Number of samples
+			bipolar_targets,                // BIPOLAR targets (-1, +1) for tanh!
+			feature_dim,                    // Input dim = 10
+			classifier_layer_sizes,         // Hidden layers [64] - balanced!
+			classifier_hidden_layers,       // 1 hidden layer
+			num_classes,                    // Output = 10
+			classifier_weights,             // Weights (allocated above)
+			classifier_bias,                // Bias (allocated above)
+			0.01f,                          // learning_rate (moderate)
+			0.001f,                         // min_error (reasonable)
+			1000,                           // max_epochs (sufficient)
+			epoch,                          // epoch counter
+			0.0f                            // momentum = 0
+		);
+		
+		// Save to member variables
+		encoder_classifier_num_layers = classifier_hidden_layers + 1;
+		encoder_classifier_layers = classifier_layer_sizes;  // Transfer ownership
+		encoder_classifier_weights = classifier_weights;      // Transfer ownership
+		encoder_classifier_bias = classifier_bias;            // Transfer ownership
+		
+		encoder_classifier_trained = true;
+		
+		// Cleanup train features and bipolar targets
+		delete[] train_features;
+		delete[] bipolar_targets;
+		
+		textBox1->AppendText("\r\n=== Training Complete ===\r\n");
+		textBox1->AppendText("Epochs: " + epoch + "\r\n");
+		if (epoch > 0 && error_history != nullptr) {
+			float first_error = error_history[0];
+			float last_error = error_history[epoch - 1];
+			textBox1->AppendText("First Error: " + first_error.ToString("F6") + "\r\n");
+			textBox1->AppendText("Final Error: " + last_error.ToString("F6") + "\r\n");
+			float improvement = ((first_error - last_error) / first_error * 100.0f);
+			textBox1->AppendText("Improvement: " + improvement.ToString("F2") + "%\r\n");
+		}
+		
+		// Plot classification error to chart
+		textBox1->AppendText("Plotting classification error to chart...\r\n");
+		chart1->Series["Series1"]->Points->Clear();
+		chart1->Series["Series1"]->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+		chart1->Series["Series1"]->BorderWidth = 2;
+		chart1->Series["Series1"]->Color = System::Drawing::Color::Green;
+		chart1->Titles->Clear();
+		chart1->Titles->Add("Encoder-based Classifier Training Error");
+		
+		for (int i = 0; i < epoch; i++) {
+			chart1->Series["Series1"]->Points->AddXY(i + 1, error_history[i]);
+		}
+		
+		// Cleanup error history
+		if (error_history) {
+			delete[] error_history;
+		}
+		textBox1->AppendText("Classifier trained on " + feature_dim + "-dimensional encoded features!\r\n");
+		textBox1->AppendText("You can now test using the normal 'Test MNIST' (it will auto-detect encoder usage).\r\n");
+		
+		MessageBox::Show("Encoder-based classifier training completed!\n\n" +
+			"Epochs: " + epoch + "\n" +
+			"Feature dimension: " + feature_dim + "\n\n" +
+			"Use 'Test MNIST' to evaluate performance!",
+			"Training Complete", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+	catch (Exception^ ex) {
+		textBox1->AppendText("\r\nERROR: " + ex->Message + "\r\n");
+		MessageBox::Show("Training failed!\n\nError: " + ex->Message, 
+			"Training Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 	}
 }
 
