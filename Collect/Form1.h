@@ -2404,10 +2404,10 @@ private: System::Void testMNISTToolStripMenuItem_Click(System::Object^ sender, S
 				// Use encoder + classifier
 				int feature_dim = autoencoder_latent_dim;  // 10 dimensions
 				
-				// Convert input to BIPOLAR (encoder was trained on bipolar data!)
+				// Input is already bipolar [-1, 1]
 				float* bipolar_input = new float[mnist_input_dim];
 				for (int b = 0; b < mnist_input_dim; b++) {
-					bipolar_input[b] = 2.0f * current_sample[b] - 1.0f;
+					bipolar_input[b] = current_sample[b];
 				}
 				
 				// Extract features using encoder (2 layers: 128, 10)
@@ -2464,51 +2464,121 @@ private: System::Void testMNISTToolStripMenuItem_Click(System::Object^ sender, S
 			}
 			
 		// Debug: Print first 3 predictions with detailed output
-		if (i < 3 && !using_encoder) {
-			// Manual forward pass to get output values (only for direct classification)
-			float** layer_outputs = new float*[3];
-			layer_outputs[0] = new float[mnist_layer_sizes[0]]; // 128
-			layer_outputs[1] = new float[mnist_layer_sizes[1]]; // 64
-			layer_outputs[2] = new float[mnist_class_count];     // 10
+		if (i < 3) {
+			textBox1->AppendText("DEBUG SAMPLE " + i + ":\r\n");
 			
-			// Forward pass - Layer 0 (input -> hidden1)
-			for (int j = 0; j < mnist_layer_sizes[0]; j++) {
-				float net = mnist_bias[0][j];
-				for (int k = 0; k < mnist_input_dim; k++) {
-					net += mnist_weights[0][j * mnist_input_dim + k] * current_sample[k];
-				}
-				layer_outputs[0][j] = tanh(net);
+			if (using_encoder) {
+                // Show features being fed to classifier
+                textBox1->AppendText("  Features (first 5): ");
+                // Re-extract features just for display (we already discarded them in the loop logic above)
+                // Actually, let's just use the features from the loop logic? 
+                // In the loop above (line 2403), we computed features/predicted_class.
+                // We don't have access to 'layer_outputs' here easily because it was deleted.
+                // For debugging, let's just trust predicted_class but we really want the RAW OUTPUTS.
+                
+                // Re-run forward pass to get raw outputs for display
+                float* features_debug = new float[autoencoder_latent_dim];
+                
+                // 1. Extract features (duplicate logic, simplified for debug)
+                float* input_debug = new float[mnist_input_dim];
+                for (int b = 0; b < mnist_input_dim; b++) input_debug[b] = current_sample[b]; // already normalized
+                
+                // Encoder pass
+                float** enc_out = new float*[3];
+                enc_out[0] = input_debug;
+                for(int l=0; l<2; l++) {
+                     int ps = (l==0) ? mnist_input_dim : autoencoder_layer_sizes[l-1];
+                     int cs = autoencoder_layer_sizes[l];
+                     enc_out[l+1] = new float[cs];
+                     for(int n=0; n<cs; n++) {
+                         float net = encoder_bias[l][n];
+                         for(int k=0; k<ps; k++) net += encoder_weights[l][n*ps+k] * enc_out[l][k];
+                         enc_out[l+1][n] = tanh(net);
+                     }
+                }
+                for(int d=0; d<autoencoder_latent_dim; d++) features_debug[d] = enc_out[2][d];
+                
+                textBox1->AppendText("Feature[0]=" + features_debug[0].ToString("F3") + " ...\r\n");
+                
+                // Classifier pass
+                float** cls_out = new float*[3]; // input, hidden, output
+                cls_out[0] = features_debug;
+                
+                // Hidden
+                int h_in = autoencoder_latent_dim;
+                int h_out = encoder_classifier_layers[0];
+                cls_out[1] = new float[h_out];
+                for(int n=0; n<h_out; n++) {
+                    float net = encoder_classifier_bias[0][n];
+                    for(int k=0; k<h_in; k++) net += encoder_classifier_weights[0][n*h_in+k] * cls_out[0][k];
+                    cls_out[1][n] = tanh(net);
+                }
+                
+                // Output
+                int o_in = h_out;
+                int o_out = mnist_class_count;
+                cls_out[2] = new float[o_out];
+                textBox1->AppendText("  Classifier Raw Logits: ");
+                for(int n=0; n<o_out; n++) {
+                    float net = encoder_classifier_bias[1][n];
+                    for(int k=0; k<o_in; k++) net += encoder_classifier_weights[1][n*o_in+k] * cls_out[1][k];
+                    cls_out[2][n] = tanh(net); // Final activation
+                    textBox1->AppendText(cls_out[2][n].ToString("F3") + " ");
+                }
+                textBox1->AppendText("\r\n");
+                
+                // Cleanup debug
+                delete[] input_debug;
+                delete[] enc_out[1]; delete[] enc_out[2]; delete[] enc_out;
+                delete[] features_debug;
+                delete[] cls_out[1]; delete[] cls_out[2]; delete[] cls_out;
 			}
-			
-			// Forward pass - Layer 1 (hidden1 -> hidden2)
-			for (int j = 0; j < mnist_layer_sizes[1]; j++) {
-				float net = mnist_bias[1][j];
-				for (int k = 0; k < mnist_layer_sizes[0]; k++) {
-					net += mnist_weights[1][j * mnist_layer_sizes[0] + k] * layer_outputs[0][k];
-				}
-				layer_outputs[1][j] = tanh(net);
-			}
-			
-			// Forward pass - Layer 2 (hidden2 -> output)
-			for (int j = 0; j < mnist_class_count; j++) {
-				float net = mnist_bias[2][j];
-				for (int k = 0; k < mnist_layer_sizes[1]; k++) {
-					net += mnist_weights[2][j * mnist_layer_sizes[1] + k] * layer_outputs[1][k];
-				}
-				layer_outputs[2][j] = tanh(net);
-			}
-			
-			textBox1->AppendText("Sample " + i + ": Actual=" + actual_class + ", Predicted=" + predicted_class + "\r\n");
-			textBox1->AppendText("  Output layer values: ");
-			for (int j = 0; j < mnist_class_count; j++) {
-				textBox1->AppendText(layer_outputs[2][j].ToString("F3") + " ");
-			}
-			textBox1->AppendText("\r\n");
-			
-			delete[] layer_outputs[0];
-			delete[] layer_outputs[1];
-			delete[] layer_outputs[2];
-			delete[] layer_outputs;
+			else {
+			    // Manual forward pass to get output values (only for direct classification)
+			    float** layer_outputs = new float*[3];
+			    layer_outputs[0] = new float[mnist_layer_sizes[0]]; // 128
+			    layer_outputs[1] = new float[mnist_layer_sizes[1]]; // 64
+			    layer_outputs[2] = new float[mnist_class_count];     // 10
+			    
+			    // Forward pass - Layer 0 (input -> hidden1)
+			    for (int j = 0; j < mnist_layer_sizes[0]; j++) {
+				    float net = mnist_bias[0][j];
+				    for (int k = 0; k < mnist_input_dim; k++) {
+					    net += mnist_weights[0][j * mnist_input_dim + k] * current_sample[k];
+				    }
+				    layer_outputs[0][j] = tanh(net);
+			    }
+			    
+			    // Forward pass - Layer 1 (hidden1 -> hidden2)
+			    for (int j = 0; j < mnist_layer_sizes[1]; j++) {
+				    float net = mnist_bias[1][j];
+				    for (int k = 0; k < mnist_layer_sizes[0]; k++) {
+					    net += mnist_weights[1][j * mnist_layer_sizes[0] + k] * layer_outputs[0][k];
+				    }
+				    layer_outputs[1][j] = tanh(net);
+			    }
+			    
+			    // Forward pass - Layer 2 (hidden2 -> output)
+			    for (int j = 0; j < mnist_class_count; j++) {
+				    float net = mnist_bias[2][j];
+				    for (int k = 0; k < mnist_layer_sizes[1]; k++) {
+					    net += mnist_weights[2][j * mnist_layer_sizes[1] + k] * layer_outputs[1][k];
+				    }
+				    layer_outputs[2][j] = tanh(net);
+			    }
+			    
+			    textBox1->AppendText("Sample " + i + ": Actual=" + actual_class + ", Predicted=" + predicted_class + "\r\n");
+			    textBox1->AppendText("  Output layer values: ");
+			    for (int j = 0; j < mnist_class_count; j++) {
+				    textBox1->AppendText(layer_outputs[2][j].ToString("F3") + " ");
+			    }
+			    textBox1->AppendText("\r\n");
+			    
+			    delete[] layer_outputs[0];
+			    delete[] layer_outputs[1];
+			    delete[] layer_outputs[2];
+			    delete[] layer_outputs;
+            }
 		}
 			
 			// DEBUG: Show first 5 predictions
@@ -2624,11 +2694,11 @@ private: System::Void trainAutoencoderToolStripMenuItem_Click(System::Object^ se
 		int* layer_sizes = new int[hidden_layers];
 		
 		// Encoder layers
-		layer_sizes[0] = 420;  // Encoder hidden layer (LARGER!)
+		layer_sizes[0] = 420;   // Encoder hidden layer (64)
 		layer_sizes[1] = 10;   // Latent space (bottleneck) - 10 features!
 		
 		// Decoder layers (mirror of encoder, excluding final output)
-		layer_sizes[2] = 420;  // Decoder hidden layer - SYMMETRIC!
+		layer_sizes[2] = 420;   // Decoder hidden layer - SYMMETRIC!
 		// Output layer (784) will be added by train_fcn_multilayer
 		
 		int total_layers = hidden_layers + 1; // Total including output
@@ -2664,8 +2734,8 @@ private: System::Void trainAutoencoderToolStripMenuItem_Click(System::Object^ se
 			weights[layer] = new float[output_size * input_size];
 			bias[layer] = new float[output_size];
 			
-			// Standard Xavier initialization (network should be active!)
-			float limit = sqrt(2.0f / input_size);  // Standard Xavier - no scaling!
+			// Standard Xavier initialization (for Tanh activation)
+			float limit = sqrt(1.0f / input_size);  // Xavier: sqrt(1/n)
 			for (int i = 0; i < output_size * input_size; i++) {
 				weights[layer][i] = ((float)rng->NextDouble() * 2.0f - 1.0f) * limit;
 			}
@@ -2695,11 +2765,12 @@ private: System::Void trainAutoencoderToolStripMenuItem_Click(System::Object^ se
 			autoencoder_targets = new float[mnist_train_count * output_dim];
 			textBox1->AppendText("  Allocated memory for bipolar data\r\n");
 			
-			// Convert BOTH input AND target: [0,1] → [-1,+1]
+			// Input is already normalized to [-1, 1] by MNISTLoader
+			// Just copy it to the input arrays
 			for (int i = 0; i < mnist_train_count * input_dim; i++) {
-				float bipolar_val = 2.0f * mnist_train_samples[i] - 1.0f;
-				autoencoder_inputs[i] = bipolar_val;
-				autoencoder_targets[i] = bipolar_val;  // target = input (reconstruction!)
+				float input_val = mnist_train_samples[i];
+				autoencoder_inputs[i] = input_val;
+				autoencoder_targets[i] = input_val;  // target = input (reconstruction!)
 			}
 			textBox1->AppendText("  Input & Target converted to BIPOLAR [-1,+1]\r\n\r\n");
 		}
@@ -2712,8 +2783,8 @@ private: System::Void trainAutoencoderToolStripMenuItem_Click(System::Object^ se
 		textBox1->AppendText("Training Parameters:\r\n");
 		textBox1->AppendText("  Input: BIPOLAR [-1,+1] (converted from MNIST!)\r\n");
 		textBox1->AppendText("  Target: BIPOLAR [-1,+1] (same as input - reconstruction!)\r\n");
-		textBox1->AppendText("  Learning Rate: 0.05 (FAST!)\r\n");
-		textBox1->AppendText("  Momentum: 0.9 (accelerate learning!)\r\n");
+		textBox1->AppendText("  Learning Rate: 0.001 (SAFE)\r\n");
+		textBox1->AppendText("  Momentum: 0.0 (Stable)\r\n");
 		textBox1->AppendText("  Max Epochs: 50 (faster training)\r\n");
 		textBox1->AppendText("  Weight Init: Standard Xavier\r\n");
 		textBox1->AppendText("  Training Samples: " + mnist_train_count + "\r\n\r\n");
@@ -2741,11 +2812,11 @@ private: System::Void trainAutoencoderToolStripMenuItem_Click(System::Object^ se
 				output_dim,                 // Output dimension (784)
 				weights,                    // Weights (allocated above)
 				bias,                       // Bias (allocated above)
-				0.05f,                      // learning_rate (FAST!)
-				5.0f,                       // min_error (reasonable for autoencoder)
-				50,                         // max_epochs (faster training)
-				epoch,                      // epoch counter (output)
-				0.9f                        // momentum (accelerate learning!)
+				0.001f,                     // learning_rate (Reduced to prevent explosion)
+				0.001f,                     // min_error 
+				50,                         // max_epochs 
+				epoch,                      // epoch counter 
+				0.0f                        // momentum (Off for stability)
 			);
 			
 			textBox1->AppendText("Training function completed!\r\n");
@@ -2805,7 +2876,7 @@ private: System::Void trainAutoencoderToolStripMenuItem_Click(System::Object^ se
 		encoder_weights = new float*[encoder_layer_count];
 		encoder_bias = new float*[encoder_layer_count];
 		
-		textBox1->AppendText("Extracting encoder (784 → 128 → 10):\r\n");
+		textBox1->AppendText("Extracting encoder (784 → 420 → 10):\r\n");
 		
 		for (int i = 0; i < encoder_layer_count; i++) {
 			// Layer 0: 784 → 128
@@ -2985,10 +3056,10 @@ private: System::Void trainWithEncoderToolStripMenuItem_Click(System::Object^ se
 			float* original_input = &mnist_train_samples[sample * input_dim];
 			float* features = &train_features[sample * feature_dim];
 			
-			// Convert input to BIPOLAR (encoder was trained on bipolar data!)
+			// Input is already BIPOLAR [-1, 1]
 			float* bipolar_input = new float[input_dim];
 			for (int i = 0; i < input_dim; i++) {
-				bipolar_input[i] = 2.0f * original_input[i] - 1.0f;
+				bipolar_input[i] = original_input[i];
 			}
 			
 			// Forward pass through encoder (2 layers: 128, 10)
@@ -3055,22 +3126,23 @@ private: System::Void trainWithEncoderToolStripMenuItem_Click(System::Object^ se
 		
 		int hidden_size = classifier_layer_sizes[0];  // 32
 		
-		// Hidden layer: 10 -> 64 (small initialization for stability!)
+		// Hidden layer: 10 -> 64 (Xavier init for Tanh)
 		classifier_weights[0] = new float[hidden_size * feature_dim];
 		classifier_bias[0] = new float[hidden_size];
-		float init_scale = 0.1f;  // Small init (features already scaled!)
+		float init_scale_hidden = sqrt(1.0f / feature_dim);  // Xavier: sqrt(1/input)
 		for (int i = 0; i < hidden_size * feature_dim; i++) {
-			classifier_weights[0][i] = ((float)rng->NextDouble() * 2.0f - 1.0f) * init_scale;
+			classifier_weights[0][i] = ((float)rng->NextDouble() * 2.0f - 1.0f) * init_scale_hidden;
 		}
 		for (int i = 0; i < hidden_size; i++) {
 			classifier_bias[0][i] = 0.0f;
 		}
 		
-		// Output layer: 64 -> 10 (small init for stability)
+		// Output layer: 64 -> 10 (Xavier init for Tanh)
 		classifier_weights[1] = new float[num_classes * hidden_size];
 		classifier_bias[1] = new float[num_classes];
+		float init_scale_output = sqrt(1.0f / hidden_size);  // Xavier: sqrt(1/input)
 		for (int i = 0; i < num_classes * hidden_size; i++) {
-			classifier_weights[1][i] = ((float)rng->NextDouble() * 2.0f - 1.0f) * init_scale;  // Same small scale
+			classifier_weights[1][i] = ((float)rng->NextDouble() * 2.0f - 1.0f) * init_scale_output;  // Xavier
 		}
 		for (int i = 0; i < num_classes; i++) {
 			classifier_bias[1][i] = 0.0f;
@@ -3083,9 +3155,9 @@ private: System::Void trainWithEncoderToolStripMenuItem_Click(System::Object^ se
 		textBox1->AppendText("  Architecture: 10 → 64 → 10 (balanced capacity)\r\n");
 		textBox1->AppendText("  Features: RAW encoder output\r\n");
 		textBox1->AppendText("  Targets: Bipolar (-1, +1) for tanh activation\r\n");
-		textBox1->AppendText("  Weight Init: 0.1 (small & stable)\r\n");
+		textBox1->AppendText("  Weight Init: Xavier (sqrt(1/n))\r\n");
 		textBox1->AppendText("  Learning Rate: 0.01 (moderate)\r\n");
-		textBox1->AppendText("  Momentum: 0.0 (no momentum)\r\n");
+		textBox1->AppendText("  Momentum: 0.9 (standard)\r\n");
 		textBox1->AppendText("  Max Epochs: 1000 (sufficient training)\r\n");
 		textBox1->AppendText("  Min Error: 0.001 (reasonable target)\r\n\r\n");
 		
@@ -3105,7 +3177,7 @@ private: System::Void trainWithEncoderToolStripMenuItem_Click(System::Object^ se
 			0.001f,                         // min_error (reasonable)
 			1000,                           // max_epochs (sufficient)
 			epoch,                          // epoch counter
-			0.0f                            // momentum = 0
+			0.9f                            // momentum = 0.9
 		);
 		
 		// Save to member variables
