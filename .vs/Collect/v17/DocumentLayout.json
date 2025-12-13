@@ -7,6 +7,14 @@
       "RelativeMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|solutionrelative:Collect\\Form1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\CppCLR_WinformsProjekt.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|solutionrelative:Collect\\CppCLR_WinformsProjekt.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Form1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|solutionrelative:Collect\\Form1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|solutionrelative:Collect\\Network.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -30,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,7 +46,31 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CppCLR_WinformsProjekt.cpp",
+              "DocumentMoniker": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\CppCLR_WinformsProjekt.cpp",
+              "RelativeDocumentMoniker": "Collect\\CppCLR_WinformsProjekt.cpp",
+              "ToolTip": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\CppCLR_WinformsProjekt.cpp",
+              "RelativeToolTip": "Collect\\CppCLR_WinformsProjekt.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-13T09:37:48.43Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Form1.cpp",
+              "DocumentMoniker": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Form1.cpp",
+              "RelativeDocumentMoniker": "Collect\\Form1.cpp",
+              "ToolTip": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Form1.cpp",
+              "RelativeToolTip": "Collect\\Form1.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-13T09:37:10.006Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Network.cpp",
               "DocumentMoniker": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.cpp",
               "RelativeDocumentMoniker": "Collect\\Network.cpp",
@@ -50,7 +82,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Network.h",
               "DocumentMoniker": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.h",
               "RelativeDocumentMoniker": "Collect\\Network.h",
@@ -58,12 +90,11 @@
               "RelativeToolTip": "Collect\\Network.h",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-09T18:02:34.079Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-09T18:02:34.079Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Process.h",
               "DocumentMoniker": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Process.h",
               "RelativeDocumentMoniker": "Collect\\Process.h",
@@ -75,7 +106,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "TrainingDialog.h",
               "DocumentMoniker": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\TrainingDialog.h",
               "RelativeDocumentMoniker": "Collect\\TrainingDialog.h",
@@ -93,7 +124,7 @@
               "RelativeDocumentMoniker": "Collect\\Form1.h",
               "ToolTip": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Form1.h",
               "RelativeToolTip": "Collect\\Form1.h",
-              "ViewState": "AgIAABcHAAAAAAAAAAAewBkHAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEoBAAAAAAAAAAAAAE0BAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-12-09T14:41:54.824Z",
               "EditorCaption": ""

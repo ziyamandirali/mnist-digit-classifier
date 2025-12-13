@@ -18,7 +18,7 @@ namespace CppCLRWinformsProjekt {
 	using namespace System::IO;
 
 	/// <summary>
-	/// Zusammenfassung f�r Form1
+	/// Zusammenfassung fr Form1
 	/// </summary>
 	public ref class Form1 : public System::Windows::Forms::Form
 	{
@@ -27,7 +27,7 @@ namespace CppCLRWinformsProjekt {
 		{
 			InitializeComponent();
 			//
-			//TODO: Konstruktorcode hier hinzuf�gen.
+			//TODO: Konstruktorcode hier hinzufgen.
 			//
 		neuron_count = 0;
 		mean = nullptr;
@@ -78,49 +78,9 @@ namespace CppCLRWinformsProjekt {
 				delete components;
 			}
 			// Dinamik dizileri güvenli şekilde temizle
-			if (Samples) {
-				delete[] Samples;
-				Samples = nullptr;
-			}
-			if (targets) {
-				delete[] targets;
-				targets = nullptr;
-			}
-			if (Weights) {
-				delete[] Weights;
-				Weights = nullptr;
-			}
-			if (bias) {
-				delete[] bias;
-				bias = nullptr;
-			}
-			if (mean) {
-				delete[] mean;
-				mean = nullptr;
-			}
-		if (std) {
-			delete[] std;
-			std = nullptr;
-		}
-		if (regression_mean) {
-			delete[] regression_mean;
-			regression_mean = nullptr;
-		}
-		if (regression_std) {
-			delete[] regression_std;
-			regression_std = nullptr;
-		}
-		// Multi-layer cleanup
-		if (Weights_ML) {
-			for (int i = 0; i < num_layers; i++) {
-				if (Weights_ML[i]) {
-					delete[] Weights_ML[i];
-					Weights_ML[i] = nullptr;
-				}
-			}
-			delete[] Weights_ML;
-			Weights_ML = nullptr;
-		}
+			Cleanup_Samples();
+			Cleanup_Network();
+			Cleanup_Normalization();
 	// MNIST cleanup
 	if (mnist_train_samples) {
 		delete[] mnist_train_samples;
@@ -239,21 +199,9 @@ namespace CppCLRWinformsProjekt {
 		delete[] encoder_classifier_layers;
 		encoder_classifier_layers = nullptr;
 	}
-		if (bias_ML) {
-			for (int i = 0; i < num_layers; i++) {
-				if (bias_ML[i]) {
-					delete[] bias_ML[i];
-					bias_ML[i] = nullptr;
-				}
-			}
-			delete[] bias_ML;
-			bias_ML = nullptr;
-		}
-		if (layer_sizes) {
-			delete[] layer_sizes;
-			layer_sizes = nullptr;
-		}
-	}
+		// bias_ML and layer_sizes handled by Cleanup_Network above
+	}  // End of ~Form1() destructor
+
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	protected:
 	private: System::Windows::Forms::GroupBox^ groupBox1;
@@ -349,6 +297,43 @@ namespace CppCLRWinformsProjekt {
 	int* encoder_classifier_layers = nullptr;      // Hidden layers for classifier
 	int encoder_classifier_num_layers = 0;         // Number of layers in classifier
 	bool encoder_classifier_trained = false;       // Training status
+
+	// Helper methods for memory cleanup
+	private: void Cleanup_Samples() {
+		if (Samples) { delete[] Samples; Samples = nullptr; }
+		if (targets) { delete[] targets; targets = nullptr; }
+		numSample = 0;
+		if (label3) label3->Text = "Samples Count: 0";
+	}
+	
+	private: void Cleanup_Normalization() {
+		if (mean) { delete[] mean; mean = nullptr; }
+		if (std) { delete[] std; std = nullptr; }
+		if (regression_mean) { delete[] regression_mean; regression_mean = nullptr; }
+		if (regression_std) { delete[] regression_std; regression_std = nullptr; }
+	}
+	
+	private: void Cleanup_Network() {
+		if (Weights) { delete[] Weights; Weights = nullptr; }
+		if (bias) { delete[] bias; bias = nullptr; }
+		
+		if (Weights_ML) {
+			for (int i = 0; i < num_layers; i++) {
+				if (Weights_ML[i]) delete[] Weights_ML[i];
+			}
+			delete[] Weights_ML;
+			Weights_ML = nullptr;
+		}
+		if (bias_ML) {
+			for (int i = 0; i < num_layers; i++) {
+				if (bias_ML[i]) delete[] bias_ML[i];
+			}
+			delete[] bias_ML;
+			bias_ML = nullptr;
+		}
+		if (layer_sizes) { delete[] layer_sizes; layer_sizes = nullptr; }
+		num_layers = 0;
+	}
 
 	private: System::Windows::Forms::MenuStrip^ menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^ fileToolStripMenuItem;
@@ -1179,9 +1164,8 @@ namespace CppCLRWinformsProjekt {
 		// ===== SINGLE-LAYER MODE (Original Code) =====
 		is_multilayer = false;
 		
-		// Clean up old weights
-		if (Weights) delete[] Weights;
-		if (bias) delete[] bias;
+		// Clean up old weights and any other mode data
+		Cleanup_Network();
 		
 		// Initialize weights for single layer
 		Weights = new float[neuron_count * inputDim];
@@ -1195,25 +1179,8 @@ namespace CppCLRWinformsProjekt {
 		// ===== MULTI-LAYER MODE =====
 		is_multilayer = true;
 		
-		// Clean up old multi-layer weights
-		if (Weights_ML) {
-			for (int i = 0; i < num_layers; i++) {
-				if (Weights_ML[i]) delete[] Weights_ML[i];
-			}
-			delete[] Weights_ML;
-			Weights_ML = nullptr;
-		}
-		if (bias_ML) {
-			for (int i = 0; i < num_layers; i++) {
-				if (bias_ML[i]) delete[] bias_ML[i];
-			}
-			delete[] bias_ML;
-			bias_ML = nullptr;
-		}
-		if (layer_sizes) {
-			delete[] layer_sizes;
-			layer_sizes = nullptr;
-		}
+		// Clean up old multi-layer weights and any other mode data
+		Cleanup_Network();
 		
 		// Layer_sizes will hold ONLY hidden layer sizes (for passing to functions)
 		// Total layers for internal use = hidden + output
@@ -1556,8 +1523,7 @@ private: System::Void trainingToolStripMenuItem_Click(System::Object^ sender, Sy
 	textBox1->Text += "Learning Rate: " + learning_rate.ToString("F4") + "\r\n\r\n";
 
 	// Calculate and save normalization parameters
-	if (mean) delete[] mean;
-	if (std) delete[] std;
+	Cleanup_Normalization();
 	mean = new float[inputDim];
 	std = new float[inputDim];
 	Z_Score_Parameters(Samples, numSample, inputDim, mean, std);
@@ -1709,30 +1675,11 @@ private: System::Void regressionToolStripMenuItem_Click(System::Object^ sender, 
 	}
 	
 	// Calculate normalization parameters for x and y
-	float* mean_xy = new float[2];
-	float* std_xy = new float[2];
+	// Calculate normalization parameters for x and y using helper function
+	float* mean_xy = new float[inputDim];
+	float* std_xy = new float[inputDim];
 	
-	// Calculate mean
-	mean_xy[0] = mean_xy[1] = 0.0f;
-	for (int i = 0; i < numSample; i++) {
-		mean_xy[0] += x_data[i];
-		mean_xy[1] += y_data[i];
-	}
-	mean_xy[0] /= numSample;
-	mean_xy[1] /= numSample;
-	
-	// Calculate std
-	std_xy[0] = std_xy[1] = 0.0f;
-	for (int i = 0; i < numSample; i++) {
-		std_xy[0] += (x_data[i] - mean_xy[0]) * (x_data[i] - mean_xy[0]);
-		std_xy[1] += (y_data[i] - mean_xy[1]) * (y_data[i] - mean_xy[1]);
-	}
-	std_xy[0] = sqrt(std_xy[0] / numSample);
-	std_xy[1] = sqrt(std_xy[1] / numSample);
-	
-	// Prevent division by zero
-	if (std_xy[0] < 1e-6f) std_xy[0] = 1.0f;
-	if (std_xy[1] < 1e-6f) std_xy[1] = 1.0f;
+	Z_Score_Parameters(Samples, numSample, inputDim, mean_xy, std_xy);
 	
 	// Normalize data
 	float* x_norm = new float[numSample];
@@ -1995,78 +1942,10 @@ private: System::Void buttonClearCanvas_Click(System::Object^ sender, System::Ev
 	regression_trained = false;
 	regression_is_multilayer = false;
 	
-	// Clear all samples
-	if (Samples) {
-		delete[] Samples;
-		Samples = nullptr;
-	}
-	if (targets) {
-		delete[] targets;
-		targets = nullptr;
-	}
-	
-	// Clear single-layer weights and bias
-	if (Weights) {
-		delete[] Weights;
-		Weights = nullptr;
-	}
-	if (bias) {
-		delete[] bias;
-		bias = nullptr;
-	}
-	
-	// Clear multi-layer weights and bias
-	if (Weights_ML) {
-		// Total layers = hidden layers + output layer
-		int total_layers = num_layers;
-		for (int layer = 0; layer < total_layers; layer++) {
-			if (Weights_ML[layer]) {
-				delete[] Weights_ML[layer];
-			}
-		}
-		delete[] Weights_ML;
-		Weights_ML = nullptr;
-	}
-	if (bias_ML) {
-		for (int layer = 0; layer < num_layers; layer++) {
-			if (bias_ML[layer]) {
-				delete[] bias_ML[layer];
-			}
-		}
-		delete[] bias_ML;
-		bias_ML = nullptr;
-	}
-	if (layer_sizes) {
-		delete[] layer_sizes;
-		layer_sizes = nullptr;
-	}
-	
-	num_layers = 0;
-	// is_multilayer = false; // Already done at top
-	
-	// Clear normalization parameters
-	if (mean) {
-		delete[] mean;
-		mean = nullptr;
-	}
-	if (std) {
-		delete[] std;
-		std = nullptr;
-	}
-	
-	// Clear regression normalization parameters
-	if (regression_mean) {
-		delete[] regression_mean;
-		regression_mean = nullptr;
-	}
-	if (regression_std) {
-		delete[] regression_std;
-		regression_std = nullptr;
-	}
-	
-	// Reset sample count
-	numSample = 0;
-	label3->Text = "Samples Count: 0";
+	// Clear all samples and network data using helpers
+	Cleanup_Samples();
+	Cleanup_Network();
+	Cleanup_Normalization();
 	
 	// Reset UI controls
 	Set_Net->Text = "Network Setting";  // Reset button text
@@ -3271,5 +3150,5 @@ private: System::Void trainWithEncoderToolStripMenuItem_Click(System::Object^ se
 	}
 }
 
-	};
-}
+	};  // End of Form1 class
+}  // End of namespace CppCLRWinformsProjekt
