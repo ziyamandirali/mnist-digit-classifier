@@ -297,18 +297,6 @@ Class Bid: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
     Boolean IsInitialized 'get ' : 
     IntPtr DefaultCmdSpace 'get ' : 
   Methods:
-    ScopeLeave(IntPtr&): PrivateScope, Assembly, Static, HideBySig
-    ScopeEnter(IntPtr&(Out), String): PrivateScope, Assembly, Static, HideBySig
-    ScopeEnter(IntPtr&(Out), String, Int32): PrivateScope, Assembly, Static, HideBySig
-    ScopeEnter(IntPtr&(Out), String, Int32, Int32): PrivateScope, Assembly, Static, HideBySig
-    TraceBin(String, Byte[], UInt16): PrivateScope, Assembly, Static, HideBySig
-    TraceBinEx(Byte[], UInt16): PrivateScope, Assembly, Static, HideBySig
-    SetApiGroupBits(ApiGroup, ApiGroup): PrivateScope, Assembly, Static, HideBySig
-    AddMetaText(String): PrivateScope, Assembly, Static, HideBySig
-    DTRACE(String): PrivateScope, Assembly, Static, HideBySig
-    DTRACE(String, Object[]): PrivateScope, Assembly, Static, HideBySig
-    DASSERT(Boolean): PrivateScope, Assembly, Static, HideBySig
-    get_DefaultCmdSpace(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     PoolerTrace(String, Int32): PrivateScope, Assembly, Static, HideBySig
     PoolerTrace(String, Int32, Int32): PrivateScope, Assembly, Static, HideBySig
     PoolerTrace(String, Int32, Int32, Int32): PrivateScope, Assembly, Static, HideBySig
@@ -394,6 +382,18 @@ Class Bid: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
     TraceEx(UInt32, String): PrivateScope, Assembly, Static, HideBySig
     Trace(String, String): PrivateScope, Assembly, Static, HideBySig
     TraceEx(UInt32, String, String): PrivateScope, Assembly, Static, HideBySig
+    ScopeLeave(IntPtr&): PrivateScope, Assembly, Static, HideBySig
+    ScopeEnter(IntPtr&(Out), String): PrivateScope, Assembly, Static, HideBySig
+    ScopeEnter(IntPtr&(Out), String, Int32): PrivateScope, Assembly, Static, HideBySig
+    ScopeEnter(IntPtr&(Out), String, Int32, Int32): PrivateScope, Assembly, Static, HideBySig
+    TraceBin(String, Byte[], UInt16): PrivateScope, Assembly, Static, HideBySig
+    TraceBinEx(Byte[], UInt16): PrivateScope, Assembly, Static, HideBySig
+    SetApiGroupBits(ApiGroup, ApiGroup): PrivateScope, Assembly, Static, HideBySig
+    AddMetaText(String): PrivateScope, Assembly, Static, HideBySig
+    DTRACE(String): PrivateScope, Assembly, Static, HideBySig
+    DTRACE(String, Object[]): PrivateScope, Assembly, Static, HideBySig
+    DASSERT(Boolean): PrivateScope, Assembly, Static, HideBySig
+    get_DefaultCmdSpace(): PrivateScope, Assembly, Static, HideBySig, SpecialName
 Class SqlDependencyProcessDispatcher: AutoLayout, AnsiClass, Class, BeforeFieldInit
   :System.MarshalByRefObject
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -1325,13 +1325,6 @@ Class Microsoft.SqlServer.Server.SqlTriggerContext: AutoLayout, AnsiClass, Class
     IsUpdatedColumn(Int32): PrivateScope, Public, HideBySig
 Class Microsoft.SqlServer.Server.ValueUtilsSmi: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Methods:
-    FillCompatibleITypedSettersFromRecord(SmiEventSink_Default, ITypedSettersV3, SmiMetaData[], SqlDataRecord): PrivateScope, Assembly, Static, HideBySig
-    FillCompatibleITypedSettersFromRecord(SmiEventSink_Default, ITypedSettersV3, SmiMetaData[], SqlDataRecord, SmiDefaultFieldsProperty): PrivateScope, Assembly, Static, HideBySig
-    FillCompatibleSettersFromRecord(SmiEventSink_Default, SmiTypedGetterSetter, SmiMetaData[], SqlDataRecord, SmiDefaultFieldsProperty): PrivateScope, Assembly, Static, HideBySig
-    CopyIntoNewSmiScratchStream(Stream, SmiEventSink_Default, SmiContext): PrivateScope, Assembly, Static, HideBySig
-    CopyIntoNewSmiScratchStreamChars(Stream, SmiEventSink_Default, SmiContext): PrivateScope, Assembly, Static, HideBySig
-    GetBytes_Unchecked(SmiEventSink_Default, ITypedGettersV3, Int32, Int64, Byte[], Int32, Int32): PrivateScope, Assembly, Static, HideBySig
-    GetChars_Unchecked(SmiEventSink_Default, ITypedGettersV3, Int32, Int64, Char[], Int32, Int32): PrivateScope, Assembly, Static, HideBySig
     IsDBNull(SmiEventSink_Default, ITypedGettersV3, Int32): PrivateScope, Assembly, Static, HideBySig
     GetBoolean(SmiEventSink_Default, ITypedGettersV3, Int32, SmiMetaData): PrivateScope, Assembly, Static, HideBySig
     GetByte(SmiEventSink_Default, ITypedGettersV3, Int32, SmiMetaData): PrivateScope, Assembly, Static, HideBySig
@@ -1417,6 +1410,13 @@ Class Microsoft.SqlServer.Server.ValueUtilsSmi: AutoLayout, AnsiClass, Class, Ab
     SetCompatibleValueV200(SmiEventSink_Default, SmiTypedGetterSetter, Int32, SmiMetaData, Object, ExtendedClrTypeCode, Int32, Int32, ParameterPeekAheadValue): PrivateScope, Assembly, Static, HideBySig
     FillCompatibleITypedSettersFromReader(SmiEventSink_Default, ITypedSettersV3, SmiMetaData[], SqlDataReader): PrivateScope, Assembly, Static, HideBySig
     FillCompatibleSettersFromReader(SmiEventSink_Default, SmiTypedGetterSetter, IList`1, DbDataReader): PrivateScope, Assembly, Static, HideBySig
+    FillCompatibleITypedSettersFromRecord(SmiEventSink_Default, ITypedSettersV3, SmiMetaData[], SqlDataRecord): PrivateScope, Assembly, Static, HideBySig
+    FillCompatibleITypedSettersFromRecord(SmiEventSink_Default, ITypedSettersV3, SmiMetaData[], SqlDataRecord, SmiDefaultFieldsProperty): PrivateScope, Assembly, Static, HideBySig
+    FillCompatibleSettersFromRecord(SmiEventSink_Default, SmiTypedGetterSetter, SmiMetaData[], SqlDataRecord, SmiDefaultFieldsProperty): PrivateScope, Assembly, Static, HideBySig
+    CopyIntoNewSmiScratchStream(Stream, SmiEventSink_Default, SmiContext): PrivateScope, Assembly, Static, HideBySig
+    CopyIntoNewSmiScratchStreamChars(Stream, SmiEventSink_Default, SmiContext): PrivateScope, Assembly, Static, HideBySig
+    GetBytes_Unchecked(SmiEventSink_Default, ITypedGettersV3, Int32, Int64, Byte[], Int32, Int32): PrivateScope, Assembly, Static, HideBySig
+    GetChars_Unchecked(SmiEventSink_Default, ITypedGettersV3, Int32, Int64, Char[], Int32, Int32): PrivateScope, Assembly, Static, HideBySig
 Class Microsoft.SqlServer.Server.SqlClientWrapperSmiStream: AutoLayout, AnsiClass, Class, BeforeFieldInit
   :System.IO.Stream
     Void .ctor(Microsoft.SqlServer.Server.SmiEventSink_Default, Microsoft.SqlServer.Server.SmiStream): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
@@ -2803,32 +2803,6 @@ Class System.Data.DataColumn: AutoLayout, AnsiClass, Class, Public, BeforeFieldI
   Events:
     System.ComponentModel.PropertyChangedEventHandler PropertyChanging: 
   Methods:
-    Clone(): PrivateScope, Assembly, HideBySig
-    FindParentRelation(): PrivateScope, Assembly, HideBySig
-    GetAggregateValue(Int32[], AggregateType): PrivateScope, Assembly, HideBySig
-    Init(Int32): PrivateScope, Assembly, HideBySig
-    IsAutoIncrementType(Type): PrivateScope, Assembly, Static, HideBySig
-    get_IsCustomType(): PrivateScope, Assembly, HideBySig, SpecialName
-    IsValueCustomTypeInstance(Object): PrivateScope, Assembly, HideBySig
-    get_ImplementsIXMLSerializable(): PrivateScope, Assembly, HideBySig, SpecialName
-    IsNull(Int32): PrivateScope, Assembly, HideBySig
-    IsInRelation(): PrivateScope, Assembly, HideBySig
-    IsMaxLengthViolated(): PrivateScope, Assembly, HideBySig
-    IsNotAllowDBNullViolated(): PrivateScope, Assembly, HideBySig
-    FinishInitInProgress(): PrivateScope, Assembly, HideBySig
-    SetCapacity(Int32): PrivateScope, Assembly, HideBySig
-    OnSetDataSet(): PrivateScope, Assembly, HideBySig
-    ToString(): PrivateScope, Public, Virtual, HideBySig
-    ConvertXmlToObject(String): PrivateScope, Assembly, HideBySig
-    ConvertXmlToObject(XmlReader, XmlRootAttribute): PrivateScope, Assembly, HideBySig
-    ConvertObjectToXml(Object): PrivateScope, Assembly, HideBySig
-    ConvertObjectToXml(Object, XmlWriter, XmlRootAttribute): PrivateScope, Assembly, HideBySig
-    GetEmptyColumnStore(Int32): PrivateScope, Assembly, HideBySig
-    CopyValueIntoStore(Int32, Object, BitArray, Int32): PrivateScope, Assembly, HideBySig
-    SetStorage(Object, BitArray): PrivateScope, Assembly, HideBySig
-    AddDependentColumn(DataColumn): PrivateScope, Assembly, HideBySig
-    RemoveDependentColumn(DataColumn): PrivateScope, Assembly, HideBySig
-    HandleDependentColumnList(DataExpression, DataExpression): PrivateScope, Assembly, HideBySig
     get_AllowDBNull(): PrivateScope, Public, HideBySig, SpecialName
     set_AllowDBNull(Boolean): PrivateScope, Public, HideBySig, SpecialName
     get_AutoIncrement(): PrivateScope, Public, HideBySig, SpecialName
@@ -2908,6 +2882,32 @@ Class System.Data.DataColumn: AutoLayout, AnsiClass, Class, Public, BeforeFieldI
     CompareValueTo(Int32, Object): PrivateScope, Assembly, HideBySig
     ConvertValue(Object): PrivateScope, Assembly, HideBySig
     Copy(Int32, Int32): PrivateScope, Assembly, HideBySig
+    Clone(): PrivateScope, Assembly, HideBySig
+    FindParentRelation(): PrivateScope, Assembly, HideBySig
+    GetAggregateValue(Int32[], AggregateType): PrivateScope, Assembly, HideBySig
+    Init(Int32): PrivateScope, Assembly, HideBySig
+    IsAutoIncrementType(Type): PrivateScope, Assembly, Static, HideBySig
+    get_IsCustomType(): PrivateScope, Assembly, HideBySig, SpecialName
+    IsValueCustomTypeInstance(Object): PrivateScope, Assembly, HideBySig
+    get_ImplementsIXMLSerializable(): PrivateScope, Assembly, HideBySig, SpecialName
+    IsNull(Int32): PrivateScope, Assembly, HideBySig
+    IsInRelation(): PrivateScope, Assembly, HideBySig
+    IsMaxLengthViolated(): PrivateScope, Assembly, HideBySig
+    IsNotAllowDBNullViolated(): PrivateScope, Assembly, HideBySig
+    FinishInitInProgress(): PrivateScope, Assembly, HideBySig
+    SetCapacity(Int32): PrivateScope, Assembly, HideBySig
+    OnSetDataSet(): PrivateScope, Assembly, HideBySig
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+    ConvertXmlToObject(String): PrivateScope, Assembly, HideBySig
+    ConvertXmlToObject(XmlReader, XmlRootAttribute): PrivateScope, Assembly, HideBySig
+    ConvertObjectToXml(Object): PrivateScope, Assembly, HideBySig
+    ConvertObjectToXml(Object, XmlWriter, XmlRootAttribute): PrivateScope, Assembly, HideBySig
+    GetEmptyColumnStore(Int32): PrivateScope, Assembly, HideBySig
+    CopyValueIntoStore(Int32, Object, BitArray, Int32): PrivateScope, Assembly, HideBySig
+    SetStorage(Object, BitArray): PrivateScope, Assembly, HideBySig
+    AddDependentColumn(DataColumn): PrivateScope, Assembly, HideBySig
+    RemoveDependentColumn(DataColumn): PrivateScope, Assembly, HideBySig
+    HandleDependentColumnList(DataExpression, DataExpression): PrivateScope, Assembly, HideBySig
 Class System.Data.AutoIncrementValue: AutoLayout, AnsiClass, Class, Abstract, BeforeFieldInit
   Properties:
     Boolean Auto 'get set' : 
@@ -3141,7 +3141,6 @@ Class System.Data.VersionNotFoundException: AutoLayout, AnsiClass, Class, Public
     Void .ctor(System.String, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Class System.Data.ExceptionBuilder: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Methods:
-    DuplicateDeclaration(String): PrivateScope, Public, Static, HideBySig
     FoundEntity(): PrivateScope, Public, Static, HideBySig
     MergeFailed(String): PrivateScope, Public, Static, HideBySig
     ConvertFailed(Type, Type): PrivateScope, Public, Static, HideBySig
@@ -3155,6 +3154,48 @@ Class System.Data.ExceptionBuilder: AutoLayout, AnsiClass, Class, Abstract, Seal
     InvalidDuplicateNamedSimpleTypeDelaration(String, String): PrivateScope, Assembly, Static, HideBySig
     InternalRBTreeError(RBTreeError): PrivateScope, Assembly, Static, HideBySig
     EnumeratorModified(): PrivateScope, Public, Static, HideBySig
+    KeyColumnsIdentical(): PrivateScope, Public, Static, HideBySig
+    RelationForeignTable(String, String): PrivateScope, Public, Static, HideBySig
+    GetParentRowTableMismatch(String, String): PrivateScope, Public, Static, HideBySig
+    SetParentRowTableMismatch(String, String): PrivateScope, Public, Static, HideBySig
+    RelationForeignRow(): PrivateScope, Public, Static, HideBySig
+    RelationNestedReadOnly(): PrivateScope, Public, Static, HideBySig
+    TableCantBeNestedInTwoTables(String): PrivateScope, Public, Static, HideBySig
+    LoopInNestedRelations(String): PrivateScope, Public, Static, HideBySig
+    RelationDoesNotExist(): PrivateScope, Public, Static, HideBySig
+    ParentRowNotInTheDataSet(): PrivateScope, Public, Static, HideBySig
+    ParentOrChildColumnsDoNotHaveDataSet(): PrivateScope, Public, Static, HideBySig
+    InValidNestedRelation(String): PrivateScope, Public, Static, HideBySig
+    InvalidParentNamespaceinNestedRelation(String): PrivateScope, Public, Static, HideBySig
+    RowNotInTheDataSet(): PrivateScope, Public, Static, HideBySig
+    RowNotInTheTable(): PrivateScope, Public, Static, HideBySig
+    EditInRowChanging(): PrivateScope, Public, Static, HideBySig
+    EndEditInRowChanging(): PrivateScope, Public, Static, HideBySig
+    BeginEditInRowChanging(): PrivateScope, Public, Static, HideBySig
+    CancelEditInRowChanging(): PrivateScope, Public, Static, HideBySig
+    DeleteInRowDeleting(): PrivateScope, Public, Static, HideBySig
+    ValueArrayLength(): PrivateScope, Public, Static, HideBySig
+    NoCurrentData(): PrivateScope, Public, Static, HideBySig
+    NoOriginalData(): PrivateScope, Public, Static, HideBySig
+    NoProposedData(): PrivateScope, Public, Static, HideBySig
+    RowRemovedFromTheTable(): PrivateScope, Public, Static, HideBySig
+    DeletedRowInaccessible(): PrivateScope, Public, Static, HideBySig
+    RowAlreadyDeleted(): PrivateScope, Public, Static, HideBySig
+    RowEmpty(): PrivateScope, Public, Static, HideBySig
+    InvalidRowVersion(): PrivateScope, Public, Static, HideBySig
+    RowOutOfRange(): PrivateScope, Public, Static, HideBySig
+    RowOutOfRange(Int32): PrivateScope, Public, Static, HideBySig
+    RowInsertOutOfRange(Int32): PrivateScope, Public, Static, HideBySig
+    RowInsertTwice(Int32, String): PrivateScope, Public, Static, HideBySig
+    RowInsertMissing(String): PrivateScope, Public, Static, HideBySig
+    RowAlreadyRemoved(): PrivateScope, Public, Static, HideBySig
+    MultipleParents(): PrivateScope, Public, Static, HideBySig
+    InvalidRowState(DataRowState): PrivateScope, Public, Static, HideBySig
+    InvalidRowBitPattern(): PrivateScope, Public, Static, HideBySig
+    SetDataSetNameToEmpty(): PrivateScope, Assembly, Static, HideBySig
+    SetDataSetNameConflicting(String): PrivateScope, Assembly, Static, HideBySig
+    DataSetUnsupportedSchema(String): PrivateScope, Public, Static, HideBySig
+    MergeMissingDefinition(String): PrivateScope, Public, Static, HideBySig
     TablesInDifferentSets(): PrivateScope, Public, Static, HideBySig
     RelationAlreadyExists(): PrivateScope, Public, Static, HideBySig
     RowAlreadyInOtherCollection(): PrivateScope, Public, Static, HideBySig
@@ -3240,91 +3281,7 @@ Class System.Data.ExceptionBuilder: AutoLayout, AnsiClass, Class, Abstract, Seal
     PolymorphismNotSupported(String): PrivateScope, Public, Static, HideBySig
     DataTableInferenceNotSupported(): PrivateScope, Public, Static, HideBySig
     ThrowMultipleTargetConverter(Exception): PrivateScope, Assembly, Static, HideBySig
-    HasToBeStringType(DataColumn): PrivateScope, Public, Static, HideBySig
-    AutoIncrementCannotSetIfHasData(String): PrivateScope, Public, Static, HideBySig
-    INullableUDTwithoutStaticNull(String): PrivateScope, Public, Static, HideBySig
-    IComparableNotImplemented(String): PrivateScope, Public, Static, HideBySig
-    UDTImplementsIChangeTrackingButnotIRevertible(String): PrivateScope, Public, Static, HideBySig
-    SetAddedAndModifiedCalledOnnonUnchanged(): PrivateScope, Public, Static, HideBySig
-    InvalidDataColumnMapping(Type): PrivateScope, Public, Static, HideBySig
-    CannotSetDateTimeModeForNonDateTimeColumns(): PrivateScope, Public, Static, HideBySig
-    InvalidDateTimeMode(DataSetDateTime): PrivateScope, Public, Static, HideBySig
-    CantChangeDateTimeMode(DataSetDateTime, DataSetDateTime): PrivateScope, Public, Static, HideBySig
-    ColumnTypeNotSupported(): PrivateScope, Public, Static, HideBySig
-    SetFailed(String): PrivateScope, Public, Static, HideBySig
-    SetDataSetFailed(): PrivateScope, Public, Static, HideBySig
-    SetRowStateFilter(): PrivateScope, Public, Static, HideBySig
-    CanNotSetDataSet(): PrivateScope, Public, Static, HideBySig
-    CanNotUseDataViewManager(): PrivateScope, Public, Static, HideBySig
-    CanNotSetTable(): PrivateScope, Public, Static, HideBySig
-    CanNotUse(): PrivateScope, Public, Static, HideBySig
-    CanNotBindTable(): PrivateScope, Public, Static, HideBySig
-    SetTable(): PrivateScope, Public, Static, HideBySig
-    SetIListObject(): PrivateScope, Public, Static, HideBySig
-    AddNewNotAllowNull(): PrivateScope, Public, Static, HideBySig
-    NotOpen(): PrivateScope, Public, Static, HideBySig
-    CreateChildView(): PrivateScope, Public, Static, HideBySig
-    CanNotDelete(): PrivateScope, Public, Static, HideBySig
-    CanNotEdit(): PrivateScope, Public, Static, HideBySig
-    GetElementIndex(Int32): PrivateScope, Public, Static, HideBySig
-    AddExternalObject(): PrivateScope, Public, Static, HideBySig
-    CanNotClear(): PrivateScope, Public, Static, HideBySig
-    InsertExternalObject(): PrivateScope, Public, Static, HideBySig
-    RemoveExternalObject(): PrivateScope, Public, Static, HideBySig
-    PropertyNotFound(String, String): PrivateScope, Public, Static, HideBySig
-    ColumnToSortIsOutOfRange(String): PrivateScope, Public, Static, HideBySig
-    KeyTableMismatch(): PrivateScope, Public, Static, HideBySig
-    KeyNoColumns(): PrivateScope, Public, Static, HideBySig
-    KeyTooManyColumns(Int32): PrivateScope, Public, Static, HideBySig
-    KeyDuplicateColumns(String): PrivateScope, Public, Static, HideBySig
-    RelationDataSetMismatch(): PrivateScope, Public, Static, HideBySig
-    NoRelationName(): PrivateScope, Public, Static, HideBySig
-    ColumnsTypeMismatch(): PrivateScope, Public, Static, HideBySig
-    KeyLengthMismatch(): PrivateScope, Public, Static, HideBySig
-    KeyLengthZero(): PrivateScope, Public, Static, HideBySig
-    ForeignRelation(): PrivateScope, Public, Static, HideBySig
-    KeyColumnsIdentical(): PrivateScope, Public, Static, HideBySig
-    RelationForeignTable(String, String): PrivateScope, Public, Static, HideBySig
-    GetParentRowTableMismatch(String, String): PrivateScope, Public, Static, HideBySig
-    SetParentRowTableMismatch(String, String): PrivateScope, Public, Static, HideBySig
-    RelationForeignRow(): PrivateScope, Public, Static, HideBySig
-    RelationNestedReadOnly(): PrivateScope, Public, Static, HideBySig
-    TableCantBeNestedInTwoTables(String): PrivateScope, Public, Static, HideBySig
-    LoopInNestedRelations(String): PrivateScope, Public, Static, HideBySig
-    RelationDoesNotExist(): PrivateScope, Public, Static, HideBySig
-    ParentRowNotInTheDataSet(): PrivateScope, Public, Static, HideBySig
-    ParentOrChildColumnsDoNotHaveDataSet(): PrivateScope, Public, Static, HideBySig
-    InValidNestedRelation(String): PrivateScope, Public, Static, HideBySig
-    InvalidParentNamespaceinNestedRelation(String): PrivateScope, Public, Static, HideBySig
-    RowNotInTheDataSet(): PrivateScope, Public, Static, HideBySig
-    RowNotInTheTable(): PrivateScope, Public, Static, HideBySig
-    EditInRowChanging(): PrivateScope, Public, Static, HideBySig
-    EndEditInRowChanging(): PrivateScope, Public, Static, HideBySig
-    BeginEditInRowChanging(): PrivateScope, Public, Static, HideBySig
-    CancelEditInRowChanging(): PrivateScope, Public, Static, HideBySig
-    DeleteInRowDeleting(): PrivateScope, Public, Static, HideBySig
-    ValueArrayLength(): PrivateScope, Public, Static, HideBySig
-    NoCurrentData(): PrivateScope, Public, Static, HideBySig
-    NoOriginalData(): PrivateScope, Public, Static, HideBySig
-    NoProposedData(): PrivateScope, Public, Static, HideBySig
-    RowRemovedFromTheTable(): PrivateScope, Public, Static, HideBySig
-    DeletedRowInaccessible(): PrivateScope, Public, Static, HideBySig
-    RowAlreadyDeleted(): PrivateScope, Public, Static, HideBySig
-    RowEmpty(): PrivateScope, Public, Static, HideBySig
-    InvalidRowVersion(): PrivateScope, Public, Static, HideBySig
-    RowOutOfRange(): PrivateScope, Public, Static, HideBySig
-    RowOutOfRange(Int32): PrivateScope, Public, Static, HideBySig
-    RowInsertOutOfRange(Int32): PrivateScope, Public, Static, HideBySig
-    RowInsertTwice(Int32, String): PrivateScope, Public, Static, HideBySig
-    RowInsertMissing(String): PrivateScope, Public, Static, HideBySig
-    RowAlreadyRemoved(): PrivateScope, Public, Static, HideBySig
-    MultipleParents(): PrivateScope, Public, Static, HideBySig
-    InvalidRowState(DataRowState): PrivateScope, Public, Static, HideBySig
-    InvalidRowBitPattern(): PrivateScope, Public, Static, HideBySig
-    SetDataSetNameToEmpty(): PrivateScope, Assembly, Static, HideBySig
-    SetDataSetNameConflicting(String): PrivateScope, Assembly, Static, HideBySig
-    DataSetUnsupportedSchema(String): PrivateScope, Public, Static, HideBySig
-    MergeMissingDefinition(String): PrivateScope, Public, Static, HideBySig
+    DuplicateDeclaration(String): PrivateScope, Public, Static, HideBySig
     TraceExceptionAsReturnValue(Exception): PrivateScope, Assembly, Static, HideBySig
     TraceExceptionForCapture(Exception): PrivateScope, Assembly, Static, HideBySig
     TraceExceptionWithoutRethrow(Exception): PrivateScope, Assembly, Static, HideBySig
@@ -3410,6 +3367,49 @@ Class System.Data.ExceptionBuilder: AutoLayout, AnsiClass, Class, Abstract, Seal
     CannotSetSimpleContentType(String, Type): PrivateScope, Public, Static, HideBySig
     CannotSetSimpleContent(String, Type): PrivateScope, Public, Static, HideBySig
     CannotChangeNamespace(String): PrivateScope, Public, Static, HideBySig
+    HasToBeStringType(DataColumn): PrivateScope, Public, Static, HideBySig
+    AutoIncrementCannotSetIfHasData(String): PrivateScope, Public, Static, HideBySig
+    INullableUDTwithoutStaticNull(String): PrivateScope, Public, Static, HideBySig
+    IComparableNotImplemented(String): PrivateScope, Public, Static, HideBySig
+    UDTImplementsIChangeTrackingButnotIRevertible(String): PrivateScope, Public, Static, HideBySig
+    SetAddedAndModifiedCalledOnnonUnchanged(): PrivateScope, Public, Static, HideBySig
+    InvalidDataColumnMapping(Type): PrivateScope, Public, Static, HideBySig
+    CannotSetDateTimeModeForNonDateTimeColumns(): PrivateScope, Public, Static, HideBySig
+    InvalidDateTimeMode(DataSetDateTime): PrivateScope, Public, Static, HideBySig
+    CantChangeDateTimeMode(DataSetDateTime, DataSetDateTime): PrivateScope, Public, Static, HideBySig
+    ColumnTypeNotSupported(): PrivateScope, Public, Static, HideBySig
+    SetFailed(String): PrivateScope, Public, Static, HideBySig
+    SetDataSetFailed(): PrivateScope, Public, Static, HideBySig
+    SetRowStateFilter(): PrivateScope, Public, Static, HideBySig
+    CanNotSetDataSet(): PrivateScope, Public, Static, HideBySig
+    CanNotUseDataViewManager(): PrivateScope, Public, Static, HideBySig
+    CanNotSetTable(): PrivateScope, Public, Static, HideBySig
+    CanNotUse(): PrivateScope, Public, Static, HideBySig
+    CanNotBindTable(): PrivateScope, Public, Static, HideBySig
+    SetTable(): PrivateScope, Public, Static, HideBySig
+    SetIListObject(): PrivateScope, Public, Static, HideBySig
+    AddNewNotAllowNull(): PrivateScope, Public, Static, HideBySig
+    NotOpen(): PrivateScope, Public, Static, HideBySig
+    CreateChildView(): PrivateScope, Public, Static, HideBySig
+    CanNotDelete(): PrivateScope, Public, Static, HideBySig
+    CanNotEdit(): PrivateScope, Public, Static, HideBySig
+    GetElementIndex(Int32): PrivateScope, Public, Static, HideBySig
+    AddExternalObject(): PrivateScope, Public, Static, HideBySig
+    CanNotClear(): PrivateScope, Public, Static, HideBySig
+    InsertExternalObject(): PrivateScope, Public, Static, HideBySig
+    RemoveExternalObject(): PrivateScope, Public, Static, HideBySig
+    PropertyNotFound(String, String): PrivateScope, Public, Static, HideBySig
+    ColumnToSortIsOutOfRange(String): PrivateScope, Public, Static, HideBySig
+    KeyTableMismatch(): PrivateScope, Public, Static, HideBySig
+    KeyNoColumns(): PrivateScope, Public, Static, HideBySig
+    KeyTooManyColumns(Int32): PrivateScope, Public, Static, HideBySig
+    KeyDuplicateColumns(String): PrivateScope, Public, Static, HideBySig
+    RelationDataSetMismatch(): PrivateScope, Public, Static, HideBySig
+    NoRelationName(): PrivateScope, Public, Static, HideBySig
+    ColumnsTypeMismatch(): PrivateScope, Public, Static, HideBySig
+    KeyLengthMismatch(): PrivateScope, Public, Static, HideBySig
+    KeyLengthZero(): PrivateScope, Public, Static, HideBySig
+    ForeignRelation(): PrivateScope, Public, Static, HideBySig
 Struct System.Data.DataKey: AutoLayout, AnsiClass, Class, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
     Void .ctor(System.Data.DataColumn[], Boolean): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
@@ -3600,10 +3600,6 @@ Class System.Data.DataRow: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     System.Object[] ItemArray 'get set' : 
     Boolean HasErrors 'get ' : 
   Methods:
-    SetParentRowToDBNull(DataRelation): PrivateScope, Assembly, HideBySig
-    SetAdded(): PrivateScope, Public, HideBySig
-    SetModified(): PrivateScope, Public, HideBySig
-    CopyValuesIntoStore(ArrayList, ArrayList, Int32): PrivateScope, Assembly, HideBySig
     get_Element(): PrivateScope, Assembly, HideBySig, SpecialName
     set_Element(XmlBoundElement): PrivateScope, Assembly, HideBySig, SpecialName
     get_LastChangedColumn(): PrivateScope, Assembly, HideBySig, SpecialName
@@ -3687,6 +3683,10 @@ Class System.Data.DataRow: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     SetParentRow(DataRow): PrivateScope, Public, HideBySig
     SetParentRow(DataRow, DataRelation): PrivateScope, Public, HideBySig
     SetParentRowToDBNull(): PrivateScope, Assembly, HideBySig
+    SetParentRowToDBNull(DataRelation): PrivateScope, Assembly, HideBySig
+    SetAdded(): PrivateScope, Public, HideBySig
+    SetModified(): PrivateScope, Public, HideBySig
+    CopyValuesIntoStore(ArrayList, ArrayList, Int32): PrivateScope, Assembly, HideBySig
 Class System.Data.DataRowBuilder: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
     Void .ctor(System.Data.DataTable, Int32): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -3883,49 +3883,6 @@ Class System.Data.DataSet: AutoLayout, AnsiClass, Class, Public, Serializable, B
     System.Data.DataSetClearEventhandler ClearFunctionCalled: 
     System.EventHandler Initialized: 
   Methods:
-    WriteXmlSchema(TextWriter, Converter`2): PrivateScope, Public, HideBySig
-    WriteXmlSchema(XmlWriter): PrivateScope, Public, HideBySig
-    WriteXmlSchema(XmlWriter, Converter`2): PrivateScope, Public, HideBySig
-    ReadXml(XmlReader): PrivateScope, Public, HideBySig
-    ReadXml(XmlReader, Boolean): PrivateScope, Assembly, HideBySig
-    ReadXml(Stream): PrivateScope, Public, HideBySig
-    ReadXml(TextReader): PrivateScope, Public, HideBySig
-    ReadXml(String): PrivateScope, Public, HideBySig
-    InferSchema(XmlDocument, String[], XmlReadMode): PrivateScope, Assembly, HideBySig
-    ReadXml(XmlReader, XmlReadMode): PrivateScope, Public, HideBySig
-    ReadXml(XmlReader, XmlReadMode, Boolean): PrivateScope, Assembly, HideBySig
-    ReadXml(Stream, XmlReadMode): PrivateScope, Public, HideBySig
-    ReadXml(TextReader, XmlReadMode): PrivateScope, Public, HideBySig
-    ReadXml(String, XmlReadMode): PrivateScope, Public, HideBySig
-    WriteXml(Stream): PrivateScope, Public, HideBySig
-    WriteXml(TextWriter): PrivateScope, Public, HideBySig
-    WriteXml(XmlWriter): PrivateScope, Public, HideBySig
-    WriteXml(String): PrivateScope, Public, HideBySig
-    WriteXml(Stream, XmlWriteMode): PrivateScope, Public, HideBySig
-    WriteXml(TextWriter, XmlWriteMode): PrivateScope, Public, HideBySig
-    WriteXml(XmlWriter, XmlWriteMode): PrivateScope, Public, HideBySig
-    WriteXml(String, XmlWriteMode): PrivateScope, Public, HideBySig
-    GetParentRelations(DataTable): PrivateScope, Assembly, HideBySig
-    Merge(DataSet): PrivateScope, Public, HideBySig
-    Merge(DataSet, Boolean): PrivateScope, Public, HideBySig
-    Merge(DataSet, Boolean, MissingSchemaAction): PrivateScope, Public, HideBySig
-    Merge(DataTable): PrivateScope, Public, HideBySig
-    Merge(DataTable, Boolean, MissingSchemaAction): PrivateScope, Public, HideBySig
-    Merge(DataRow[]): PrivateScope, Public, HideBySig
-    Merge(DataRow[], Boolean, MissingSchemaAction): PrivateScope, Public, HideBySig
-    OnMergeFailed(MergeFailedEventArgs): PrivateScope, Assembly, HideBySig
-    RaiseMergeFailed(DataTable, String, MissingSchemaAction): PrivateScope, Assembly, HideBySig
-    OnDataRowCreated(DataRow): PrivateScope, Assembly, HideBySig
-    OnClearFunctionCalled(DataTable): PrivateScope, Assembly, HideBySig
-    OnRemovedTable(DataTable): PrivateScope, Assembly, HideBySig
-    OnRemoveRelationHack(DataRelation): PrivateScope, Assembly, HideBySig
-    TopLevelTables(): PrivateScope, Assembly, HideBySig
-    TopLevelTables(Boolean): PrivateScope, Assembly, HideBySig
-    RejectChanges(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
-    Reset(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
-    ValidateCaseConstraint(): PrivateScope, Assembly, HideBySig
-    ValidateLocaleConstraint(): PrivateScope, Assembly, HideBySig
-    FindTable(DataTable, PropertyDescriptor[], Int32): PrivateScope, Assembly, HideBySig
     GetDataSetSchema(XmlSchemaSet): PrivateScope, Public, Static, HideBySig
     Load(IDataReader, LoadOption, FillErrorEventHandler, DataTable[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
     Load(IDataReader, LoadOption, DataTable[]): PrivateScope, Public, HideBySig
@@ -4011,6 +3968,49 @@ Class System.Data.DataSet: AutoLayout, AnsiClass, Class, Public, Serializable, B
     WriteXmlSchema(String): PrivateScope, Public, HideBySig
     WriteXmlSchema(String, Converter`2): PrivateScope, Public, HideBySig
     WriteXmlSchema(TextWriter): PrivateScope, Public, HideBySig
+    WriteXmlSchema(TextWriter, Converter`2): PrivateScope, Public, HideBySig
+    WriteXmlSchema(XmlWriter): PrivateScope, Public, HideBySig
+    WriteXmlSchema(XmlWriter, Converter`2): PrivateScope, Public, HideBySig
+    ReadXml(XmlReader): PrivateScope, Public, HideBySig
+    ReadXml(XmlReader, Boolean): PrivateScope, Assembly, HideBySig
+    ReadXml(Stream): PrivateScope, Public, HideBySig
+    ReadXml(TextReader): PrivateScope, Public, HideBySig
+    ReadXml(String): PrivateScope, Public, HideBySig
+    InferSchema(XmlDocument, String[], XmlReadMode): PrivateScope, Assembly, HideBySig
+    ReadXml(XmlReader, XmlReadMode): PrivateScope, Public, HideBySig
+    ReadXml(XmlReader, XmlReadMode, Boolean): PrivateScope, Assembly, HideBySig
+    ReadXml(Stream, XmlReadMode): PrivateScope, Public, HideBySig
+    ReadXml(TextReader, XmlReadMode): PrivateScope, Public, HideBySig
+    ReadXml(String, XmlReadMode): PrivateScope, Public, HideBySig
+    WriteXml(Stream): PrivateScope, Public, HideBySig
+    WriteXml(TextWriter): PrivateScope, Public, HideBySig
+    WriteXml(XmlWriter): PrivateScope, Public, HideBySig
+    WriteXml(String): PrivateScope, Public, HideBySig
+    WriteXml(Stream, XmlWriteMode): PrivateScope, Public, HideBySig
+    WriteXml(TextWriter, XmlWriteMode): PrivateScope, Public, HideBySig
+    WriteXml(XmlWriter, XmlWriteMode): PrivateScope, Public, HideBySig
+    WriteXml(String, XmlWriteMode): PrivateScope, Public, HideBySig
+    GetParentRelations(DataTable): PrivateScope, Assembly, HideBySig
+    Merge(DataSet): PrivateScope, Public, HideBySig
+    Merge(DataSet, Boolean): PrivateScope, Public, HideBySig
+    Merge(DataSet, Boolean, MissingSchemaAction): PrivateScope, Public, HideBySig
+    Merge(DataTable): PrivateScope, Public, HideBySig
+    Merge(DataTable, Boolean, MissingSchemaAction): PrivateScope, Public, HideBySig
+    Merge(DataRow[]): PrivateScope, Public, HideBySig
+    Merge(DataRow[], Boolean, MissingSchemaAction): PrivateScope, Public, HideBySig
+    OnMergeFailed(MergeFailedEventArgs): PrivateScope, Assembly, HideBySig
+    RaiseMergeFailed(DataTable, String, MissingSchemaAction): PrivateScope, Assembly, HideBySig
+    OnDataRowCreated(DataRow): PrivateScope, Assembly, HideBySig
+    OnClearFunctionCalled(DataTable): PrivateScope, Assembly, HideBySig
+    OnRemovedTable(DataTable): PrivateScope, Assembly, HideBySig
+    OnRemoveRelationHack(DataRelation): PrivateScope, Assembly, HideBySig
+    TopLevelTables(): PrivateScope, Assembly, HideBySig
+    TopLevelTables(Boolean): PrivateScope, Assembly, HideBySig
+    RejectChanges(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    Reset(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    ValidateCaseConstraint(): PrivateScope, Assembly, HideBySig
+    ValidateLocaleConstraint(): PrivateScope, Assembly, HideBySig
+    FindTable(DataTable, PropertyDescriptor[], Int32): PrivateScope, Assembly, HideBySig
 Class System.Data.DataSetSchemaImporterExtension: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Xml.Serialization.Advanced.SchemaImporterExtension
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -4133,14 +4133,40 @@ Class System.Data.DataTable: AutoLayout, AnsiClass, Class, Public, Serializable,
     System.Data.DataTableClearEventHandler TableCleared: 
     System.Data.DataTableNewRowEventHandler TableNewRow: 
   Methods:
-    get_ObjectID(): PrivateScope, Assembly, HideBySig, SpecialName
-    AddDependentColumn(DataColumn): PrivateScope, Assembly, HideBySig
-    RemoveDependentColumn(DataColumn): PrivateScope, Assembly, HideBySig
     EvaluateExpressions(): PrivateScope, Assembly, HideBySig
     EvaluateExpressions(DataRow, DataRowAction, List`1): PrivateScope, Assembly, HideBySig
     EvaluateExpressions(DataColumn): PrivateScope, Assembly, HideBySig
     EvaluateDependentExpressions(DataColumn): PrivateScope, Assembly, HideBySig
     EvaluateDependentExpressions(List`1, DataRow, DataRowVersion, List`1): PrivateScope, Assembly, HideBySig
+    CopyRow(DataTable, DataRow): PrivateScope, Assembly, HideBySig
+    DeleteRow(DataRow): PrivateScope, Assembly, HideBySig
+    FindByPrimaryKey(Object[]): PrivateScope, Assembly, HideBySig
+    FindByPrimaryKey(Object): PrivateScope, Assembly, HideBySig
+    FormatSortString(IndexField[]): PrivateScope, Assembly, HideBySig
+    FreeRecord(Int32&): PrivateScope, Assembly, HideBySig
+    GetChanges(): PrivateScope, Public, HideBySig
+    GetChanges(DataRowState): PrivateScope, Public, HideBySig
+    GetErrors(): PrivateScope, Public, HideBySig
+    GetIndex(IndexField[]): PrivateScope, Assembly, HideBySig
+    GetIndex(String, DataViewRowState, IFilter): PrivateScope, Assembly, HideBySig
+    GetIndex(IndexField[], DataViewRowState, IFilter): PrivateScope, Assembly, HideBySig
+    GetListeners(): PrivateScope, Assembly, HideBySig
+    GetSpecialHashCode(String): PrivateScope, Assembly, HideBySig
+    ImportRow(DataRow): PrivateScope, Public, HideBySig
+    InsertRow(DataRow, Int64): PrivateScope, Assembly, HideBySig
+    NewRecord(): PrivateScope, Assembly, HideBySig
+    NewUninitializedRecord(): PrivateScope, Assembly, HideBySig
+    NewRecordFromArray(Object[]): PrivateScope, Assembly, HideBySig
+    NewRecord(Int32): PrivateScope, Assembly, HideBySig
+    NewEmptyRow(): PrivateScope, Assembly, HideBySig
+    NewRow(): PrivateScope, Public, HideBySig
+    CreateEmptyRow(): PrivateScope, Assembly, HideBySig
+    NewRow(Int32): PrivateScope, Assembly, HideBySig
+    get_NeedColumnChangeEvents(): PrivateScope, Assembly, HideBySig, SpecialName
+    OnRemoveColumnInternal(DataColumn): PrivateScope, Assembly, HideBySig
+    ParseSortString(String): PrivateScope, Assembly, HideBySig
+    RaisePropertyChanging(String): PrivateScope, Assembly, HideBySig
+    RecordChanged(Int32): PrivateScope, Assembly, HideBySig
     RecordChanged(Int32[], Int32[]): PrivateScope, Assembly, HideBySig
     RecordStateChanged(Int32, DataViewRowState, DataViewRowState): PrivateScope, Assembly, HideBySig
     RecordStateChanged(Int32, DataViewRowState, DataViewRowState, Int32, DataViewRowState, DataViewRowState): PrivateScope, Assembly, HideBySig
@@ -4222,80 +4248,9 @@ Class System.Data.DataTable: AutoLayout, AnsiClass, Class, Public, Serializable,
     ReadXmlSchema(XmlReader, Boolean): PrivateScope, Assembly, HideBySig
     GetDataTableSchema(XmlSchemaSet): PrivateScope, Public, Static, HideBySig
     get_RowDiffId(): PrivateScope, Assembly, HideBySig, SpecialName
-    FindMergeTarget(DataRow, DataKey, Index): PrivateScope, Assembly, HideBySig
-    MergeRow(DataRow, DataRow, Boolean, Index): PrivateScope, Assembly, HideBySig
-    AcceptChanges(): PrivateScope, Public, HideBySig
-    Clone(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
-    Clone(DataSet): PrivateScope, Assembly, HideBySig
-    Copy(): PrivateScope, Public, HideBySig
-    add_ColumnChanging(DataColumnChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    remove_ColumnChanging(DataColumnChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    add_ColumnChanged(DataColumnChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    remove_ColumnChanged(DataColumnChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    add_Initialized(EventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    remove_Initialized(EventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    add_PropertyChanging(PropertyChangedEventHandler): PrivateScope, Assembly, HideBySig, SpecialName
-    remove_PropertyChanging(PropertyChangedEventHandler): PrivateScope, Assembly, HideBySig, SpecialName
-    add_RowChanged(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    remove_RowChanged(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    add_RowChanging(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    remove_RowChanging(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    add_RowDeleting(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    remove_RowDeleting(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    add_RowDeleted(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    remove_RowDeleted(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    add_TableClearing(DataTableClearEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    remove_TableClearing(DataTableClearEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    add_TableCleared(DataTableClearEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    remove_TableCleared(DataTableClearEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    add_TableNewRow(DataTableNewRowEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    remove_TableNewRow(DataTableNewRowEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    get_Site(): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    set_Site(ISite): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    AddRecords(Int32, Int32): PrivateScope, Assembly, HideBySig
-    AddRow(DataRow): PrivateScope, Assembly, HideBySig
-    AddRow(DataRow, Int32): PrivateScope, Assembly, HideBySig
-    InsertRow(DataRow, Int32, Int32): PrivateScope, Assembly, HideBySig
-    InsertRow(DataRow, Int64, Int32, Boolean): PrivateScope, Assembly, HideBySig
-    CheckNotModifying(DataRow): PrivateScope, Assembly, HideBySig
-    Clear(): PrivateScope, Public, HideBySig
-    Clear(Boolean): PrivateScope, Assembly, HideBySig
-    CascadeAll(DataRow, DataRowAction): PrivateScope, Assembly, HideBySig
-    CommitRow(DataRow): PrivateScope, Assembly, HideBySig
-    Compare(String, String): PrivateScope, Assembly, HideBySig
-    Compare(String, String, CompareInfo): PrivateScope, Assembly, HideBySig
-    IndexOf(String, String): PrivateScope, Assembly, HideBySig
-    IsSuffix(String, String): PrivateScope, Assembly, HideBySig
-    Compute(String, String): PrivateScope, Public, HideBySig
-    CopyRow(DataTable, DataRow): PrivateScope, Assembly, HideBySig
-    DeleteRow(DataRow): PrivateScope, Assembly, HideBySig
-    FindByPrimaryKey(Object[]): PrivateScope, Assembly, HideBySig
-    FindByPrimaryKey(Object): PrivateScope, Assembly, HideBySig
-    FormatSortString(IndexField[]): PrivateScope, Assembly, HideBySig
-    FreeRecord(Int32&): PrivateScope, Assembly, HideBySig
-    GetChanges(): PrivateScope, Public, HideBySig
-    GetChanges(DataRowState): PrivateScope, Public, HideBySig
-    GetErrors(): PrivateScope, Public, HideBySig
-    GetIndex(IndexField[]): PrivateScope, Assembly, HideBySig
-    GetIndex(String, DataViewRowState, IFilter): PrivateScope, Assembly, HideBySig
-    GetIndex(IndexField[], DataViewRowState, IFilter): PrivateScope, Assembly, HideBySig
-    GetListeners(): PrivateScope, Assembly, HideBySig
-    GetSpecialHashCode(String): PrivateScope, Assembly, HideBySig
-    ImportRow(DataRow): PrivateScope, Public, HideBySig
-    InsertRow(DataRow, Int64): PrivateScope, Assembly, HideBySig
-    NewRecord(): PrivateScope, Assembly, HideBySig
-    NewUninitializedRecord(): PrivateScope, Assembly, HideBySig
-    NewRecordFromArray(Object[]): PrivateScope, Assembly, HideBySig
-    NewRecord(Int32): PrivateScope, Assembly, HideBySig
-    NewEmptyRow(): PrivateScope, Assembly, HideBySig
-    NewRow(): PrivateScope, Public, HideBySig
-    CreateEmptyRow(): PrivateScope, Assembly, HideBySig
-    NewRow(Int32): PrivateScope, Assembly, HideBySig
-    get_NeedColumnChangeEvents(): PrivateScope, Assembly, HideBySig, SpecialName
-    OnRemoveColumnInternal(DataColumn): PrivateScope, Assembly, HideBySig
-    ParseSortString(String): PrivateScope, Assembly, HideBySig
-    RaisePropertyChanging(String): PrivateScope, Assembly, HideBySig
-    RecordChanged(Int32): PrivateScope, Assembly, HideBySig
+    get_ObjectID(): PrivateScope, Assembly, HideBySig, SpecialName
+    AddDependentColumn(DataColumn): PrivateScope, Assembly, HideBySig
+    RemoveDependentColumn(DataColumn): PrivateScope, Assembly, HideBySig
     GetObjectData(SerializationInfo, StreamingContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, HasSecurity
     DeserializeDataTable(SerializationInfo, StreamingContext, Boolean, SerializationFormat): PrivateScope, Assembly, HideBySig
     SerializeTableSchema(SerializationInfo, StreamingContext, Boolean): PrivateScope, Assembly, HideBySig
@@ -4379,6 +4334,51 @@ Class System.Data.DataTable: AutoLayout, AnsiClass, Class, Public, Serializable,
     set_MinOccurs(Decimal): PrivateScope, Assembly, HideBySig, SpecialName
     SetKeyValues(DataKey, Object[], Int32): PrivateScope, Assembly, HideBySig
     FindByIndex(Index, Object[]): PrivateScope, Assembly, HideBySig
+    FindMergeTarget(DataRow, DataKey, Index): PrivateScope, Assembly, HideBySig
+    MergeRow(DataRow, DataRow, Boolean, Index): PrivateScope, Assembly, HideBySig
+    AcceptChanges(): PrivateScope, Public, HideBySig
+    Clone(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    Clone(DataSet): PrivateScope, Assembly, HideBySig
+    Copy(): PrivateScope, Public, HideBySig
+    add_ColumnChanging(DataColumnChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_ColumnChanging(DataColumnChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    add_ColumnChanged(DataColumnChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_ColumnChanged(DataColumnChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    add_Initialized(EventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_Initialized(EventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    add_PropertyChanging(PropertyChangedEventHandler): PrivateScope, Assembly, HideBySig, SpecialName
+    remove_PropertyChanging(PropertyChangedEventHandler): PrivateScope, Assembly, HideBySig, SpecialName
+    add_RowChanged(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_RowChanged(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    add_RowChanging(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_RowChanging(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    add_RowDeleting(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_RowDeleting(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    add_RowDeleted(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_RowDeleted(DataRowChangeEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    add_TableClearing(DataTableClearEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_TableClearing(DataTableClearEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    add_TableCleared(DataTableClearEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_TableCleared(DataTableClearEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    add_TableNewRow(DataTableNewRowEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_TableNewRow(DataTableNewRowEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    get_Site(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Site(ISite): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    AddRecords(Int32, Int32): PrivateScope, Assembly, HideBySig
+    AddRow(DataRow): PrivateScope, Assembly, HideBySig
+    AddRow(DataRow, Int32): PrivateScope, Assembly, HideBySig
+    InsertRow(DataRow, Int32, Int32): PrivateScope, Assembly, HideBySig
+    InsertRow(DataRow, Int64, Int32, Boolean): PrivateScope, Assembly, HideBySig
+    CheckNotModifying(DataRow): PrivateScope, Assembly, HideBySig
+    Clear(): PrivateScope, Public, HideBySig
+    Clear(Boolean): PrivateScope, Assembly, HideBySig
+    CascadeAll(DataRow, DataRowAction): PrivateScope, Assembly, HideBySig
+    CommitRow(DataRow): PrivateScope, Assembly, HideBySig
+    Compare(String, String): PrivateScope, Assembly, HideBySig
+    Compare(String, String, CompareInfo): PrivateScope, Assembly, HideBySig
+    IndexOf(String, String): PrivateScope, Assembly, HideBySig
+    IsSuffix(String, String): PrivateScope, Assembly, HideBySig
+    Compute(String, String): PrivateScope, Public, HideBySig
 Class System.Data.DataTableClearEventArgs: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
   :System.EventArgs
     Void .ctor(System.Data.DataTable): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -4585,25 +4585,6 @@ Class System.Data.DataView: AutoLayout, AnsiClass, Class, Public, BeforeFieldIni
     System.ComponentModel.ListChangedEventHandler ListChanged: 
     System.EventHandler Initialized: 
   Methods:
-    GetSortDescriptions(): PrivateScope, Assembly, HideBySig
-    GetFilter(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
-    GetRow(Int32): PrivateScope, Assembly, HideBySig
-    IndexListChangedInternal(ListChangedEventArgs): PrivateScope, Assembly, HideBySig
-    MaintainDataView(ListChangedType, DataRow, Boolean): PrivateScope, Assembly, HideBySig
-    ResetRowViewCache(): PrivateScope, Assembly, HideBySig
-    SetDataViewManager(DataViewManager): PrivateScope, Assembly, HideBySig
-    SetIndex(String, DataViewRowState, IFilter): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
-    SetIndex2(String, DataViewRowState, IFilter, Boolean): PrivateScope, Assembly, HideBySig
-    UpdateIndex(Boolean, Boolean): PrivateScope, Assembly, HideBySig
-    ChildRelationCollectionChanged(Object, CollectionChangeEventArgs): PrivateScope, Assembly, HideBySig
-    ParentRelationCollectionChanged(Object, CollectionChangeEventArgs): PrivateScope, Assembly, HideBySig
-    ColumnCollectionChangedInternal(Object, CollectionChangeEventArgs): PrivateScope, Assembly, HideBySig
-    ToTable(): PrivateScope, Public, HideBySig
-    ToTable(String): PrivateScope, Public, HideBySig
-    ToTable(Boolean, String[]): PrivateScope, Public, HideBySig
-    ToTable(String, Boolean, String[]): PrivateScope, Public, HideBySig
-    Equals(DataView): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
-    get_ObjectID(): PrivateScope, Assembly, HideBySig, SpecialName
     get_AllowDelete(): PrivateScope, Public, HideBySig, SpecialName
     set_AllowDelete(Boolean): PrivateScope, Public, HideBySig, SpecialName
     get_ApplyDefaultSort(): PrivateScope, Public, HideBySig, SpecialName
@@ -4652,6 +4633,25 @@ Class System.Data.DataView: AutoLayout, AnsiClass, Class, Public, BeforeFieldIni
     remove_ListChanged(ListChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
     add_Initialized(EventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
     remove_Initialized(EventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetSortDescriptions(): PrivateScope, Assembly, HideBySig
+    GetFilter(): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
+    GetRow(Int32): PrivateScope, Assembly, HideBySig
+    IndexListChangedInternal(ListChangedEventArgs): PrivateScope, Assembly, HideBySig
+    MaintainDataView(ListChangedType, DataRow, Boolean): PrivateScope, Assembly, HideBySig
+    ResetRowViewCache(): PrivateScope, Assembly, HideBySig
+    SetDataViewManager(DataViewManager): PrivateScope, Assembly, HideBySig
+    SetIndex(String, DataViewRowState, IFilter): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride
+    SetIndex2(String, DataViewRowState, IFilter, Boolean): PrivateScope, Assembly, HideBySig
+    UpdateIndex(Boolean, Boolean): PrivateScope, Assembly, HideBySig
+    ChildRelationCollectionChanged(Object, CollectionChangeEventArgs): PrivateScope, Assembly, HideBySig
+    ParentRelationCollectionChanged(Object, CollectionChangeEventArgs): PrivateScope, Assembly, HideBySig
+    ColumnCollectionChangedInternal(Object, CollectionChangeEventArgs): PrivateScope, Assembly, HideBySig
+    ToTable(): PrivateScope, Public, HideBySig
+    ToTable(String): PrivateScope, Public, HideBySig
+    ToTable(Boolean, String[]): PrivateScope, Public, HideBySig
+    ToTable(String, Boolean, String[]): PrivateScope, Public, HideBySig
+    Equals(DataView): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    get_ObjectID(): PrivateScope, Assembly, HideBySig, SpecialName
 Class System.Data.DataViewListener: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldInit
     Void .ctor(System.Data.DataView): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -8675,7 +8675,6 @@ Struct System.Data.SqlTypes.SqlDecimal: AutoLayout, AnsiClass, Class, Public, Se
     Int32[] Data 'get ' : 
     Byte[] BinData 'get ' : 
   Methods:
-    GetXsdType(XmlSchemaSet): PrivateScope, Public, Static, HideBySig
     get_IsNull(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
     get_Value(): PrivateScope, Public, HideBySig, SpecialName
     get_IsPositive(): PrivateScope, Public, HideBySig, SpecialName
@@ -8744,6 +8743,7 @@ Struct System.Data.SqlTypes.SqlDecimal: AutoLayout, AnsiClass, Class, Public, Se
     CompareTo(SqlDecimal): PrivateScope, Public, HideBySig
     Equals(Object): PrivateScope, Public, Virtual, HideBySig
     GetHashCode(): PrivateScope, Public, Virtual, HideBySig
+    GetXsdType(XmlSchemaSet): PrivateScope, Public, Static, HideBySig
 Struct System.Data.SqlTypes.SqlDouble: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, Serializable, BeforeFieldInit
   :System.ValueType
     Void .ctor(Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -10132,18 +10132,6 @@ Class System.Data.SqlClient.SqlCommand: AutoLayout, AnsiClass, Class, Public, Se
   Events:
     System.Data.StatementCompletedEventHandler StatementCompleted: 
   Methods:
-    set_IsDirty(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
-    get_RowsAffectedByDescribeParameterEncryption(): PrivateScope, Assembly, HideBySig, SpecialName
-    set_RowsAffectedByDescribeParameterEncryption(Int32): PrivateScope, Assembly, HideBySig, SpecialName
-    get_InternalRecordsAffected(): PrivateScope, Assembly, HideBySig, SpecialName
-    set_InternalRecordsAffected(Int32): PrivateScope, Assembly, HideBySig, SpecialName
-    get_BatchRPCMode(): PrivateScope, Assembly, HideBySig, SpecialName
-    set_BatchRPCMode(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
-    ClearBatchCommand(): PrivateScope, Assembly, HideBySig
-    AddBatchCommand(String, SqlParameterCollection, CommandType, SqlCommandColumnEncryptionSetting): PrivateScope, Assembly, HideBySig
-    ExecuteBatchRPCCommand(): PrivateScope, Assembly, HideBySig
-    GetRecordsAffected(Int32): PrivateScope, Assembly, HideBySig
-    GetErrors(Int32): PrivateScope, Assembly, HideBySig
     get_InPrepare(): PrivateScope, Assembly, HideBySig, SpecialName
     get_IsColumnEncryptionEnabled(): PrivateScope, Assembly, HideBySig, SpecialName
     get_ShouldUseEnclaveBasedWorkflow(): PrivateScope, Assembly, HideBySig, SpecialName
@@ -10222,6 +10210,18 @@ Class System.Data.SqlClient.SqlCommand: AutoLayout, AnsiClass, Class, Public, Se
     OnConnectionClosed(): PrivateScope, Assembly, HideBySig
     get_StateObject(): PrivateScope, Assembly, HideBySig, SpecialName
     get_IsDirty(): PrivateScope, Assembly, HideBySig, SpecialName
+    set_IsDirty(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
+    get_RowsAffectedByDescribeParameterEncryption(): PrivateScope, Assembly, HideBySig, SpecialName
+    set_RowsAffectedByDescribeParameterEncryption(Int32): PrivateScope, Assembly, HideBySig, SpecialName
+    get_InternalRecordsAffected(): PrivateScope, Assembly, HideBySig, SpecialName
+    set_InternalRecordsAffected(Int32): PrivateScope, Assembly, HideBySig, SpecialName
+    get_BatchRPCMode(): PrivateScope, Assembly, HideBySig, SpecialName
+    set_BatchRPCMode(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
+    ClearBatchCommand(): PrivateScope, Assembly, HideBySig
+    AddBatchCommand(String, SqlParameterCollection, CommandType, SqlCommandColumnEncryptionSetting): PrivateScope, Assembly, HideBySig
+    ExecuteBatchRPCCommand(): PrivateScope, Assembly, HideBySig
+    GetRecordsAffected(Int32): PrivateScope, Assembly, HideBySig
+    GetErrors(Int32): PrivateScope, Assembly, HideBySig
 Class System.Data.SqlClient.SqlCommandBuilder: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
   :System.Data.Common.DbCommandBuilder
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -10341,27 +10341,6 @@ Class System.Data.SqlClient.SqlConnection: AutoLayout, AnsiClass, Class, Public,
   Events:
     System.Data.SqlClient.SqlInfoMessageEventHandler InfoMessage: 
   Methods:
-    get_CloseCount(): PrivateScope, Assembly, HideBySig, SpecialName
-    get_ConnectionFactory(): PrivateScope, Assembly, HideBySig, SpecialName
-    get_ConnectionOptions(): PrivateScope, Assembly, HideBySig, SpecialName
-    get_InnerConnection(): PrivateScope, Assembly, HideBySig, SpecialName
-    get_PoolGroup(): PrivateScope, Assembly, HideBySig, SpecialName
-    set_PoolGroup(DbConnectionPoolGroup): PrivateScope, Assembly, HideBySig, SpecialName
-    get_UserConnectionOptions(): PrivateScope, Assembly, HideBySig, SpecialName
-    Abort(Exception): PrivateScope, Assembly, HideBySig
-    AddWeakReference(Object, Int32): PrivateScope, Assembly, HideBySig
-    EnlistTransaction(Transaction): PrivateScope, Public, Virtual, HideBySig
-    GetMetaDataFactoryInternal(DbConnectionInternal): PrivateScope, Assembly, HideBySig
-    GetSchema(): PrivateScope, Public, Virtual, HideBySig
-    GetSchema(String): PrivateScope, Public, Virtual, HideBySig
-    GetSchema(String, String[]): PrivateScope, Public, Virtual, HideBySig
-    NotifyWeakReference(Int32): PrivateScope, Assembly, HideBySig
-    PermissionDemand(): PrivateScope, Assembly, HideBySig
-    RemoveWeakReference(Object): PrivateScope, Assembly, HideBySig
-    SetInnerConnectionEvent(DbConnectionInternal): PrivateScope, Assembly, HideBySig
-    SetInnerConnectionFrom(DbConnectionInternal, DbConnectionInternal): PrivateScope, Assembly, HideBySig
-    SetInnerConnectionTo(DbConnectionInternal): PrivateScope, Assembly, HideBySig
-    VerifyExecutePermission(): PrivateScope, Assembly, Static, HideBySig
     get_ColumnEncryptionTrustedMasterKeyPaths(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_ColumnEncryptionQueryMetadataCacheEnabled(): PrivateScope, Public, Static, HideBySig, SpecialName
     set_ColumnEncryptionQueryMetadataCacheEnabled(Boolean): PrivateScope, Public, Static, HideBySig, SpecialName
@@ -10443,6 +10422,27 @@ Class System.Data.SqlClient.SqlConnection: AutoLayout, AnsiClass, Class, Public,
     GetUdtValue(Object, SqlMetaDataPriv, Boolean): PrivateScope, Assembly, HideBySig
     GetBytes(Object): PrivateScope, Assembly, HideBySig
     GetBytes(Object, Format&(Out), Int32&(Out)): PrivateScope, Assembly, HideBySig
+    get_CloseCount(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_ConnectionFactory(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_ConnectionOptions(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_InnerConnection(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_PoolGroup(): PrivateScope, Assembly, HideBySig, SpecialName
+    set_PoolGroup(DbConnectionPoolGroup): PrivateScope, Assembly, HideBySig, SpecialName
+    get_UserConnectionOptions(): PrivateScope, Assembly, HideBySig, SpecialName
+    Abort(Exception): PrivateScope, Assembly, HideBySig
+    AddWeakReference(Object, Int32): PrivateScope, Assembly, HideBySig
+    EnlistTransaction(Transaction): PrivateScope, Public, Virtual, HideBySig
+    GetMetaDataFactoryInternal(DbConnectionInternal): PrivateScope, Assembly, HideBySig
+    GetSchema(): PrivateScope, Public, Virtual, HideBySig
+    GetSchema(String): PrivateScope, Public, Virtual, HideBySig
+    GetSchema(String, String[]): PrivateScope, Public, Virtual, HideBySig
+    NotifyWeakReference(Int32): PrivateScope, Assembly, HideBySig
+    PermissionDemand(): PrivateScope, Assembly, HideBySig
+    RemoveWeakReference(Object): PrivateScope, Assembly, HideBySig
+    SetInnerConnectionEvent(DbConnectionInternal): PrivateScope, Assembly, HideBySig
+    SetInnerConnectionFrom(DbConnectionInternal, DbConnectionInternal): PrivateScope, Assembly, HideBySig
+    SetInnerConnectionTo(DbConnectionInternal): PrivateScope, Assembly, HideBySig
+    VerifyExecutePermission(): PrivateScope, Assembly, Static, HideBySig
 Class System.Data.SqlClient.SQLDebugging: AutoLayout, AnsiClass, Class, Public, Sealed, HasSecurity, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:
@@ -10668,8 +10668,6 @@ Class System.Data.SqlClient.SqlConnectionStringBuilder: AutoLayout, AnsiClass, C
     System.Collections.ICollection Keys 'get ' : 
     System.Collections.ICollection Values 'get ' : 
   Methods:
-    ShouldSerialize(String): PrivateScope, Public, Virtual, HideBySig
-    TryGetValue(String, Object&(Out)): PrivateScope, Public, Virtual, HideBySig
     get_Item(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
     set_Item(String, Object): PrivateScope, Public, Virtual, HideBySig, SpecialName
     get_ApplicationIntent(): PrivateScope, Public, HideBySig, SpecialName
@@ -10755,6 +10753,8 @@ Class System.Data.SqlClient.SqlConnectionStringBuilder: AutoLayout, AnsiClass, C
     ContainsKey(String): PrivateScope, Public, Virtual, HideBySig
     ConvertValueToString(Object): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     Remove(String): PrivateScope, Public, Virtual, HideBySig
+    ShouldSerialize(String): PrivateScope, Public, Virtual, HideBySig
+    TryGetValue(String, Object&(Out)): PrivateScope, Public, Virtual, HideBySig
 Struct System.Data.SqlClient.SqlConnectionTimeoutErrorPhase: AutoLayout, AnsiClass, Class, Sealed
   :System.Enum
   Fields:
@@ -11794,10 +11794,6 @@ Class System.Data.SqlClient.SqlParameter: AutoLayout, AnsiClass, Class, Public, 
     Boolean SourceColumnNullMapping 'get set' : 
     System.Data.DataRowVersion SourceVersion 'get set' : 
   Methods:
-    CopyTo(DbParameter): PrivateScope, Assembly, HideBySig
-    CompareExchangeParent(Object, Object): PrivateScope, Assembly, HideBySig
-    ResetParent(): PrivateScope, Assembly, HideBySig
-    ToString(): PrivateScope, Public, Virtual, HideBySig
     get_CipherMetadata(): PrivateScope, Assembly, HideBySig, SpecialName
     set_CipherMetadata(SqlCipherMetadata): PrivateScope, Assembly, HideBySig, SpecialName
     get_HasReceivedMetadata(): PrivateScope, Assembly, HideBySig, SpecialName
@@ -11882,6 +11878,10 @@ Class System.Data.SqlClient.SqlParameter: AutoLayout, AnsiClass, Class, Public, 
     set_SourceColumnNullMapping(Boolean): PrivateScope, Public, Virtual, HideBySig, SpecialName
     get_SourceVersion(): PrivateScope, Public, Virtual, HideBySig, SpecialName
     set_SourceVersion(DataRowVersion): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    CopyTo(DbParameter): PrivateScope, Assembly, HideBySig
+    CompareExchangeParent(Object, Object): PrivateScope, Assembly, HideBySig
+    ResetParent(): PrivateScope, Assembly, HideBySig
+    ToString(): PrivateScope, Public, Virtual, HideBySig
 Class System.Data.SqlClient.SqlParameterCollection: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
   :System.Data.Common.DbParameterCollection
     Void .ctor(): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
@@ -12218,7 +12218,6 @@ Class System.Data.SqlClient.SQL: AutoLayout, AnsiClass, Class, Abstract, Sealed,
     System.String Transaction = Transaction : Assembly, Static, Literal, HasDefault
     System.String Connection = Connection : Assembly, Static, Literal, HasDefault
   Methods:
-    MultiSubnetFailoverWithFailoverPartner(Boolean, SqlInternalConnectionTds): PrivateScope, Assembly, Static, HideBySig
     MultiSubnetFailoverWithMoreThan64IPs(): PrivateScope, Assembly, Static, HideBySig
     MultiSubnetFailoverWithInstanceSpecified(): PrivateScope, Assembly, Static, HideBySig
     MultiSubnetFailoverWithNonTcpProtocol(): PrivateScope, Assembly, Static, HideBySig
@@ -12259,6 +12258,48 @@ Class System.Data.SqlClient.SQL: AutoLayout, AnsiClass, Class, Abstract, Sealed,
     ParameterSizeRestrictionFailure(Int32): PrivateScope, Assembly, Static, HideBySig
     SubclassMustOverride(): PrivateScope, Assembly, Static, HideBySig
     GetSNIErrorMessage(Int32): PrivateScope, Assembly, Static, HideBySig
+    SqlResultSetRowDeleted(String): PrivateScope, Assembly, Static, HideBySig
+    SqlResultSetCommandNotInSameConnection(): PrivateScope, Assembly, Static, HideBySig
+    SqlResultSetNoAcceptableCursor(): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadMappingInaccessible(): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadMappingsNamesOrOrdinalsOnly(): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadCannotConvertValue(Type, MetaType, Exception): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadNonMatchingColumnMapping(): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadNonMatchingColumnName(String): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadNonMatchingColumnName(String, Exception): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadStringTooLong(): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadInvalidVariantValue(): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadInvalidTimeout(Int32): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadExistingTransaction(): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadNoCollation(): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadConflictingTransactionOption(): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadLcidMismatch(Int32, String, Int32, String): PrivateScope, Assembly, Static, HideBySig
+    InvalidOperationInsideEvent(): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadMissingDestinationTable(): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadInvalidDestinationTable(String, Exception): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadBulkLoadNotAllowDBNull(String): PrivateScope, Assembly, Static, HideBySig
+    BulkLoadPendingOperation(): PrivateScope, Assembly, Static, HideBySig
+    InvalidKeyEncryptionAlgorithm(String, String, Boolean): PrivateScope, Assembly, Static, HideBySig
+    NullKeyEncryptionAlgorithm(Boolean): PrivateScope, Assembly, Static, HideBySig
+    EmptyColumnEncryptionKey(): PrivateScope, Assembly, Static, HideBySig
+    NullColumnEncryptionKey(): PrivateScope, Assembly, Static, HideBySig
+    EmptyEncryptedColumnEncryptionKey(): PrivateScope, Assembly, Static, HideBySig
+    NullEncryptedColumnEncryptionKey(): PrivateScope, Assembly, Static, HideBySig
+    LargeCertificatePathLength(Int32, Int32, Boolean): PrivateScope, Assembly, Static, HideBySig
+    NullCertificatePath(String[], Boolean): PrivateScope, Assembly, Static, HideBySig
+    NullCspKeyPath(Boolean): PrivateScope, Assembly, Static, HideBySig
+    NullCngKeyPath(Boolean): PrivateScope, Assembly, Static, HideBySig
+    InvalidCertificatePath(String, String[], Boolean): PrivateScope, Assembly, Static, HideBySig
+    InvalidCspPath(String, Boolean): PrivateScope, Assembly, Static, HideBySig
+    InvalidCngPath(String, Boolean): PrivateScope, Assembly, Static, HideBySig
+    EmptyCspName(String, Boolean): PrivateScope, Assembly, Static, HideBySig
+    EmptyCngName(String, Boolean): PrivateScope, Assembly, Static, HideBySig
+    EmptyCspKeyId(String, Boolean): PrivateScope, Assembly, Static, HideBySig
+    EmptyCngKeyId(String, Boolean): PrivateScope, Assembly, Static, HideBySig
+    InvalidCspName(String, String, Boolean): PrivateScope, Assembly, Static, HideBySig
+    InvalidCspKeyIdentifier(String, String, Boolean): PrivateScope, Assembly, Static, HideBySig
+    InvalidCngKey(String, String, String, Boolean): PrivateScope, Assembly, Static, HideBySig
+    InvalidCertificateLocation(String, String, String[], Boolean): PrivateScope, Assembly, Static, HideBySig
     InvalidCertificateStore(String, String, String, Boolean): PrivateScope, Assembly, Static, HideBySig
     EmptyCertificateThumbprint(String, Boolean): PrivateScope, Assembly, Static, HideBySig
     CertificateNotFound(String, String, String, Boolean): PrivateScope, Assembly, Static, HideBySig
@@ -12344,91 +12385,7 @@ Class System.Data.SqlClient.SQL: AutoLayout, AnsiClass, Class, Abstract, Sealed,
     OpenResultCountExceeded(): PrivateScope, Assembly, Static, HideBySig
     GlobalTransactionsNotEnabled(): PrivateScope, Assembly, Static, HideBySig
     UnsupportedSysTxForGlobalTransactions(): PrivateScope, Assembly, Static, HideBySig
-    StreamNotSupportOnColumnType(String): PrivateScope, Assembly, Static, HideBySig
-    StreamNotSupportOnEncryptedColumn(String): PrivateScope, Assembly, Static, HideBySig
-    SequentialAccessNotSupportedOnEncryptedColumn(String): PrivateScope, Assembly, Static, HideBySig
-    TextReaderNotSupportOnColumnType(String): PrivateScope, Assembly, Static, HideBySig
-    XmlReaderNotSupportOnColumnType(String): PrivateScope, Assembly, Static, HideBySig
-    UDTUnexpectedResult(String): PrivateScope, Assembly, Static, HideBySig
-    CannotCompleteDelegatedTransactionWithOpenResults(SqlInternalConnectionTds): PrivateScope, Assembly, Static, HideBySig
-    PromotionFailed(Exception): PrivateScope, Assembly, Static, HideBySig
-    SqlCommandHasExistingSqlNotificationRequest(): PrivateScope, Assembly, Static, HideBySig
-    SqlDepCannotBeCreatedInProc(): PrivateScope, Assembly, Static, HideBySig
-    SqlDepDefaultOptionsButNoStart(): PrivateScope, Assembly, Static, HideBySig
-    SqlDependencyDatabaseBrokerDisabled(): PrivateScope, Assembly, Static, HideBySig
-    SqlDependencyEventNoDuplicate(): PrivateScope, Assembly, Static, HideBySig
-    SqlDependencyDuplicateStart(): PrivateScope, Assembly, Static, HideBySig
-    SqlDependencyIdMismatch(): PrivateScope, Assembly, Static, HideBySig
-    SqlDependencyNoMatchingServerStart(): PrivateScope, Assembly, Static, HideBySig
-    SqlDependencyNoMatchingServerDatabaseStart(): PrivateScope, Assembly, Static, HideBySig
-    SqlNotificationException(SqlNotificationEventArgs): PrivateScope, Assembly, Static, HideBySig
-    SqlMetaDataNoMetaData(): PrivateScope, Assembly, Static, HideBySig
-    MustSetUdtTypeNameForUdtParams(): PrivateScope, Assembly, Static, HideBySig
-    UnexpectedUdtTypeNameForNonUdtParams(): PrivateScope, Assembly, Static, HideBySig
-    UDTInvalidSqlType(String): PrivateScope, Assembly, Static, HideBySig
-    InvalidSqlDbTypeForConstructor(SqlDbType): PrivateScope, Assembly, Static, HideBySig
-    NameTooLong(String): PrivateScope, Assembly, Static, HideBySig
-    InvalidSortOrder(SortOrder): PrivateScope, Assembly, Static, HideBySig
-    MustSpecifyBothSortOrderAndOrdinal(SortOrder, Int32): PrivateScope, Assembly, Static, HideBySig
-    TableTypeCanOnlyBeParameter(): PrivateScope, Assembly, Static, HideBySig
-    UnsupportedColumnTypeForSqlProvider(String, String): PrivateScope, Assembly, Static, HideBySig
-    InvalidColumnMaxLength(String, Int64): PrivateScope, Assembly, Static, HideBySig
-    InvalidColumnPrecScale(): PrivateScope, Assembly, Static, HideBySig
-    NotEnoughColumnsInStructuredType(): PrivateScope, Assembly, Static, HideBySig
-    DuplicateSortOrdinal(Int32): PrivateScope, Assembly, Static, HideBySig
-    MissingSortOrdinal(Int32): PrivateScope, Assembly, Static, HideBySig
-    SortOrdinalGreaterThanFieldCount(Int32, Int32): PrivateScope, Assembly, Static, HideBySig
-    IEnumerableOfSqlDataRecordHasNoRows(): PrivateScope, Assembly, Static, HideBySig
-    SqlPipeCommandHookedUpToNonContextConnection(): PrivateScope, Assembly, Static, HideBySig
-    SqlPipeMessageTooLong(Int32): PrivateScope, Assembly, Static, HideBySig
-    SqlPipeIsBusy(): PrivateScope, Assembly, Static, HideBySig
-    SqlPipeAlreadyHasAnOpenResultSet(String): PrivateScope, Assembly, Static, HideBySig
-    SqlPipeDoesNotHaveAnOpenResultSet(String): PrivateScope, Assembly, Static, HideBySig
-    SqlResultSetClosed(String): PrivateScope, Assembly, Static, HideBySig
-    SqlResultSetNoData(String): PrivateScope, Assembly, Static, HideBySig
-    SqlRecordReadOnly(String): PrivateScope, Assembly, Static, HideBySig
-    SqlResultSetRowDeleted(String): PrivateScope, Assembly, Static, HideBySig
-    SqlResultSetCommandNotInSameConnection(): PrivateScope, Assembly, Static, HideBySig
-    SqlResultSetNoAcceptableCursor(): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadMappingInaccessible(): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadMappingsNamesOrOrdinalsOnly(): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadCannotConvertValue(Type, MetaType, Exception): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadNonMatchingColumnMapping(): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadNonMatchingColumnName(String): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadNonMatchingColumnName(String, Exception): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadStringTooLong(): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadInvalidVariantValue(): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadInvalidTimeout(Int32): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadExistingTransaction(): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadNoCollation(): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadConflictingTransactionOption(): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadLcidMismatch(Int32, String, Int32, String): PrivateScope, Assembly, Static, HideBySig
-    InvalidOperationInsideEvent(): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadMissingDestinationTable(): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadInvalidDestinationTable(String, Exception): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadBulkLoadNotAllowDBNull(String): PrivateScope, Assembly, Static, HideBySig
-    BulkLoadPendingOperation(): PrivateScope, Assembly, Static, HideBySig
-    InvalidKeyEncryptionAlgorithm(String, String, Boolean): PrivateScope, Assembly, Static, HideBySig
-    NullKeyEncryptionAlgorithm(Boolean): PrivateScope, Assembly, Static, HideBySig
-    EmptyColumnEncryptionKey(): PrivateScope, Assembly, Static, HideBySig
-    NullColumnEncryptionKey(): PrivateScope, Assembly, Static, HideBySig
-    EmptyEncryptedColumnEncryptionKey(): PrivateScope, Assembly, Static, HideBySig
-    NullEncryptedColumnEncryptionKey(): PrivateScope, Assembly, Static, HideBySig
-    LargeCertificatePathLength(Int32, Int32, Boolean): PrivateScope, Assembly, Static, HideBySig
-    NullCertificatePath(String[], Boolean): PrivateScope, Assembly, Static, HideBySig
-    NullCspKeyPath(Boolean): PrivateScope, Assembly, Static, HideBySig
-    NullCngKeyPath(Boolean): PrivateScope, Assembly, Static, HideBySig
-    InvalidCertificatePath(String, String[], Boolean): PrivateScope, Assembly, Static, HideBySig
-    InvalidCspPath(String, Boolean): PrivateScope, Assembly, Static, HideBySig
-    InvalidCngPath(String, Boolean): PrivateScope, Assembly, Static, HideBySig
-    EmptyCspName(String, Boolean): PrivateScope, Assembly, Static, HideBySig
-    EmptyCngName(String, Boolean): PrivateScope, Assembly, Static, HideBySig
-    EmptyCspKeyId(String, Boolean): PrivateScope, Assembly, Static, HideBySig
-    EmptyCngKeyId(String, Boolean): PrivateScope, Assembly, Static, HideBySig
-    InvalidCspName(String, String, Boolean): PrivateScope, Assembly, Static, HideBySig
-    InvalidCspKeyIdentifier(String, String, Boolean): PrivateScope, Assembly, Static, HideBySig
-    InvalidCngKey(String, String, String, Boolean): PrivateScope, Assembly, Static, HideBySig
-    InvalidCertificateLocation(String, String, String[], Boolean): PrivateScope, Assembly, Static, HideBySig
+    MultiSubnetFailoverWithFailoverPartner(Boolean, SqlInternalConnectionTds): PrivateScope, Assembly, Static, HideBySig
     CannotGetDTCAddress(): PrivateScope, Assembly, Static, HideBySig
     InvalidOptionLength(String): PrivateScope, Assembly, Static, HideBySig
     InvalidInternalPacketSize(String): PrivateScope, Assembly, Static, HideBySig
@@ -12514,6 +12471,49 @@ Class System.Data.SqlClient.SQL: AutoLayout, AnsiClass, Class, Abstract, Sealed,
     InvalidRead(): PrivateScope, Assembly, Static, HideBySig
     NonBlobColumn(String): PrivateScope, Assembly, Static, HideBySig
     NonCharColumn(String): PrivateScope, Assembly, Static, HideBySig
+    StreamNotSupportOnColumnType(String): PrivateScope, Assembly, Static, HideBySig
+    StreamNotSupportOnEncryptedColumn(String): PrivateScope, Assembly, Static, HideBySig
+    SequentialAccessNotSupportedOnEncryptedColumn(String): PrivateScope, Assembly, Static, HideBySig
+    TextReaderNotSupportOnColumnType(String): PrivateScope, Assembly, Static, HideBySig
+    XmlReaderNotSupportOnColumnType(String): PrivateScope, Assembly, Static, HideBySig
+    UDTUnexpectedResult(String): PrivateScope, Assembly, Static, HideBySig
+    CannotCompleteDelegatedTransactionWithOpenResults(SqlInternalConnectionTds): PrivateScope, Assembly, Static, HideBySig
+    PromotionFailed(Exception): PrivateScope, Assembly, Static, HideBySig
+    SqlCommandHasExistingSqlNotificationRequest(): PrivateScope, Assembly, Static, HideBySig
+    SqlDepCannotBeCreatedInProc(): PrivateScope, Assembly, Static, HideBySig
+    SqlDepDefaultOptionsButNoStart(): PrivateScope, Assembly, Static, HideBySig
+    SqlDependencyDatabaseBrokerDisabled(): PrivateScope, Assembly, Static, HideBySig
+    SqlDependencyEventNoDuplicate(): PrivateScope, Assembly, Static, HideBySig
+    SqlDependencyDuplicateStart(): PrivateScope, Assembly, Static, HideBySig
+    SqlDependencyIdMismatch(): PrivateScope, Assembly, Static, HideBySig
+    SqlDependencyNoMatchingServerStart(): PrivateScope, Assembly, Static, HideBySig
+    SqlDependencyNoMatchingServerDatabaseStart(): PrivateScope, Assembly, Static, HideBySig
+    SqlNotificationException(SqlNotificationEventArgs): PrivateScope, Assembly, Static, HideBySig
+    SqlMetaDataNoMetaData(): PrivateScope, Assembly, Static, HideBySig
+    MustSetUdtTypeNameForUdtParams(): PrivateScope, Assembly, Static, HideBySig
+    UnexpectedUdtTypeNameForNonUdtParams(): PrivateScope, Assembly, Static, HideBySig
+    UDTInvalidSqlType(String): PrivateScope, Assembly, Static, HideBySig
+    InvalidSqlDbTypeForConstructor(SqlDbType): PrivateScope, Assembly, Static, HideBySig
+    NameTooLong(String): PrivateScope, Assembly, Static, HideBySig
+    InvalidSortOrder(SortOrder): PrivateScope, Assembly, Static, HideBySig
+    MustSpecifyBothSortOrderAndOrdinal(SortOrder, Int32): PrivateScope, Assembly, Static, HideBySig
+    TableTypeCanOnlyBeParameter(): PrivateScope, Assembly, Static, HideBySig
+    UnsupportedColumnTypeForSqlProvider(String, String): PrivateScope, Assembly, Static, HideBySig
+    InvalidColumnMaxLength(String, Int64): PrivateScope, Assembly, Static, HideBySig
+    InvalidColumnPrecScale(): PrivateScope, Assembly, Static, HideBySig
+    NotEnoughColumnsInStructuredType(): PrivateScope, Assembly, Static, HideBySig
+    DuplicateSortOrdinal(Int32): PrivateScope, Assembly, Static, HideBySig
+    MissingSortOrdinal(Int32): PrivateScope, Assembly, Static, HideBySig
+    SortOrdinalGreaterThanFieldCount(Int32, Int32): PrivateScope, Assembly, Static, HideBySig
+    IEnumerableOfSqlDataRecordHasNoRows(): PrivateScope, Assembly, Static, HideBySig
+    SqlPipeCommandHookedUpToNonContextConnection(): PrivateScope, Assembly, Static, HideBySig
+    SqlPipeMessageTooLong(Int32): PrivateScope, Assembly, Static, HideBySig
+    SqlPipeIsBusy(): PrivateScope, Assembly, Static, HideBySig
+    SqlPipeAlreadyHasAnOpenResultSet(String): PrivateScope, Assembly, Static, HideBySig
+    SqlPipeDoesNotHaveAnOpenResultSet(String): PrivateScope, Assembly, Static, HideBySig
+    SqlResultSetClosed(String): PrivateScope, Assembly, Static, HideBySig
+    SqlResultSetNoData(String): PrivateScope, Assembly, Static, HideBySig
+    SqlRecordReadOnly(String): PrivateScope, Assembly, Static, HideBySig
 Class System.Data.SqlClient.SQLMessage: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldInit
   Methods:
     CultureIdError(): PrivateScope, Assembly, Static, HideBySig
@@ -13071,49 +13071,6 @@ Class System.Data.SqlClient.TdsParser: AutoLayout, AnsiClass, Class, Sealed, Bef
     System.Data.SqlClient.TdsParserState State 'get set' : 
     System.Data.SqlClient.SqlStatistics Statistics 'get set' : 
   Methods:
-    WriteSqlVariantValue(Object, Int32, Int32, TdsParserStateObject, Boolean(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
-    WriteSqlVariantDataRowValue(Object, TdsParserStateObject, Boolean(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
-    WriteSqlVariantHeader(Int32, Byte, Byte, TdsParserStateObject): PrivateScope, Assembly, HideBySig
-    WriteSqlVariantDateTime2(DateTime, TdsParserStateObject): PrivateScope, Assembly, HideBySig
-    WriteSqlVariantDate(DateTime, TdsParserStateObject): PrivateScope, Assembly, HideBySig
-    AdjustSqlDecimalScale(SqlDecimal, Int32): PrivateScope, Assembly, Static, HideBySig
-    AdjustDecimalScale(Decimal, Int32): PrivateScope, Assembly, Static, HideBySig
-    SerializeSqlDecimal(SqlDecimal, TdsParserStateObject): PrivateScope, Assembly, HideBySig
-    WriteSqlDecimal(SqlDecimal, TdsParserStateObject): PrivateScope, Assembly, HideBySig
-    SerializeCharArray(Char[], Int32, Int32): PrivateScope, Assembly, HideBySig
-    WriteCharArray(Char[], Int32, Int32, TdsParserStateObject, Boolean(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
-    SerializeString(String, Int32, Int32): PrivateScope, Assembly, HideBySig
-    WriteString(String, Int32, Int32, TdsParserStateObject, Boolean(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
-    GetEncodingCharLength(String, Int32, Int32, Encoding): PrivateScope, Assembly, HideBySig
-    TryGetDataLength(SqlMetaDataPriv, TdsParserStateObject, UInt64&(Out)): PrivateScope, Assembly, HideBySig
-    TryGetTokenLength(Byte, TdsParserStateObject, Int32&(Out)): PrivateScope, Assembly, HideBySig
-    WriteSessionRecoveryFeatureRequest(SessionData, Boolean): PrivateScope, Assembly, HideBySig
-    WriteFedAuthFeatureRequest(FederatedAuthenticationFeatureExtensionData, Boolean): PrivateScope, Assembly, HideBySig
-    WriteTceFeatureRequest(Boolean): PrivateScope, Assembly, HideBySig
-    WriteGlobalTransactionsFeatureRequest(Boolean): PrivateScope, Assembly, HideBySig
-    WriteAzureSQLSupportFeatureRequest(Boolean): PrivateScope, Assembly, HideBySig
-    TdsLogin(SqlLogin, FeatureExtension, SessionData, Nullable`1): PrivateScope, Assembly, HideBySig
-    SendFedAuthToken(SqlFedAuthToken): PrivateScope, Assembly, HideBySig
-    GetDTCAddress(Int32, TdsParserStateObject): PrivateScope, Assembly, HideBySig
-    PropagateDistributedTransaction(Byte[], Int32, TdsParserStateObject): PrivateScope, Assembly, HideBySig
-    TdsExecuteTransactionManagerRequest(Byte[], TransactionManagerRequestType, String, TransactionManagerIsolationLevel, Int32, SqlInternalTransaction, TdsParserStateObject, Boolean): PrivateScope, Assembly, HideBySig
-    FailureCleanup(TdsParserStateObject, Exception): PrivateScope, Assembly, HideBySig
-    TdsExecuteSQLBatch(String, Int32, SqlNotificationRequest, TdsParserStateObject, Boolean, Boolean(Optional, HasDefault), Byte[](Optional, HasDefault)): PrivateScope, Assembly, HideBySig
-    TdsExecuteRPC(SqlCommand, _SqlRPC[], Int32, Boolean, SqlNotificationRequest, TdsParserStateObject, Boolean, Boolean(Optional, HasDefault), TaskCompletionSource`1(Optional, HasDefault), Int32(Optional, HasDefault), Int32(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
-    WriteBulkCopyDone(TdsParserStateObject): PrivateScope, Assembly, HideBySig
-    LoadColumnEncryptionKeys(_SqlMetaDataSet, String): PrivateScope, Assembly, HideBySig
-    WriteEncryptionEntries(SqlTceCipherInfoTable&, TdsParserStateObject): PrivateScope, Assembly, HideBySig
-    WriteCekTable(_SqlMetaDataSet, TdsParserStateObject): PrivateScope, Assembly, HideBySig
-    WriteTceUserTypeAndTypeInfo(SqlMetaDataPriv, TdsParserStateObject): PrivateScope, Assembly, HideBySig
-    WriteCryptoMetadata(_SqlMetaData, TdsParserStateObject): PrivateScope, Assembly, HideBySig
-    WriteBulkCopyMetaData(_SqlMetaDataSet, Int32, TdsParserStateObject): PrivateScope, Assembly, HideBySig
-    ShouldEncryptValuesForBulkCopy(): PrivateScope, Assembly, HideBySig
-    EncryptColumnValue(Object, SqlMetaDataPriv, String, TdsParserStateObject, Boolean, Boolean): PrivateScope, Assembly, HideBySig
-    WriteBulkCopyValue(Object, SqlMetaDataPriv, TdsParserStateObject, Boolean, Boolean, Boolean): PrivateScope, Assembly, HideBySig
-    WriteParameterVarLen(MetaType, Int32, Boolean, TdsParserStateObject, Boolean(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
-    ReadPlpUnicodeChars(Char[]&, Int32, Int32, TdsParserStateObject): PrivateScope, Assembly, HideBySig
-    TryReadPlpUnicodeChars(Char[]&, Int32, Int32, TdsParserStateObject, Int32&(Out)): PrivateScope, Assembly, HideBySig
-    ReadPlpAnsiChars(Char[]&, Int32, Int32, SqlMetaDataPriv, TdsParserStateObject): PrivateScope, Assembly, HideBySig
     SkipPlpValue(UInt64, TdsParserStateObject): PrivateScope, Assembly, HideBySig
     TrySkipPlpValue(UInt64, TdsParserStateObject, UInt64&(Out)): PrivateScope, Assembly, HideBySig
     PlpBytesLeft(TdsParserStateObject): PrivateScope, Assembly, HideBySig
@@ -13204,6 +13161,49 @@ Class System.Data.SqlClient.TdsParser: AutoLayout, AnsiClass, Class, Sealed, Bef
     TryReadSqlValue(SqlBuffer, SqlMetaDataPriv, Int32, TdsParserStateObject, SqlCommandColumnEncryptionSetting, String): PrivateScope, Assembly, HideBySig
     TryReadSqlValueInternal(SqlBuffer, Byte, Int32, TdsParserStateObject): PrivateScope, Assembly, HideBySig
     TryReadSqlVariant(SqlBuffer, Int32, TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    WriteSqlVariantValue(Object, Int32, Int32, TdsParserStateObject, Boolean(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
+    WriteSqlVariantDataRowValue(Object, TdsParserStateObject, Boolean(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
+    WriteSqlVariantHeader(Int32, Byte, Byte, TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    WriteSqlVariantDateTime2(DateTime, TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    WriteSqlVariantDate(DateTime, TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    AdjustSqlDecimalScale(SqlDecimal, Int32): PrivateScope, Assembly, Static, HideBySig
+    AdjustDecimalScale(Decimal, Int32): PrivateScope, Assembly, Static, HideBySig
+    SerializeSqlDecimal(SqlDecimal, TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    WriteSqlDecimal(SqlDecimal, TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    SerializeCharArray(Char[], Int32, Int32): PrivateScope, Assembly, HideBySig
+    WriteCharArray(Char[], Int32, Int32, TdsParserStateObject, Boolean(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
+    SerializeString(String, Int32, Int32): PrivateScope, Assembly, HideBySig
+    WriteString(String, Int32, Int32, TdsParserStateObject, Boolean(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
+    GetEncodingCharLength(String, Int32, Int32, Encoding): PrivateScope, Assembly, HideBySig
+    TryGetDataLength(SqlMetaDataPriv, TdsParserStateObject, UInt64&(Out)): PrivateScope, Assembly, HideBySig
+    TryGetTokenLength(Byte, TdsParserStateObject, Int32&(Out)): PrivateScope, Assembly, HideBySig
+    WriteSessionRecoveryFeatureRequest(SessionData, Boolean): PrivateScope, Assembly, HideBySig
+    WriteFedAuthFeatureRequest(FederatedAuthenticationFeatureExtensionData, Boolean): PrivateScope, Assembly, HideBySig
+    WriteTceFeatureRequest(Boolean): PrivateScope, Assembly, HideBySig
+    WriteGlobalTransactionsFeatureRequest(Boolean): PrivateScope, Assembly, HideBySig
+    WriteAzureSQLSupportFeatureRequest(Boolean): PrivateScope, Assembly, HideBySig
+    TdsLogin(SqlLogin, FeatureExtension, SessionData, Nullable`1): PrivateScope, Assembly, HideBySig
+    SendFedAuthToken(SqlFedAuthToken): PrivateScope, Assembly, HideBySig
+    GetDTCAddress(Int32, TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    PropagateDistributedTransaction(Byte[], Int32, TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    TdsExecuteTransactionManagerRequest(Byte[], TransactionManagerRequestType, String, TransactionManagerIsolationLevel, Int32, SqlInternalTransaction, TdsParserStateObject, Boolean): PrivateScope, Assembly, HideBySig
+    FailureCleanup(TdsParserStateObject, Exception): PrivateScope, Assembly, HideBySig
+    TdsExecuteSQLBatch(String, Int32, SqlNotificationRequest, TdsParserStateObject, Boolean, Boolean(Optional, HasDefault), Byte[](Optional, HasDefault)): PrivateScope, Assembly, HideBySig
+    TdsExecuteRPC(SqlCommand, _SqlRPC[], Int32, Boolean, SqlNotificationRequest, TdsParserStateObject, Boolean, Boolean(Optional, HasDefault), TaskCompletionSource`1(Optional, HasDefault), Int32(Optional, HasDefault), Int32(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
+    WriteBulkCopyDone(TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    LoadColumnEncryptionKeys(_SqlMetaDataSet, String): PrivateScope, Assembly, HideBySig
+    WriteEncryptionEntries(SqlTceCipherInfoTable&, TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    WriteCekTable(_SqlMetaDataSet, TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    WriteTceUserTypeAndTypeInfo(SqlMetaDataPriv, TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    WriteCryptoMetadata(_SqlMetaData, TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    WriteBulkCopyMetaData(_SqlMetaDataSet, Int32, TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    ShouldEncryptValuesForBulkCopy(): PrivateScope, Assembly, HideBySig
+    EncryptColumnValue(Object, SqlMetaDataPriv, String, TdsParserStateObject, Boolean, Boolean): PrivateScope, Assembly, HideBySig
+    WriteBulkCopyValue(Object, SqlMetaDataPriv, TdsParserStateObject, Boolean, Boolean, Boolean): PrivateScope, Assembly, HideBySig
+    WriteParameterVarLen(MetaType, Int32, Boolean, TdsParserStateObject, Boolean(Optional, HasDefault)): PrivateScope, Assembly, HideBySig
+    ReadPlpUnicodeChars(Char[]&, Int32, Int32, TdsParserStateObject): PrivateScope, Assembly, HideBySig
+    TryReadPlpUnicodeChars(Char[]&, Int32, Int32, TdsParserStateObject, Int32&(Out)): PrivateScope, Assembly, HideBySig
+    ReadPlpAnsiChars(Char[]&, Int32, Int32, SqlMetaDataPriv, TdsParserStateObject): PrivateScope, Assembly, HideBySig
 Struct System.Data.SqlClient.CallbackType: AutoLayout, AnsiClass, Class, Sealed
   :System.Enum
   Fields:
@@ -13686,18 +13686,6 @@ Class System.Data.SqlClient.TdsParserStateObject: AutoLayout, AnsiClass, Class, 
     Int32 PreAttentionErrorCount 'get ' : 
     Int32 PreAttentionWarningCount 'get ' : 
   Methods:
-    AddError(SqlError): PrivateScope, Assembly, HideBySig
-    get_ErrorCount(): PrivateScope, Assembly, HideBySig, SpecialName
-    AddWarning(SqlError): PrivateScope, Assembly, HideBySig
-    get_WarningCount(): PrivateScope, Assembly, HideBySig, SpecialName
-    get_PreAttentionErrorCount(): PrivateScope, Assembly, HideBySig, SpecialName
-    get_PreAttentionWarningCount(): PrivateScope, Assembly, HideBySig, SpecialName
-    GetFullErrorAndWarningCollection(Boolean&(Out)): PrivateScope, Assembly, HideBySig
-    StoreErrorAndWarningForAttention(): PrivateScope, Assembly, HideBySig
-    RestoreErrorAndWarningAfterAttention(): PrivateScope, Assembly, HideBySig
-    CheckThrowSNIException(): PrivateScope, Assembly, HideBySig
-    AssertStateIsClean(): PrivateScope, Assembly, HideBySig
-    CloneCleanupAltMetaDataSetArray(): PrivateScope, Assembly, HideBySig
     get_ObjectID(): PrivateScope, Assembly, HideBySig, SpecialName
     get_BcpLock(): PrivateScope, Assembly, HideBySig, SpecialName
     set_BcpLock(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
@@ -13781,6 +13769,18 @@ Class System.Data.SqlClient.TdsParserStateObject: AutoLayout, AnsiClass, Class, 
     GetResetWritePacket(): PrivateScope, Assembly, HideBySig
     ClearAllWritePackets(): PrivateScope, Assembly, HideBySig
     get_HasErrorOrWarning(): PrivateScope, Assembly, HideBySig, SpecialName
+    AddError(SqlError): PrivateScope, Assembly, HideBySig
+    get_ErrorCount(): PrivateScope, Assembly, HideBySig, SpecialName
+    AddWarning(SqlError): PrivateScope, Assembly, HideBySig
+    get_WarningCount(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_PreAttentionErrorCount(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_PreAttentionWarningCount(): PrivateScope, Assembly, HideBySig, SpecialName
+    GetFullErrorAndWarningCollection(Boolean&(Out)): PrivateScope, Assembly, HideBySig
+    StoreErrorAndWarningForAttention(): PrivateScope, Assembly, HideBySig
+    RestoreErrorAndWarningAfterAttention(): PrivateScope, Assembly, HideBySig
+    CheckThrowSNIException(): PrivateScope, Assembly, HideBySig
+    AssertStateIsClean(): PrivateScope, Assembly, HideBySig
+    CloneCleanupAltMetaDataSetArray(): PrivateScope, Assembly, HideBySig
 Class System.Data.SqlClient.TdsParserStaticMethods: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldInit
   Methods:
     AliasRegistryLookup(String&, String&): PrivateScope, Assembly, Static, HideBySig
@@ -17317,8 +17317,6 @@ Class System.Data.Common.ADP: AutoLayout, AnsiClass, Class, Abstract, Sealed, Be
     System.Threading.Tasks.Task`1[System.Boolean] TrueTask 'get ' : 
     System.Threading.Tasks.Task`1[System.Boolean] FalseTask 'get ' : 
   Methods:
-    GetAssemblyVersion(): PrivateScope, Assembly, Static, HideBySig
-    IsAzureSqlServerEndpoint(String): PrivateScope, Assembly, Static, HideBySig
     InvalidSizeValue(Int32): PrivateScope, Assembly, Static, HideBySig
     ParameterValueOutOfRange(Decimal): PrivateScope, Assembly, Static, HideBySig
     ParameterValueOutOfRange(SqlDecimal): PrivateScope, Assembly, Static, HideBySig
@@ -17404,6 +17402,51 @@ Class System.Data.Common.ADP: AutoLayout, AnsiClass, Class, Abstract, Sealed, Be
     IsEmptyArray(String[]): PrivateScope, Assembly, Static, HideBySig
     IsNull(Object): PrivateScope, Assembly, Static, HideBySig
     IsNullOrSqlType(Object, Boolean&(Out), Boolean&(Out)): PrivateScope, Assembly, Static, HideBySig
+    GetAssemblyVersion(): PrivateScope, Assembly, Static, HideBySig
+    IsAzureSqlServerEndpoint(String): PrivateScope, Assembly, Static, HideBySig
+    PermissionTypeMismatch(): PrivateScope, Assembly, Static, HideBySig
+    WrongType(Type, Type): PrivateScope, Assembly, Static, HideBySig
+    OdbcNoTypesFromProvider(): PrivateScope, Assembly, Static, HideBySig
+    PooledOpenTimeout(): PrivateScope, Assembly, Static, HideBySig
+    NonPooledOpenTimeout(): PrivateScope, Assembly, Static, HideBySig
+    CollectionRemoveInvalidObject(Type, ICollection): PrivateScope, Assembly, Static, HideBySig
+    CollectionNullValue(String, Type, Type): PrivateScope, Assembly, Static, HideBySig
+    CollectionIndexInt32(Int32, Type, Int32): PrivateScope, Assembly, Static, HideBySig
+    CollectionIndexString(Type, String, String, Type): PrivateScope, Assembly, Static, HideBySig
+    CollectionInvalidType(Type, Type, Object): PrivateScope, Assembly, Static, HideBySig
+    CollectionUniqueValue(Type, String, String): PrivateScope, Assembly, Static, HideBySig
+    ParametersIsNotParent(Type, ICollection): PrivateScope, Assembly, Static, HideBySig
+    ParametersIsParent(Type, ICollection): PrivateScope, Assembly, Static, HideBySig
+    TransactionConnectionMismatch(): PrivateScope, Assembly, Static, HideBySig
+    TransactionCompletedButNotDisposed(): PrivateScope, Assembly, Static, HideBySig
+    TransactionRequired(String): PrivateScope, Assembly, Static, HideBySig
+    MissingSelectCommand(String): PrivateScope, Assembly, Static, HideBySig
+    ColumnSchemaExpression(String, String): PrivateScope, Assembly, Static, HideBySig
+    ColumnSchemaMismatch(String, Type, DataColumn): PrivateScope, Assembly, Static, HideBySig
+    ColumnSchemaMissing(String, String, String): PrivateScope, Assembly, Static, HideBySig
+    MissingColumnMapping(String): PrivateScope, Assembly, Static, HideBySig
+    MissingTableSchema(String, String): PrivateScope, Assembly, Static, HideBySig
+    MissingTableMapping(String): PrivateScope, Assembly, Static, HideBySig
+    MissingTableMappingDestination(String): PrivateScope, Assembly, Static, HideBySig
+    InvalidSourceColumn(String): PrivateScope, Assembly, Static, HideBySig
+    ColumnsAddNullAttempt(String): PrivateScope, Assembly, Static, HideBySig
+    ColumnsDataSetColumn(String): PrivateScope, Assembly, Static, HideBySig
+    ColumnsIndexInt32(Int32, IColumnMappingCollection): PrivateScope, Assembly, Static, HideBySig
+    ColumnsIndexSource(String): PrivateScope, Assembly, Static, HideBySig
+    ColumnsIsNotParent(ICollection): PrivateScope, Assembly, Static, HideBySig
+    ColumnsIsParent(ICollection): PrivateScope, Assembly, Static, HideBySig
+    ColumnsUniqueSourceColumn(String): PrivateScope, Assembly, Static, HideBySig
+    NotADataColumnMapping(Object): PrivateScope, Assembly, Static, HideBySig
+    InvalidSourceTable(String): PrivateScope, Assembly, Static, HideBySig
+    TablesAddNullAttempt(String): PrivateScope, Assembly, Static, HideBySig
+    TablesDataSetTable(String): PrivateScope, Assembly, Static, HideBySig
+    TablesIndexInt32(Int32, ITableMappingCollection): PrivateScope, Assembly, Static, HideBySig
+    TablesIsNotParent(ICollection): PrivateScope, Assembly, Static, HideBySig
+    TablesIsParent(ICollection): PrivateScope, Assembly, Static, HideBySig
+    TablesSourceIndex(String): PrivateScope, Assembly, Static, HideBySig
+    TablesUniqueSourceTable(String): PrivateScope, Assembly, Static, HideBySig
+    NotADataTableMapping(Object): PrivateScope, Assembly, Static, HideBySig
+    CommandAsyncOperationCompleted(): PrivateScope, Assembly, Static, HideBySig
     CommandTextRequired(String): PrivateScope, Assembly, Static, HideBySig
     ConnectionRequired(String): PrivateScope, Assembly, Static, HideBySig
     OpenConnectionRequired(String, ConnectionState): PrivateScope, Assembly, Static, HideBySig
@@ -17489,91 +17532,6 @@ Class System.Data.Common.ADP: AutoLayout, AnsiClass, Class, Abstract, Sealed, Be
     DbTypeNotSupported(DbType, Type): PrivateScope, Assembly, Static, HideBySig
     UnknownDataTypeCode(Type, TypeCode): PrivateScope, Assembly, Static, HideBySig
     InvalidOffsetValue(Int32): PrivateScope, Assembly, Static, HideBySig
-    ConfigProviderNotFound(): PrivateScope, Assembly, Static, HideBySig
-    ConfigProviderInvalid(): PrivateScope, Assembly, Static, HideBySig
-    ConfigProviderNotInstalled(): PrivateScope, Assembly, Static, HideBySig
-    ConfigProviderMissing(): PrivateScope, Assembly, Static, HideBySig
-    ConfigBaseNoChildNodes(XmlNode): PrivateScope, Assembly, Static, HideBySig
-    ConfigBaseElementsOnly(XmlNode): PrivateScope, Assembly, Static, HideBySig
-    ConfigUnrecognizedAttributes(XmlNode): PrivateScope, Assembly, Static, HideBySig
-    ConfigUnrecognizedElement(XmlNode): PrivateScope, Assembly, Static, HideBySig
-    ConfigSectionsUnique(String): PrivateScope, Assembly, Static, HideBySig
-    ConfigRequiredAttributeMissing(String, XmlNode): PrivateScope, Assembly, Static, HideBySig
-    ConfigRequiredAttributeEmpty(String, XmlNode): PrivateScope, Assembly, Static, HideBySig
-    ConnectionStringSyntax(Int32): PrivateScope, Assembly, Static, HideBySig
-    KeywordNotSupported(String): PrivateScope, Assembly, Static, HideBySig
-    UdlFileError(Exception): PrivateScope, Assembly, Static, HideBySig
-    InvalidUDL(): PrivateScope, Assembly, Static, HideBySig
-    InvalidDataDirectory(): PrivateScope, Assembly, Static, HideBySig
-    InvalidKeyname(String): PrivateScope, Assembly, Static, HideBySig
-    InvalidValue(String): PrivateScope, Assembly, Static, HideBySig
-    InvalidMinMaxPoolSizeValues(): PrivateScope, Assembly, Static, HideBySig
-    ConvertFailed(Type, Type, Exception): PrivateScope, Assembly, Static, HideBySig
-    InvalidMixedUsageOfSecureAndClearCredential(): PrivateScope, Assembly, Static, HideBySig
-    InvalidMixedArgumentOfSecureAndClearCredential(): PrivateScope, Assembly, Static, HideBySig
-    InvalidMixedUsageOfSecureCredentialAndIntegratedSecurity(): PrivateScope, Assembly, Static, HideBySig
-    InvalidMixedArgumentOfSecureCredentialAndIntegratedSecurity(): PrivateScope, Assembly, Static, HideBySig
-    InvalidMixedUsageOfSecureCredentialAndContextConnection(): PrivateScope, Assembly, Static, HideBySig
-    InvalidMixedArgumentOfSecureCredentialAndContextConnection(): PrivateScope, Assembly, Static, HideBySig
-    InvalidMixedUsageOfAccessTokenAndContextConnection(): PrivateScope, Assembly, Static, HideBySig
-    InvalidMixedUsageOfAccessTokenAndIntegratedSecurity(): PrivateScope, Assembly, Static, HideBySig
-    InvalidMixedUsageOfAccessTokenAndUserIDPassword(): PrivateScope, Assembly, Static, HideBySig
-    InvalidMixedUsageOfAccessTokenAndCredential(): PrivateScope, Assembly, Static, HideBySig
-    InvalidMixedUsageOfAccessTokenAndAuthentication(): PrivateScope, Assembly, Static, HideBySig
-    InvalidMixedUsageOfCredentialAndAccessToken(): PrivateScope, Assembly, Static, HideBySig
-    NoConnectionString(): PrivateScope, Assembly, Static, HideBySig
-    MethodNotImplemented(String): PrivateScope, Assembly, Static, HideBySig
-    ConfigUnableToLoadXmlMetaDataFile(String): PrivateScope, Assembly, Static, HideBySig
-    ConfigWrongNumberOfValues(String): PrivateScope, Assembly, Static, HideBySig
-    InvalidConnectionOptionValue(String): PrivateScope, Assembly, Static, HideBySig
-    InvalidConnectionOptionValueLength(String, Int32): PrivateScope, Assembly, Static, HideBySig
-    InvalidConnectionOptionValue(String, Exception): PrivateScope, Assembly, Static, HideBySig
-    MissingConnectionOptionValue(String, String): PrivateScope, Assembly, Static, HideBySig
-    InvalidXMLBadVersion(): PrivateScope, Assembly, Static, HideBySig
-    NotAPermissionElement(): PrivateScope, Assembly, Static, HideBySig
-    PermissionTypeMismatch(): PrivateScope, Assembly, Static, HideBySig
-    WrongType(Type, Type): PrivateScope, Assembly, Static, HideBySig
-    OdbcNoTypesFromProvider(): PrivateScope, Assembly, Static, HideBySig
-    PooledOpenTimeout(): PrivateScope, Assembly, Static, HideBySig
-    NonPooledOpenTimeout(): PrivateScope, Assembly, Static, HideBySig
-    CollectionRemoveInvalidObject(Type, ICollection): PrivateScope, Assembly, Static, HideBySig
-    CollectionNullValue(String, Type, Type): PrivateScope, Assembly, Static, HideBySig
-    CollectionIndexInt32(Int32, Type, Int32): PrivateScope, Assembly, Static, HideBySig
-    CollectionIndexString(Type, String, String, Type): PrivateScope, Assembly, Static, HideBySig
-    CollectionInvalidType(Type, Type, Object): PrivateScope, Assembly, Static, HideBySig
-    CollectionUniqueValue(Type, String, String): PrivateScope, Assembly, Static, HideBySig
-    ParametersIsNotParent(Type, ICollection): PrivateScope, Assembly, Static, HideBySig
-    ParametersIsParent(Type, ICollection): PrivateScope, Assembly, Static, HideBySig
-    TransactionConnectionMismatch(): PrivateScope, Assembly, Static, HideBySig
-    TransactionCompletedButNotDisposed(): PrivateScope, Assembly, Static, HideBySig
-    TransactionRequired(String): PrivateScope, Assembly, Static, HideBySig
-    MissingSelectCommand(String): PrivateScope, Assembly, Static, HideBySig
-    ColumnSchemaExpression(String, String): PrivateScope, Assembly, Static, HideBySig
-    ColumnSchemaMismatch(String, Type, DataColumn): PrivateScope, Assembly, Static, HideBySig
-    ColumnSchemaMissing(String, String, String): PrivateScope, Assembly, Static, HideBySig
-    MissingColumnMapping(String): PrivateScope, Assembly, Static, HideBySig
-    MissingTableSchema(String, String): PrivateScope, Assembly, Static, HideBySig
-    MissingTableMapping(String): PrivateScope, Assembly, Static, HideBySig
-    MissingTableMappingDestination(String): PrivateScope, Assembly, Static, HideBySig
-    InvalidSourceColumn(String): PrivateScope, Assembly, Static, HideBySig
-    ColumnsAddNullAttempt(String): PrivateScope, Assembly, Static, HideBySig
-    ColumnsDataSetColumn(String): PrivateScope, Assembly, Static, HideBySig
-    ColumnsIndexInt32(Int32, IColumnMappingCollection): PrivateScope, Assembly, Static, HideBySig
-    ColumnsIndexSource(String): PrivateScope, Assembly, Static, HideBySig
-    ColumnsIsNotParent(ICollection): PrivateScope, Assembly, Static, HideBySig
-    ColumnsIsParent(ICollection): PrivateScope, Assembly, Static, HideBySig
-    ColumnsUniqueSourceColumn(String): PrivateScope, Assembly, Static, HideBySig
-    NotADataColumnMapping(Object): PrivateScope, Assembly, Static, HideBySig
-    InvalidSourceTable(String): PrivateScope, Assembly, Static, HideBySig
-    TablesAddNullAttempt(String): PrivateScope, Assembly, Static, HideBySig
-    TablesDataSetTable(String): PrivateScope, Assembly, Static, HideBySig
-    TablesIndexInt32(Int32, ITableMappingCollection): PrivateScope, Assembly, Static, HideBySig
-    TablesIsNotParent(ICollection): PrivateScope, Assembly, Static, HideBySig
-    TablesIsParent(ICollection): PrivateScope, Assembly, Static, HideBySig
-    TablesSourceIndex(String): PrivateScope, Assembly, Static, HideBySig
-    TablesUniqueSourceTable(String): PrivateScope, Assembly, Static, HideBySig
-    NotADataTableMapping(Object): PrivateScope, Assembly, Static, HideBySig
-    CommandAsyncOperationCompleted(): PrivateScope, Assembly, Static, HideBySig
     CreatedTaskWithException(Exception): PrivateScope, Assembly, Static, HideBySig
     CreatedTaskWithCancellation(): PrivateScope, Assembly, Static, HideBySig
     ExceptionWithStackTrace(Exception): PrivateScope, Assembly, Static, HideBySig
@@ -17658,6 +17616,48 @@ Class System.Data.Common.ADP: AutoLayout, AnsiClass, Class, Abstract, Sealed, Be
     NotSupportedStatementType(StatementType, String): PrivateScope, Assembly, Static, HideBySig
     InvalidUserDefinedTypeSerializationFormat(Format): PrivateScope, Assembly, Static, HideBySig
     NotSupportedUserDefinedTypeSerializationFormat(Format, String): PrivateScope, Assembly, Static, HideBySig
+    ConfigProviderNotFound(): PrivateScope, Assembly, Static, HideBySig
+    ConfigProviderInvalid(): PrivateScope, Assembly, Static, HideBySig
+    ConfigProviderNotInstalled(): PrivateScope, Assembly, Static, HideBySig
+    ConfigProviderMissing(): PrivateScope, Assembly, Static, HideBySig
+    ConfigBaseNoChildNodes(XmlNode): PrivateScope, Assembly, Static, HideBySig
+    ConfigBaseElementsOnly(XmlNode): PrivateScope, Assembly, Static, HideBySig
+    ConfigUnrecognizedAttributes(XmlNode): PrivateScope, Assembly, Static, HideBySig
+    ConfigUnrecognizedElement(XmlNode): PrivateScope, Assembly, Static, HideBySig
+    ConfigSectionsUnique(String): PrivateScope, Assembly, Static, HideBySig
+    ConfigRequiredAttributeMissing(String, XmlNode): PrivateScope, Assembly, Static, HideBySig
+    ConfigRequiredAttributeEmpty(String, XmlNode): PrivateScope, Assembly, Static, HideBySig
+    ConnectionStringSyntax(Int32): PrivateScope, Assembly, Static, HideBySig
+    KeywordNotSupported(String): PrivateScope, Assembly, Static, HideBySig
+    UdlFileError(Exception): PrivateScope, Assembly, Static, HideBySig
+    InvalidUDL(): PrivateScope, Assembly, Static, HideBySig
+    InvalidDataDirectory(): PrivateScope, Assembly, Static, HideBySig
+    InvalidKeyname(String): PrivateScope, Assembly, Static, HideBySig
+    InvalidValue(String): PrivateScope, Assembly, Static, HideBySig
+    InvalidMinMaxPoolSizeValues(): PrivateScope, Assembly, Static, HideBySig
+    ConvertFailed(Type, Type, Exception): PrivateScope, Assembly, Static, HideBySig
+    InvalidMixedUsageOfSecureAndClearCredential(): PrivateScope, Assembly, Static, HideBySig
+    InvalidMixedArgumentOfSecureAndClearCredential(): PrivateScope, Assembly, Static, HideBySig
+    InvalidMixedUsageOfSecureCredentialAndIntegratedSecurity(): PrivateScope, Assembly, Static, HideBySig
+    InvalidMixedArgumentOfSecureCredentialAndIntegratedSecurity(): PrivateScope, Assembly, Static, HideBySig
+    InvalidMixedUsageOfSecureCredentialAndContextConnection(): PrivateScope, Assembly, Static, HideBySig
+    InvalidMixedArgumentOfSecureCredentialAndContextConnection(): PrivateScope, Assembly, Static, HideBySig
+    InvalidMixedUsageOfAccessTokenAndContextConnection(): PrivateScope, Assembly, Static, HideBySig
+    InvalidMixedUsageOfAccessTokenAndIntegratedSecurity(): PrivateScope, Assembly, Static, HideBySig
+    InvalidMixedUsageOfAccessTokenAndUserIDPassword(): PrivateScope, Assembly, Static, HideBySig
+    InvalidMixedUsageOfAccessTokenAndCredential(): PrivateScope, Assembly, Static, HideBySig
+    InvalidMixedUsageOfAccessTokenAndAuthentication(): PrivateScope, Assembly, Static, HideBySig
+    InvalidMixedUsageOfCredentialAndAccessToken(): PrivateScope, Assembly, Static, HideBySig
+    NoConnectionString(): PrivateScope, Assembly, Static, HideBySig
+    MethodNotImplemented(String): PrivateScope, Assembly, Static, HideBySig
+    ConfigUnableToLoadXmlMetaDataFile(String): PrivateScope, Assembly, Static, HideBySig
+    ConfigWrongNumberOfValues(String): PrivateScope, Assembly, Static, HideBySig
+    InvalidConnectionOptionValue(String): PrivateScope, Assembly, Static, HideBySig
+    InvalidConnectionOptionValueLength(String, Int32): PrivateScope, Assembly, Static, HideBySig
+    InvalidConnectionOptionValue(String, Exception): PrivateScope, Assembly, Static, HideBySig
+    MissingConnectionOptionValue(String, String): PrivateScope, Assembly, Static, HideBySig
+    InvalidXMLBadVersion(): PrivateScope, Assembly, Static, HideBySig
+    NotAPermissionElement(): PrivateScope, Assembly, Static, HideBySig
 Class System.Data.Common.BooleanStorage: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldInit
   :System.Data.Common.DataStorage
     Void .ctor(System.Data.DataColumn): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
@@ -19507,17 +19507,6 @@ Class System.Data.Common.UInt64Storage: AutoLayout, AnsiClass, Class, Sealed, Be
     ConvertObjectToXml(Object): PrivateScope, Public, Virtual, HideBySig
 Class System.Data.Common.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Methods:
-    GetEffectiveRightsFromAclW(Byte[], Trustee&, UInt32&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    CheckTokenMembership(IntPtr, Byte[], Boolean&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    ConvertSidToStringSidW(IntPtr, IntPtr&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    CreateWellKnownSid(Int32, Byte[], Byte[](Out), UInt32&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    GetTokenInformation(IntPtr, UInt32, IntPtr, UInt32, UInt32&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    lstrlenW(IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    SQLGetInfoW(OdbcConnectionHandle, SQL_INFO, Byte[], Int16, Int16&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    SQLGetInfoW(OdbcConnectionHandle, SQL_INFO, Byte[], Int16, IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    SQLGetStmtAttrW(OdbcStatementHandle, SQL_ATTR, IntPtr&(Out), Int32, Int32&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    SQLGetTypeInfo(OdbcStatementHandle, Int16): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    SQLMoreResults(OdbcStatementHandle): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     SQLNumResultCols(OdbcStatementHandle, Int16&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     SQLPrepareW(OdbcStatementHandle, String(In, HasFieldMarshal), Int32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     SQLPrimaryKeysW(OdbcStatementHandle, String(In, HasFieldMarshal), Int16, String(In, HasFieldMarshal), Int16, String(In, HasFieldMarshal), Int16): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
@@ -19536,6 +19525,12 @@ Class System.Data.Common.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Abst
     SQLStatisticsW(OdbcStatementHandle, String(In, HasFieldMarshal), Int16, String(In, HasFieldMarshal), Int16, String(In, HasFieldMarshal), Int16, Int16, Int16): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     SQLTablesW(OdbcStatementHandle, String(In, HasFieldMarshal), Int16, String(In, HasFieldMarshal), Int16, String(In, HasFieldMarshal), Int16, String(In, HasFieldMarshal), Int16): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     GetErrorInfo(Int32(In), IErrorInfo&(Out, HasFieldMarshal)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    GetEffectiveRightsFromAclW(Byte[], Trustee&, UInt32&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    CheckTokenMembership(IntPtr, Byte[], Boolean&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    ConvertSidToStringSidW(IntPtr, IntPtr&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    CreateWellKnownSid(Int32, Byte[], Byte[](Out), UInt32&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    GetTokenInformation(IntPtr, UInt32, IntPtr, UInt32, UInt32&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    lstrlenW(IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     SQLAllocHandle(SQL_HANDLE, IntPtr, IntPtr&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     SQLAllocHandle(SQL_HANDLE, OdbcHandle, IntPtr&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     SQLBindCol(OdbcStatementHandle, UInt16, SQL_C, HandleRef, IntPtr, IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
@@ -19559,6 +19554,11 @@ Class System.Data.Common.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Abst
     SQLGetDiagRecW(SQL_HANDLE, OdbcHandle, Int16, StringBuilder, Int32&(Out), StringBuilder, Int16, Int16&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     SQLGetDiagFieldW(SQL_HANDLE, OdbcHandle, Int16, Int16, StringBuilder(HasFieldMarshal), Int16, Int16&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     SQLGetFunctions(OdbcConnectionHandle, SQL_API, Int16&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    SQLGetInfoW(OdbcConnectionHandle, SQL_INFO, Byte[], Int16, Int16&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    SQLGetInfoW(OdbcConnectionHandle, SQL_INFO, Byte[], Int16, IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    SQLGetStmtAttrW(OdbcStatementHandle, SQL_ATTR, IntPtr&(Out), Int32, Int32&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    SQLGetTypeInfo(OdbcStatementHandle, Int16): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    SQLMoreResults(OdbcStatementHandle): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
 Class System.Data.Common.DbMetaDataCollectionNames: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
   Fields:
     System.String MetaDataCollections : Public, Static, InitOnly

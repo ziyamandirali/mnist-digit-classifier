@@ -32,8 +32,11 @@ namespace CppCLRWinformsProjekt {
 		neuron_count = 0;
 		mean = nullptr;
 		std = nullptr;
-		regression_slope = 0.0f;
-		regression_intercept = 0.0f;
+		neuron_count = 0;
+		mean = nullptr;
+		std = nullptr;
+		// regression_slope = 0.0f; // Removed
+		// regression_intercept = 0.0f; // Removed
 		regression_trained = false;
 		regression_is_multilayer = false;
 		regression_mean = nullptr;
@@ -297,8 +300,8 @@ namespace CppCLRWinformsProjekt {
 		float* mean, * std; // Normalization parameters
 		
 		// Regression variables
-		float regression_slope = 0.0f;
-		float regression_intercept = 0.0f;
+		// float regression_slope = 0.0f; // Removed
+		// float regression_intercept = 0.0f; // Removed
 		bool regression_trained = false;
 		bool regression_is_multilayer = false;  // Flag for regression type
 		float* regression_mean = nullptr;       // Normalization for regression
@@ -1112,8 +1115,9 @@ namespace CppCLRWinformsProjekt {
 			float x2_data = float(x2_screen - center_width);
 			
 			// Calculate y values using y = slope * x + intercept
-			float y1_data = regression_slope * x1_data + regression_intercept;
-			float y2_data = regression_slope * x2_data + regression_intercept;
+			// Usage: Weights[0] is slope, bias[0] is intercept
+			float y1_data = Weights[0] * x1_data + bias[0];
+			float y2_data = Weights[0] * x2_data + bias[0];
 			
 			// Convert back to screen coordinates
 			int y1_screen = center_height - (int)y1_data;
@@ -1691,9 +1695,9 @@ private: System::Void regressionToolStripMenuItem_Click(System::Object^ sender, 
 	
 	// Clear textBox for new regression info
 	textBox1->Text = "";
-	textBox1->Text += "=== REGRESSION TRAINING STARTED ===\r\n";
-	textBox1->Text += "Mode: " + (is_multilayer ? "Multi-Layer" : "Single-Layer Linear") + "\r\n";
-	textBox1->Text += "Samples: " + numSample + ", Learning Rate: " + learning_rate.ToString("F4") + "\r\n\r\n";
+	// textBox1->Text += "=== REGRESSION TRAINING STARTED ===\r\n";
+	// textBox1->Text += "Mode: " + (is_multilayer ? "Multi-Layer" : "Single-Layer Linear") + "\r\n";
+	// textBox1->Text += "Samples: " + numSample + ", Learning Rate: " + learning_rate.ToString("F4") + "\r\n\r\n";
 	
 	// Extract x and y coordinates from Samples
 	float* x_data = new float[numSample];
@@ -1741,8 +1745,8 @@ private: System::Void regressionToolStripMenuItem_Click(System::Object^ sender, 
 	
 	String^ normMsg = "Normalization - Mean: [" + mean_xy[0].ToString("F4") + ", " + mean_xy[1].ToString("F4") + 
 					  "] | Std: [" + std_xy[0].ToString("F4") + ", " + std_xy[1].ToString("F4") + "]\r\n";
-	System::Diagnostics::Debug::WriteLine(normMsg);
-	textBox1->Text += normMsg;
+	// System::Diagnostics::Debug::WriteLine(normMsg);
+	// textBox1->Text += normMsg;
 	
 	textBox1->Text += "\r\nTraining regression model...\r\n";
 	
@@ -1802,36 +1806,55 @@ private: System::Void regressionToolStripMenuItem_Click(System::Object^ sender, 
 		textBox1->Text += "(Curve will be drawn on canvas)\r\n";
 	}
 	else {
-		// ===== SINGLE-LAYER LINEAR REGRESSION =====
-	float slope_norm = 0.0f;
-	float intercept_norm = 0.0f;
+	// ===== SINGLE-LAYER LINEAR REGRESSION =====
+	// Use regression_slope and regression_intercept as Weights and bias
+	// We need pointers for the function, so we'll use single-element arrays concept
+	// But since regression_train now expects arrays, we can just point to our member variables?
+	// No, member variables are single floats. We should allocate temporary arrays 
+	// or just pass address if the function treats them as arrays of size 1.
+	// However, standard practice is to allocate.
 	
-		// Train linear regression on normalized data
-		error_history = regression_train(x_norm, y_norm, numSample,
-		slope_norm, intercept_norm,
-		learning_rate, Min_Err, Max_epoch, epoch);
+	// Create temporary arrays for training
+	float* reg_weights = new float[1];
+	float* reg_bias = new float[1];
 	
-	// Denormalize parameters: y = slope*x + intercept
-	// y_norm = slope_norm * x_norm + intercept_norm
-	// (y - mean_y)/std_y = slope_norm * (x - mean_x)/std_x + intercept_norm
-	// y = slope_norm * (std_y/std_x) * x + (intercept_norm*std_y + mean_y - slope_norm*(std_y/std_x)*mean_x)
+	// Initialize with current values (or random/zero)
+	// Check if Weights exist, otherwise 0
+	reg_weights[0] = (Weights != nullptr) ? Weights[0] : 0.0f;
+	reg_bias[0] = (bias != nullptr) ? bias[0] : 0.0f;
 	
-	float slope = slope_norm * (std_xy[1] / std_xy[0]);
-	float intercept = intercept_norm * std_xy[1] + mean_xy[1] - slope * mean_xy[0];
+	// Train linear regression (Single Layer: 1 input -> 1 output)
+	// inputDim=1, class_count=1
+	error_history = regression_train(x_norm, numSample, y_norm, 
+		1, 1, 
+		reg_weights, reg_bias, 
+		learning_rate, Min_Err, Max_epoch, epoch, textBox1);
 	
-		String^ normParamsMsg = "\r\nNormalized Parameters:\r\n";
-		normParamsMsg += "  Slope: " + slope_norm.ToString("F6") + " | Intercept: " + intercept_norm.ToString("F6") + "\r\n";
-		System::Diagnostics::Debug::WriteLine(normParamsMsg);
-		textBox1->Text += normParamsMsg;
-		
-		String^ denormParamsMsg = "Denormalized Parameters:\r\n";
-		denormParamsMsg += "  Slope: " + slope.ToString("F6") + " | Intercept: " + intercept.ToString("F6") + "\r\n";
-		System::Diagnostics::Debug::WriteLine(denormParamsMsg);
-		textBox1->Text += denormParamsMsg;
+	// Copy results to class variables (Allocating if necessary)
+	if (!Weights) Weights = new float[1];
+	if (!bias) bias = new float[1];
 	
-	// Copy results to class variables
-	regression_slope = slope;
-	regression_intercept = intercept;
+	// Denormalize parameters directly into Weights and bias
+	// y = slope*x + intercept
+	Weights[0] = reg_weights[0] * (std_xy[1] / std_xy[0]);
+	bias[0] = reg_bias[0] * std_xy[1] + mean_xy[1] - Weights[0] * mean_xy[0];
+	
+	String^ normParamsMsg = "\r\nNormalized Parameters:\r\n";
+	normParamsMsg += "  Slope: " + reg_weights[0].ToString("F6") + " | Intercept: " + reg_bias[0].ToString("F6") + "\r\n";
+	// System::Diagnostics::Debug::WriteLine(normParamsMsg);
+	// textBox1->Text += normParamsMsg;
+	
+	String^ denormParamsMsg = "Denormalized Parameters:\r\n";
+	denormParamsMsg += "  Slope: " + Weights[0].ToString("F6") + " | Intercept: " + bias[0].ToString("F6") + "\r\n";
+	// System::Diagnostics::Debug::WriteLine(denormParamsMsg);
+	// textBox1->Text += denormParamsMsg;
+
+	// Cleanup temporary arrays
+	delete[] reg_weights;
+	delete[] reg_bias;
+	
+	// regression_slope = slope; // Removed
+	// regression_intercept = intercept; // Removed
 		regression_is_multilayer = false;
 		regression_trained = true;
 		
@@ -1851,17 +1874,19 @@ private: System::Void regressionToolStripMenuItem_Click(System::Object^ sender, 
 	
 	if (epoch > 0) {
 		// Debug output
-		String^ resultMsg = "\r\n=== REGRESSION COMPLETED ===\r\n";
-		resultMsg += "Epochs: " + epoch + " | Final Error: " + error_history[epoch-1].ToString("F6") + "\r\n\r\n";
+		// String^ resultMsg = "\r\n=== REGRESSION COMPLETED ===\r\n";
+		String^ resultMsg = "\r\n\r\nEpochs: " + epoch + " | Final Error: " + error_history[epoch-1].ToString("F6") + "\r\n\r\n";
 		
+		/*
 		if (!is_multilayer && regression_trained) {
-			resultMsg += "Final Equation: y = " + regression_slope.ToString("F4") + 
-			"*x + " + regression_intercept.ToString("F4") + "\r\n";
+			resultMsg += "Final Equation: y = " + Weights[0].ToString("F4") + 
+			"*x + " + bias[0].ToString("F4") + "\r\n";
 		}
 		else if (is_multilayer) {
 			resultMsg += "Multi-Layer Network trained for regression.\r\n";
 			resultMsg += "Use Test menu to see predictions across the space.\r\n";
 		}
+		*/
 		
 		System::Diagnostics::Debug::WriteLine(resultMsg);
 		textBox1->Text += resultMsg;
@@ -1966,6 +1991,10 @@ private: System::Void HiddenLayerCountBox_SelectedIndexChanged(System::Object^ s
 	}
 
 private: System::Void buttonClearCanvas_Click(System::Object^ sender, System::EventArgs^ e) {
+	// Stop any painting access first
+	regression_trained = false;
+	regression_is_multilayer = false;
+	
 	// Clear all samples
 	if (Samples) {
 		delete[] Samples;
@@ -2012,9 +2041,8 @@ private: System::Void buttonClearCanvas_Click(System::Object^ sender, System::Ev
 		layer_sizes = nullptr;
 	}
 	
-	// Reset network state
 	num_layers = 0;
-	is_multilayer = false;
+	// is_multilayer = false; // Already done at top
 	
 	// Clear normalization parameters
 	if (mean) {
@@ -2024,6 +2052,16 @@ private: System::Void buttonClearCanvas_Click(System::Object^ sender, System::Ev
 	if (std) {
 		delete[] std;
 		std = nullptr;
+	}
+	
+	// Clear regression normalization parameters
+	if (regression_mean) {
+		delete[] regression_mean;
+		regression_mean = nullptr;
+	}
+	if (regression_std) {
+		delete[] regression_std;
+		regression_std = nullptr;
 	}
 	
 	// Reset sample count
@@ -2037,9 +2075,6 @@ private: System::Void buttonClearCanvas_Click(System::Object^ sender, System::Ev
 	pictureBox1->Image = nullptr;  // Clear classification testing bitmap
 	pictureBox1->Invalidate();
 	pictureBox1->Refresh();
-	
-	// Clear regression line
-	regression_trained = false;
 	
 	// Clear text box info
 	textBox1->Clear();

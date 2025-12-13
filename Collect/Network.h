@@ -28,5 +28,4 @@ float* train_fcn_multilayer_regression(float* Samples, int numSample, float* tar
                                        float momentum = 0.0f);
 
 // Single-layer linear regression training (original)
-float* regression_train(float* x, float* y, int numSample, float& slope, float& intercept, 
-                        float learning_rate, float Min_Err, int Max_epoch, int& epoch);
+float* regression_train(float* Samples, int numSample, float* targets, int inputDim, int class_count, float* Weights, float* bias, float learning_rate, float Min_Err, int Max_epoch, int& epoch, System::Windows::Forms::TextBox^ logBox = nullptr);

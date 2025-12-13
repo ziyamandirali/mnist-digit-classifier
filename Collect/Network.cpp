@@ -643,51 +643,67 @@ float* train_fcn_multilayer_regression(float* Samples, int numSample, float* tar
 } //train_fcn_multilayer_regression
 
 // Single-layer Linear Regression Training
-float* regression_train(float* x, float* y, int numSample, float& slope, float& intercept, 
-                        float learning_rate, float Min_Err, int Max_epoch, int& epoch) {
+float* regression_train(float* Samples, int numSample, float* targets, int inputDim, int class_count, float* Weights, float* bias, float learning_rate, float Min_Err, int Max_epoch, int& epoch, System::Windows::Forms::TextBox^ logBox) {
 	
 	float* error_history = new float[Max_epoch];
-	float total_err = 0.0f;
-	epoch = 0;
+	float total_err;
 	
-	// Initialize parameters
-	slope = 0.0f;
-	intercept = 0.0f;
+	// Output array for current sample
+	float* outputs = new float[class_count];
+	
+	epoch = 0;
 	
 	do {
 		total_err = 0.0f;
-		float slope_gradient = 0.0f;
-		float intercept_gradient = 0.0f;
 		
-		// Calculate gradients
-		for (int i = 0; i < numSample; i++) {
-			float y_pred = slope * x[i] + intercept;
-			float error = y[i] - y_pred;
+		for (int step = 0; step < numSample; step++) {
+			float* current_sample = &Samples[step * inputDim];
 			
-			slope_gradient += -2.0f * error * x[i];
-			intercept_gradient += -2.0f * error;
+			// --- Forward Pass (Linear Activation: y = Wx + b) ---
+			for (int k = 0; k < class_count; k++) {
+				outputs[k] = 0.0f;
+				for (int i = 0; i < inputDim; i++) {
+					outputs[k] += Weights[k * inputDim + i] * current_sample[i];
+				}
+				outputs[k] += bias[k];
+			}
 			
-			total_err += (error * error);
+			// --- Calculate Error and Update Immediately (Online Learning) ---
+			for (int k = 0; k < class_count; k++) {
+				// Determine target (supports both scalar and vector targets)
+				float target;
+				if (class_count == 1) target = targets[step]; // Scalar target
+				else target = targets[step * class_count + k]; // Vector target
+				
+				float error = target - outputs[k];
+				total_err += (error * error);
+				
+				// Update Step (Perceptron Rule / SGD):
+				// Weight_new = Weight_old + learning_rate * error * input
+				// (using + because error = target - output. If output < target, error is +, we need to increase output)
+				
+				// Update Bias
+				bias[k] += learning_rate * error;
+				
+				// Gradient clipping for bias
+				if (bias[k] > 1000.0f) bias[k] = 1000.0f;
+				if (bias[k] < -1000.0f) bias[k] = -1000.0f;
+				if (!isfinite(bias[k])) bias[k] = 0.0f;
+				
+				// Update Weights
+				for (int i = 0; i < inputDim; i++) {
+					Weights[k * inputDim + i] += learning_rate * error * current_sample[i];
+					
+					// Gradient clipping for weights
+					if (Weights[k * inputDim + i] > 100.0f) Weights[k * inputDim + i] = 100.0f;
+					if (Weights[k * inputDim + i] < -100.0f) Weights[k * inputDim + i] = -100.0f;
+					if (!isfinite(Weights[k * inputDim + i])) Weights[k * inputDim + i] = 0.0f;
+				}
+			}
 		}
 		
-		// Average gradients and error
-		slope_gradient /= numSample;
-		intercept_gradient /= numSample;
+		// Average Error
 		total_err /= numSample;
-		
-		// Update parameters
-		slope -= learning_rate * slope_gradient;
-		intercept -= learning_rate * intercept_gradient;
-		
-		// Gradient clipping
-		if (slope > 100.0f) slope = 100.0f;
-		if (slope < -100.0f) slope = -100.0f;
-		if (intercept > 1000.0f) intercept = 1000.0f;
-		if (intercept < -1000.0f) intercept = -1000.0f;
-		
-		// Check for NaN/Inf
-		if (!isfinite(slope)) slope = 0.0f;
-		if (!isfinite(intercept)) intercept = 0.0f;
 		
 		if (epoch < Max_epoch) {
 			error_history[epoch] = total_err;
@@ -698,15 +714,33 @@ float* regression_train(float* x, float* y, int numSample, float& slope, float& 
 			if (progress_interval == 0) progress_interval = 1;
 			
 			if (epoch % progress_interval == 0 || epoch == 1) {
-				float progress_percent = (float)epoch / Max_epoch * 100.0f;
-				System::String^ msg = System::String::Format(
-					"[LINEAR REGRESSION] Epoch {0}/{1} ({2:F1}%) | Error: {3:F6}",
-					epoch, Max_epoch, progress_percent, total_err);
+				// Format message: "Weights : w1 w2 ... Bias : b1 err: error"
+				System::String^ msg = "Weights : ";
+				for (int k = 0; k < class_count; k++) {
+					for (int i = 0; i < inputDim; i++) {
+						msg += Weights[k * inputDim + i].ToString("F3") + " ";
+					}
+				}
+				msg += "Bias : ";
+				for (int k = 0; k < class_count; k++) {
+					msg += bias[k].ToString("F3") + " ";
+				}
+				msg += "err: " + total_err.ToString("F6");
+				
+				// Print to Debug
 				System::Diagnostics::Debug::WriteLine(msg);
+				
+				// Print to TextBox if provided
+				if (logBox != nullptr) {
+					logBox->AppendText(msg + "\r\n");
+					System::Windows::Forms::Application::DoEvents(); // Keep UI responsive
+				}
 			}
 		}
 		
 	} while ((total_err > Min_Err) && (epoch < Max_epoch));
+	
+	delete[] outputs;
 	
 	return error_history;
 } //regression_train

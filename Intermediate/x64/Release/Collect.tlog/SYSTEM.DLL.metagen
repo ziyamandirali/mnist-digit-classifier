@@ -836,16 +836,6 @@ Class Microsoft.Win32.NativeMethods: AutoLayout, AnsiClass, Class, Abstract, Sea
     Int32 UOI_USER_SID = 4 : Public, Static, Literal, HasDefault
     Int32 VER_PLATFORM_WIN32_NT = 2 : Public, Static, Literal, HasDefault
   Methods:
-    ShellExecuteEx(ShellExecuteInfo): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    NtQueryInformationProcess(SafeProcessHandle, Int32, NtProcessBasicInfo, Int32, Int32[]): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    NtQuerySystemInformation(Int32, IntPtr, Int32, Int32&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    CreateFile(String, Int32, Int32, SECURITY_ATTRIBUTES, Int32, Int32, SafeFileHandle): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    DuplicateHandle(HandleRef, SafeHandle, HandleRef, SafeFileHandle&(Out), Int32, Boolean, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    DuplicateHandle(HandleRef, SafeHandle, HandleRef, SafeWaitHandle&(Out), Int32, Boolean, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    OpenProcessToken(HandleRef, Int32, IntPtr&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    LookupPrivilegeValue(String(HasFieldMarshal), String(HasFieldMarshal), LUID&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    AdjustTokenPrivileges(HandleRef, Boolean, TokenPrivileges, Int32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    GetWindowText(HandleRef, StringBuilder, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetWindowTextLength(HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     IsWindowVisible(HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     SendMessageTimeout(HandleRef, Int32, IntPtr, IntPtr, Int32, Int32, IntPtr&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
@@ -853,11 +843,6 @@ Class Microsoft.Win32.NativeMethods: AutoLayout, AnsiClass, Class, Abstract, Sea
     PostMessage(HandleRef, Int32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetWindow(HandleRef, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     VirtualQuery(SafeFileMapViewHandle, MEMORY_BASIC_INFORMATION&, IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    GetProcessWorkingSetSize(SafeProcessHandle, IntPtr&(Out), IntPtr&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    SetProcessAffinityMask(SafeProcessHandle, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    GetProcessAffinityMask(SafeProcessHandle, IntPtr&(Out), IntPtr&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    GetThreadPriorityBoost(SafeThreadHandle, Boolean&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    SetThreadPriorityBoost(SafeThreadHandle, Boolean): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetProcessPriorityBoost(SafeProcessHandle, Boolean&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     SetProcessPriorityBoost(SafeProcessHandle, Boolean): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     OpenThread(Int32, Boolean, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
@@ -876,6 +861,16 @@ Class Microsoft.Win32.NativeMethods: AutoLayout, AnsiClass, Class, Abstract, Sea
     SetPriorityClass(SafeProcessHandle, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     EnumWindows(EnumThreadWindowsCallback, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetWindowThreadProcessId(HandleRef, Int32&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    ShellExecuteEx(ShellExecuteInfo): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    NtQueryInformationProcess(SafeProcessHandle, Int32, NtProcessBasicInfo, Int32, Int32[]): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    NtQuerySystemInformation(Int32, IntPtr, Int32, Int32&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    CreateFile(String, Int32, Int32, SECURITY_ATTRIBUTES, Int32, Int32, SafeFileHandle): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    DuplicateHandle(HandleRef, SafeHandle, HandleRef, SafeFileHandle&(Out), Int32, Boolean, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    DuplicateHandle(HandleRef, SafeHandle, HandleRef, SafeWaitHandle&(Out), Int32, Boolean, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    OpenProcessToken(HandleRef, Int32, IntPtr&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    LookupPrivilegeValue(String(HasFieldMarshal), String(HasFieldMarshal), LUID&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    AdjustTokenPrivileges(HandleRef, Boolean, TokenPrivileges, Int32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    GetWindowText(HandleRef, StringBuilder, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetExitCodeProcess(SafeProcessHandle, Int32&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetProcessTimes(SafeProcessHandle, Int64&(Out), Int64&(Out), Int64&(Out), Int64&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetThreadTimes(SafeThreadHandle, Int64&(Out), Int64&(Out), Int64&(Out), Int64&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
@@ -901,6 +896,11 @@ Class Microsoft.Win32.NativeMethods: AutoLayout, AnsiClass, Class, Abstract, Sea
     GetModuleBaseName(SafeProcessHandle, HandleRef, StringBuilder, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetModuleFileNameEx(SafeProcessHandle, HandleRef, StringBuilder, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     SetProcessWorkingSetSize(SafeProcessHandle, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    GetProcessWorkingSetSize(SafeProcessHandle, IntPtr&(Out), IntPtr&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SetProcessAffinityMask(SafeProcessHandle, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    GetProcessAffinityMask(SafeProcessHandle, IntPtr&(Out), IntPtr&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    GetThreadPriorityBoost(SafeThreadHandle, Boolean&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SetThreadPriorityBoost(SafeThreadHandle, Boolean): PrivateScope, Public, Static, HideBySig, PinvokeImpl
 Class Microsoft.Win32.PowerModeChangedEventArgs: AutoLayout, AnsiClass, Class, Public, HasSecurity, BeforeFieldInit
   :System.EventArgs
     Void .ctor(Microsoft.Win32.PowerModes): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -1149,21 +1149,6 @@ Class Microsoft.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Abstrac
     Int32 GetFileExInfoStandard = 0 : Public, Static, Literal, HasDefault
     Int32 TokenIsAppContainer = 29 : Assembly, Static, Literal, HasDefault
   Methods:
-    SetCommMask(SafeFileHandle, Int32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    GetOverlappedResult(SafeFileHandle, NativeOverlapped*, Int32&, Boolean): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    GetTokenInformation(IntPtr(In), UInt32(In), IntPtr(In), UInt32(In), UInt32&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    CoGetStandardMarshal(Guid&, IntPtr, Int32, IntPtr, Int32, IntPtr&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    ReadEventLog(SafeHandle, Int32, Int32, Byte[], Int32, Int32&(Out), Int32&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    NotifyChangeEventLog(SafeHandle, SafeWaitHandle): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    ReadDirectoryChangesW(SafeFileHandle, HandleRef, Int32, Int32, Int32, Int32&(Out), NativeOverlapped*, HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    CreateFile(String, Int32, Int32, IntPtr, Int32, Int32, IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    GetCommState(SafeFileHandle, DCB&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    SetCommState(SafeFileHandle, DCB&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    GetCommModemStatus(SafeFileHandle, Int32&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    SetupComm(SafeFileHandle, Int32, Int32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    SetCommTimeouts(SafeFileHandle, COMMTIMEOUTS&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    SetCommBreak(SafeFileHandle): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    ClearCommBreak(SafeFileHandle): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     ClearCommError(SafeFileHandle, Int32&, COMSTAT&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     ClearCommError(SafeFileHandle, Int32&, IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     PurgeComm(SafeFileHandle, UInt32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
@@ -1176,12 +1161,10 @@ Class Microsoft.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Abstrac
     GetFileType(SafeFileHandle): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     EscapeCommFunction(SafeFileHandle, Int32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     WaitCommEvent(SafeFileHandle, Int32*, NativeOverlapped*): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    SetConsoleCtrlHandler(ConHndlr, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    DefWindowProc(IntPtr, Int32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    DestroyWindow(HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    MsgWaitForMultipleObjectsEx(Int32, IntPtr, Int32, Int32, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    DispatchMessage(MSG&(In)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
-    PeekMessage(MSG&(In, Out), HandleRef, Int32, Int32, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SetCommMask(SafeFileHandle, Int32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    GetOverlappedResult(SafeFileHandle, NativeOverlapped*, Int32&, Boolean): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    GetTokenInformation(IntPtr(In), UInt32(In), IntPtr(In), UInt32(In), UInt32&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    CoGetStandardMarshal(Guid&, IntPtr, Int32, IntPtr, Int32, IntPtr&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     SetTimer(HandleRef, HandleRef, Int32, HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     KillTimer(HandleRef, HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     TranslateMessage(MSG&(In, Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
@@ -1199,6 +1182,17 @@ Class Microsoft.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Abstrac
     ClearEventLog(SafeHandle, HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetNumberOfEventLogRecords(SafeHandle, Int32&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetOldestEventLogRecord(SafeHandle, Int32&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    ReadEventLog(SafeHandle, Int32, Int32, Byte[], Int32, Int32&(Out), Int32&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    NotifyChangeEventLog(SafeHandle, SafeWaitHandle): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    ReadDirectoryChangesW(SafeFileHandle, HandleRef, Int32, Int32, Int32, Int32&(Out), NativeOverlapped*, HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    CreateFile(String, Int32, Int32, IntPtr, Int32, Int32, IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    GetCommState(SafeFileHandle, DCB&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    SetCommState(SafeFileHandle, DCB&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    GetCommModemStatus(SafeFileHandle, Int32&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    SetupComm(SafeFileHandle, Int32, Int32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    SetCommTimeouts(SafeFileHandle, COMMTIMEOUTS&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    SetCommBreak(SafeFileHandle): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    ClearCommBreak(SafeFileHandle): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     GetStdHandle(Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     ReleaseDC(IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetDC(IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
@@ -1223,6 +1217,12 @@ Class Microsoft.Win32.UnsafeNativeMethods: AutoLayout, AnsiClass, Class, Abstrac
     UnregisterClass(String, HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     CreateWindowEx(Int32, String, String, Int32, Int32, Int32, Int32, Int32, HandleRef, HandleRef, HandleRef, Object(HasFieldMarshal)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     SendMessage(HandleRef, Int32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SetConsoleCtrlHandler(ConHndlr, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    DefWindowProc(IntPtr, Int32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    DestroyWindow(HandleRef): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    MsgWaitForMultipleObjectsEx(Int32, IntPtr, Int32, Int32, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    DispatchMessage(MSG&(In)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    PeekMessage(MSG&(In, Out), HandleRef, Int32, Int32, Int32): PrivateScope, Public, Static, HideBySig, PinvokeImpl
 Struct Microsoft.Win32.UserPreferenceCategory: AutoLayout, AnsiClass, Class, Public, Sealed
   :System.Enum
   Fields:
@@ -6153,70 +6153,6 @@ Class System.Net.HttpWebRequest: AutoLayout, AnsiClass, Class, Public, Serializa
     System.Net.ServerCertValidationCallback ServerCertValidationCallback 'get set' : 
     System.Net.Security.RemoteCertificateValidationCallback ServerCertificateValidationCallback 'get set' : 
   Methods:
-    get_ServerCertValidationCallback(): PrivateScope, Assembly, HideBySig, SpecialName
-    get_ServerCertificateValidationCallback(): PrivateScope, Public, HideBySig, SpecialName
-    set_ServerCertificateValidationCallback(RemoteCertificateValidationCallback): PrivateScope, Public, HideBySig, SpecialName
-    AddRange(Int32, Int32): PrivateScope, Public, HideBySig
-    AddRange(Int64, Int64): PrivateScope, Public, HideBySig
-    AddRange(Int32): PrivateScope, Public, HideBySig
-    AddRange(Int64): PrivateScope, Public, HideBySig
-    AddRange(String, Int32, Int32): PrivateScope, Public, HideBySig
-    AddRange(String, Int64, Int64): PrivateScope, Public, HideBySig
-    AddRange(String, Int32): PrivateScope, Public, HideBySig
-    AddRange(String, Int64): PrivateScope, Public, HideBySig
-    BeginGetResponse(AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, HasSecurity
-    EndGetResponse(IAsyncResult): PrivateScope, Public, Virtual, HideBySig
-    GetResponse(): PrivateScope, Public, Virtual, HideBySig
-    WriteCallDone(ConnectStream, ConnectionReturnResult): PrivateScope, Assembly, HideBySig
-    NeedEndSubmitRequest(): PrivateScope, Assembly, HideBySig
-    get_Address(): PrivateScope, Public, HideBySig, SpecialName
-    get_ContinueDelegate(): PrivateScope, Public, HideBySig, SpecialName
-    set_ContinueDelegate(HttpContinueDelegate): PrivateScope, Public, HideBySig, SpecialName
-    CallContinueDelegateCallback(Object): PrivateScope, Assembly, HideBySig
-    get_ServicePoint(): PrivateScope, Public, HideBySig, SpecialName
-    get_Host(): PrivateScope, Public, HideBySig, SpecialName
-    set_Host(String): PrivateScope, Public, HideBySig, SpecialName
-    get_UseCustomHost(): PrivateScope, Assembly, HideBySig, SpecialName
-    get_MaximumAutomaticRedirections(): PrivateScope, Public, HideBySig, SpecialName
-    set_MaximumAutomaticRedirections(Int32): PrivateScope, Public, HideBySig, SpecialName
-    get_Method(): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    set_Method(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    get_CurrentMethod(): PrivateScope, Assembly, HideBySig, SpecialName
-    set_CurrentMethod(KnownHttpVerb): PrivateScope, Assembly, HideBySig, SpecialName
-    get_Credentials(): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    set_Credentials(ICredentials): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    get_UseDefaultCredentials(): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    set_UseDefaultCredentials(Boolean): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    get_IsTunnelRequest(): PrivateScope, Assembly, HideBySig, SpecialName
-    set_IsTunnelRequest(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
-    get_IsWebSocketRequest(): PrivateScope, Assembly, HideBySig, SpecialName
-    get_ConnectionGroupName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    set_ConnectionGroupName(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    set_InternalConnectionGroup(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
-    get_Headers(): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    set_Headers(WebHeaderCollection): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    get_Proxy(): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    set_Proxy(IWebProxy): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    get_InternalProxy(): PrivateScope, Assembly, HideBySig, SpecialName
-    set_InternalProxy(IWebProxy): PrivateScope, Assembly, HideBySig, SpecialName
-    get_ProtocolVersion(): PrivateScope, Public, HideBySig, SpecialName
-    set_ProtocolVersion(Version): PrivateScope, Public, HideBySig, SpecialName
-    get_ContentType(): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    set_ContentType(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    get_MediaType(): PrivateScope, Public, HideBySig, SpecialName
-    set_MediaType(String): PrivateScope, Public, HideBySig, SpecialName
-    get_TransferEncoding(): PrivateScope, Public, HideBySig, SpecialName
-    set_TransferEncoding(String): PrivateScope, Public, HideBySig, SpecialName
-    get_Connection(): PrivateScope, Public, HideBySig, SpecialName
-    set_Connection(String): PrivateScope, Public, HideBySig, SpecialName
-    get_Accept(): PrivateScope, Public, HideBySig, SpecialName
-    set_Accept(String): PrivateScope, Public, HideBySig, SpecialName
-    get_Referer(): PrivateScope, Public, HideBySig, SpecialName
-    set_Referer(String): PrivateScope, Public, HideBySig, SpecialName
-    get_UserAgent(): PrivateScope, Public, HideBySig, SpecialName
-    set_UserAgent(String): PrivateScope, Public, HideBySig, SpecialName
-    get_Expect(): PrivateScope, Public, HideBySig, SpecialName
-    set_Expect(String): PrivateScope, Public, HideBySig, SpecialName
     get_IfModifiedSince(): PrivateScope, Public, HideBySig, SpecialName
     set_IfModifiedSince(DateTime): PrivateScope, Public, HideBySig, SpecialName
     get_Date(): PrivateScope, Public, HideBySig, SpecialName
@@ -6247,6 +6183,17 @@ Class System.Net.HttpWebRequest: AutoLayout, AnsiClass, Class, Public, Serializa
     SerializeHeaders(): PrivateScope, Assembly, HideBySig
     GenerateConnectionGroup(String, Boolean, Boolean): PrivateScope, Assembly, Static, HideBySig
     GetConnectionGroupLine(): PrivateScope, Assembly, HideBySig
+    get_ServerCertValidationCallback(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_ServerCertificateValidationCallback(): PrivateScope, Public, HideBySig, SpecialName
+    set_ServerCertificateValidationCallback(RemoteCertificateValidationCallback): PrivateScope, Public, HideBySig, SpecialName
+    AddRange(Int32, Int32): PrivateScope, Public, HideBySig
+    AddRange(Int64, Int64): PrivateScope, Public, HideBySig
+    AddRange(Int32): PrivateScope, Public, HideBySig
+    AddRange(Int64): PrivateScope, Public, HideBySig
+    AddRange(String, Int32, Int32): PrivateScope, Public, HideBySig
+    AddRange(String, Int64, Int64): PrivateScope, Public, HideBySig
+    AddRange(String, Int32): PrivateScope, Public, HideBySig
+    AddRange(String, Int64): PrivateScope, Public, HideBySig
     get_ServerCertificateValidationCallbackContext(): PrivateScope, Assembly, HideBySig, SpecialName
     set_ServerCertificateValidationCallbackContext(Object): PrivateScope, Assembly, HideBySig, SpecialName
     get_CheckCertificateRevocationList(): PrivateScope, Assembly, HideBySig, SpecialName
@@ -6339,6 +6286,59 @@ Class System.Net.HttpWebRequest: AutoLayout, AnsiClass, Class, Public, Serializa
     get_RequireBody(): PrivateScope, Assembly, HideBySig, SpecialName
     get_HasEntityBody(): PrivateScope, Assembly, HideBySig, SpecialName
     ErrorStatusCodeNotify(Connection, Boolean, Boolean): PrivateScope, Assembly, HideBySig
+    BeginGetResponse(AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, HasSecurity
+    EndGetResponse(IAsyncResult): PrivateScope, Public, Virtual, HideBySig
+    GetResponse(): PrivateScope, Public, Virtual, HideBySig
+    WriteCallDone(ConnectStream, ConnectionReturnResult): PrivateScope, Assembly, HideBySig
+    NeedEndSubmitRequest(): PrivateScope, Assembly, HideBySig
+    get_Address(): PrivateScope, Public, HideBySig, SpecialName
+    get_ContinueDelegate(): PrivateScope, Public, HideBySig, SpecialName
+    set_ContinueDelegate(HttpContinueDelegate): PrivateScope, Public, HideBySig, SpecialName
+    CallContinueDelegateCallback(Object): PrivateScope, Assembly, HideBySig
+    get_ServicePoint(): PrivateScope, Public, HideBySig, SpecialName
+    get_Host(): PrivateScope, Public, HideBySig, SpecialName
+    set_Host(String): PrivateScope, Public, HideBySig, SpecialName
+    get_UseCustomHost(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_MaximumAutomaticRedirections(): PrivateScope, Public, HideBySig, SpecialName
+    set_MaximumAutomaticRedirections(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Method(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Method(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_CurrentMethod(): PrivateScope, Assembly, HideBySig, SpecialName
+    set_CurrentMethod(KnownHttpVerb): PrivateScope, Assembly, HideBySig, SpecialName
+    get_Credentials(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Credentials(ICredentials): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_UseDefaultCredentials(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_UseDefaultCredentials(Boolean): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_IsTunnelRequest(): PrivateScope, Assembly, HideBySig, SpecialName
+    set_IsTunnelRequest(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
+    get_IsWebSocketRequest(): PrivateScope, Assembly, HideBySig, SpecialName
+    get_ConnectionGroupName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_ConnectionGroupName(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_InternalConnectionGroup(Boolean): PrivateScope, Assembly, HideBySig, SpecialName
+    get_Headers(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Headers(WebHeaderCollection): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Proxy(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Proxy(IWebProxy): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_InternalProxy(): PrivateScope, Assembly, HideBySig, SpecialName
+    set_InternalProxy(IWebProxy): PrivateScope, Assembly, HideBySig, SpecialName
+    get_ProtocolVersion(): PrivateScope, Public, HideBySig, SpecialName
+    set_ProtocolVersion(Version): PrivateScope, Public, HideBySig, SpecialName
+    get_ContentType(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_ContentType(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_MediaType(): PrivateScope, Public, HideBySig, SpecialName
+    set_MediaType(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TransferEncoding(): PrivateScope, Public, HideBySig, SpecialName
+    set_TransferEncoding(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Connection(): PrivateScope, Public, HideBySig, SpecialName
+    set_Connection(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Accept(): PrivateScope, Public, HideBySig, SpecialName
+    set_Accept(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Referer(): PrivateScope, Public, HideBySig, SpecialName
+    set_Referer(String): PrivateScope, Public, HideBySig, SpecialName
+    get_UserAgent(): PrivateScope, Public, HideBySig, SpecialName
+    set_UserAgent(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Expect(): PrivateScope, Public, HideBySig, SpecialName
+    set_Expect(String): PrivateScope, Public, HideBySig, SpecialName
 Class System.Net.RtcState: AutoLayout, AnsiClass, Class, BeforeFieldInit
     Void .ctor(): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -7662,49 +7662,6 @@ Class System.Net.WebClient: AutoLayout, AnsiClass, Class, Public, BeforeFieldIni
     System.Net.DownloadProgressChangedEventHandler DownloadProgressChanged: 
     System.Net.UploadProgressChangedEventHandler UploadProgressChanged: 
   Methods:
-    UploadStringAsync(Uri, String, String, Object): PrivateScope, Public, HideBySig, HasSecurity
-    add_UploadDataCompleted(UploadDataCompletedEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    remove_UploadDataCompleted(UploadDataCompletedEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    UploadDataAsync(Uri, Byte[]): PrivateScope, Public, HideBySig, HasSecurity
-    UploadDataAsync(Uri, String, Byte[]): PrivateScope, Public, HideBySig, HasSecurity
-    UploadDataAsync(Uri, String, Byte[], Object): PrivateScope, Public, HideBySig, HasSecurity
-    add_UploadFileCompleted(UploadFileCompletedEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    remove_UploadFileCompleted(UploadFileCompletedEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    UploadFileAsync(Uri, String): PrivateScope, Public, HideBySig, HasSecurity
-    UploadFileAsync(Uri, String, String): PrivateScope, Public, HideBySig, HasSecurity
-    UploadFileAsync(Uri, String, String, Object): PrivateScope, Public, HideBySig, HasSecurity
-    add_UploadValuesCompleted(UploadValuesCompletedEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    remove_UploadValuesCompleted(UploadValuesCompletedEventHandler): PrivateScope, Public, HideBySig, SpecialName
-    UploadValuesAsync(Uri, NameValueCollection): PrivateScope, Public, HideBySig, HasSecurity
-    UploadValuesAsync(Uri, String, NameValueCollection): PrivateScope, Public, HideBySig, HasSecurity
-    UploadValuesAsync(Uri, String, NameValueCollection, Object): PrivateScope, Public, HideBySig, HasSecurity
-    CancelAsync(): PrivateScope, Public, HideBySig
-    DownloadStringTaskAsync(String): PrivateScope, Public, HideBySig, HasSecurity
-    DownloadStringTaskAsync(Uri): PrivateScope, Public, HideBySig, HasSecurity
-    OpenReadTaskAsync(String): PrivateScope, Public, HideBySig, HasSecurity
-    OpenReadTaskAsync(Uri): PrivateScope, Public, HideBySig, HasSecurity
-    OpenWriteTaskAsync(String): PrivateScope, Public, HideBySig, HasSecurity
-    OpenWriteTaskAsync(Uri): PrivateScope, Public, HideBySig, HasSecurity
-    OpenWriteTaskAsync(String, String): PrivateScope, Public, HideBySig, HasSecurity
-    OpenWriteTaskAsync(Uri, String): PrivateScope, Public, HideBySig, HasSecurity
-    UploadStringTaskAsync(String, String): PrivateScope, Public, HideBySig, HasSecurity
-    UploadStringTaskAsync(Uri, String): PrivateScope, Public, HideBySig, HasSecurity
-    UploadStringTaskAsync(String, String, String): PrivateScope, Public, HideBySig, HasSecurity
-    UploadStringTaskAsync(Uri, String, String): PrivateScope, Public, HideBySig, HasSecurity
-    DownloadDataTaskAsync(String): PrivateScope, Public, HideBySig, HasSecurity
-    DownloadDataTaskAsync(Uri): PrivateScope, Public, HideBySig, HasSecurity
-    DownloadFileTaskAsync(String, String): PrivateScope, Public, HideBySig, HasSecurity
-    DownloadFileTaskAsync(Uri, String): PrivateScope, Public, HideBySig, HasSecurity
-    UploadDataTaskAsync(String, Byte[]): PrivateScope, Public, HideBySig, HasSecurity
-    UploadDataTaskAsync(Uri, Byte[]): PrivateScope, Public, HideBySig, HasSecurity
-    UploadDataTaskAsync(String, String, Byte[]): PrivateScope, Public, HideBySig, HasSecurity
-    UploadDataTaskAsync(Uri, String, Byte[]): PrivateScope, Public, HideBySig, HasSecurity
-    UploadFileTaskAsync(String, String): PrivateScope, Public, HideBySig, HasSecurity
-    UploadFileTaskAsync(Uri, String): PrivateScope, Public, HideBySig, HasSecurity
-    UploadFileTaskAsync(String, String, String): PrivateScope, Public, HideBySig, HasSecurity
-    UploadFileTaskAsync(Uri, String, String): PrivateScope, Public, HideBySig, HasSecurity
-    UploadValuesTaskAsync(String, NameValueCollection): PrivateScope, Public, HideBySig, HasSecurity
-    UploadValuesTaskAsync(String, String, NameValueCollection): PrivateScope, Public, HideBySig, HasSecurity
     UploadValuesTaskAsync(Uri, NameValueCollection): PrivateScope, Public, HideBySig, HasSecurity
     UploadValuesTaskAsync(Uri, String, NameValueCollection): PrivateScope, Public, HideBySig, HasSecurity
     add_DownloadProgressChanged(DownloadProgressChangedEventHandler): PrivateScope, Public, HideBySig, SpecialName
@@ -7788,6 +7745,49 @@ Class System.Net.WebClient: AutoLayout, AnsiClass, Class, Public, BeforeFieldIni
     remove_UploadStringCompleted(UploadStringCompletedEventHandler): PrivateScope, Public, HideBySig, SpecialName
     UploadStringAsync(Uri, String): PrivateScope, Public, HideBySig, HasSecurity
     UploadStringAsync(Uri, String, String): PrivateScope, Public, HideBySig, HasSecurity
+    UploadStringAsync(Uri, String, String, Object): PrivateScope, Public, HideBySig, HasSecurity
+    add_UploadDataCompleted(UploadDataCompletedEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_UploadDataCompleted(UploadDataCompletedEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    UploadDataAsync(Uri, Byte[]): PrivateScope, Public, HideBySig, HasSecurity
+    UploadDataAsync(Uri, String, Byte[]): PrivateScope, Public, HideBySig, HasSecurity
+    UploadDataAsync(Uri, String, Byte[], Object): PrivateScope, Public, HideBySig, HasSecurity
+    add_UploadFileCompleted(UploadFileCompletedEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_UploadFileCompleted(UploadFileCompletedEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    UploadFileAsync(Uri, String): PrivateScope, Public, HideBySig, HasSecurity
+    UploadFileAsync(Uri, String, String): PrivateScope, Public, HideBySig, HasSecurity
+    UploadFileAsync(Uri, String, String, Object): PrivateScope, Public, HideBySig, HasSecurity
+    add_UploadValuesCompleted(UploadValuesCompletedEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_UploadValuesCompleted(UploadValuesCompletedEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    UploadValuesAsync(Uri, NameValueCollection): PrivateScope, Public, HideBySig, HasSecurity
+    UploadValuesAsync(Uri, String, NameValueCollection): PrivateScope, Public, HideBySig, HasSecurity
+    UploadValuesAsync(Uri, String, NameValueCollection, Object): PrivateScope, Public, HideBySig, HasSecurity
+    CancelAsync(): PrivateScope, Public, HideBySig
+    DownloadStringTaskAsync(String): PrivateScope, Public, HideBySig, HasSecurity
+    DownloadStringTaskAsync(Uri): PrivateScope, Public, HideBySig, HasSecurity
+    OpenReadTaskAsync(String): PrivateScope, Public, HideBySig, HasSecurity
+    OpenReadTaskAsync(Uri): PrivateScope, Public, HideBySig, HasSecurity
+    OpenWriteTaskAsync(String): PrivateScope, Public, HideBySig, HasSecurity
+    OpenWriteTaskAsync(Uri): PrivateScope, Public, HideBySig, HasSecurity
+    OpenWriteTaskAsync(String, String): PrivateScope, Public, HideBySig, HasSecurity
+    OpenWriteTaskAsync(Uri, String): PrivateScope, Public, HideBySig, HasSecurity
+    UploadStringTaskAsync(String, String): PrivateScope, Public, HideBySig, HasSecurity
+    UploadStringTaskAsync(Uri, String): PrivateScope, Public, HideBySig, HasSecurity
+    UploadStringTaskAsync(String, String, String): PrivateScope, Public, HideBySig, HasSecurity
+    UploadStringTaskAsync(Uri, String, String): PrivateScope, Public, HideBySig, HasSecurity
+    DownloadDataTaskAsync(String): PrivateScope, Public, HideBySig, HasSecurity
+    DownloadDataTaskAsync(Uri): PrivateScope, Public, HideBySig, HasSecurity
+    DownloadFileTaskAsync(String, String): PrivateScope, Public, HideBySig, HasSecurity
+    DownloadFileTaskAsync(Uri, String): PrivateScope, Public, HideBySig, HasSecurity
+    UploadDataTaskAsync(String, Byte[]): PrivateScope, Public, HideBySig, HasSecurity
+    UploadDataTaskAsync(Uri, Byte[]): PrivateScope, Public, HideBySig, HasSecurity
+    UploadDataTaskAsync(String, String, Byte[]): PrivateScope, Public, HideBySig, HasSecurity
+    UploadDataTaskAsync(Uri, String, Byte[]): PrivateScope, Public, HideBySig, HasSecurity
+    UploadFileTaskAsync(String, String): PrivateScope, Public, HideBySig, HasSecurity
+    UploadFileTaskAsync(Uri, String): PrivateScope, Public, HideBySig, HasSecurity
+    UploadFileTaskAsync(String, String, String): PrivateScope, Public, HideBySig, HasSecurity
+    UploadFileTaskAsync(Uri, String, String): PrivateScope, Public, HideBySig, HasSecurity
+    UploadValuesTaskAsync(String, NameValueCollection): PrivateScope, Public, HideBySig, HasSecurity
+    UploadValuesTaskAsync(String, String, NameValueCollection): PrivateScope, Public, HideBySig, HasSecurity
 Class System.Net.CompletionDelegate: AutoLayout, AnsiClass, Class, Sealed
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -13125,7 +13125,6 @@ Class System.Net.NetworkInformation.StableUnicastIpAddressTableDelegate: AutoLay
     EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
 Class System.Net.NetworkInformation.UnsafeNetInfoNativeMethods: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Methods:
-    NotifyStableUnicastIpAddressTable(AddressFamily(In), SafeFreeMibTable&(Out), StableUnicastIpAddressTableDelegate(In, HasFieldMarshal), IntPtr(In), SafeCancelMibChangeNotify&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     GetAdaptersAddresses(AddressFamily, UInt32, IntPtr, SafeLocalFree, UInt32&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     GetBestInterfaceEx(Byte[], Int32&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     GetIfEntry2(MibIfRow2&): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
@@ -13149,6 +13148,7 @@ Class System.Net.NetworkInformation.UnsafeNetInfoNativeMethods: AutoLayout, Ansi
     Icmp6SendEcho2(SafeCloseIcmpHandle, IntPtr, IntPtr, IntPtr, Byte[], Byte[], SafeLocalFree(In), UInt16, IPOptions&, SafeLocalFree, UInt32, UInt32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     FreeMibTable(IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     CancelMibChangeNotify2(IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    NotifyStableUnicastIpAddressTable(AddressFamily(In), SafeFreeMibTable&(Out), StableUnicastIpAddressTableDelegate(In, HasFieldMarshal), IntPtr(In), SafeCancelMibChangeNotify&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
 Struct System.Net.NetworkInformation.StartIPOptions: AutoLayout, AnsiClass, Class, Sealed
   :System.Enum
   Fields:
@@ -16118,61 +16118,6 @@ Class System.Net.Sockets.Socket: AutoLayout, AnsiClass, Class, Public, BeforeFie
     Boolean CleanedUp 'get ' : 
     System.Net.TransportType Transport 'get ' : 
   Methods:
-    AcceptAsync(Socket): PrivateScope, Assembly, HideBySig
-    ConnectAsync(EndPoint): PrivateScope, Assembly, HideBySig
-    ConnectAsync(IPAddress, Int32): PrivateScope, Assembly, HideBySig
-    ConnectAsync(IPAddress[], Int32): PrivateScope, Assembly, HideBySig
-    ConnectAsync(String, Int32): PrivateScope, Assembly, HideBySig
-    ReceiveAsync(ArraySegment`1, SocketFlags, Boolean): PrivateScope, Assembly, HideBySig
-    ReceiveAsync(IList`1, SocketFlags): PrivateScope, Assembly, HideBySig
-    ReceiveFromAsync(ArraySegment`1, SocketFlags, EndPoint): PrivateScope, Assembly, HideBySig
-    ReceiveMessageFromAsync(ArraySegment`1, SocketFlags, EndPoint): PrivateScope, Assembly, HideBySig
-    SendAsync(ArraySegment`1, SocketFlags, Boolean): PrivateScope, Assembly, HideBySig
-    SendAsync(IList`1, SocketFlags): PrivateScope, Assembly, HideBySig
-    SendToAsync(ArraySegment`1, SocketFlags, EndPoint): PrivateScope, Assembly, HideBySig
-    IOControl(IOControlCode, Byte[], Byte[]): PrivateScope, Public, HideBySig
-    IOControl(IOControlCode, IntPtr, Int32, IntPtr, Int32): PrivateScope, Assembly, HideBySig
-    SetIPProtectionLevel(IPProtectionLevel): PrivateScope, Public, HideBySig
-    SetSocketOption(SocketOptionLevel, SocketOptionName, Int32): PrivateScope, Public, HideBySig
-    SetSocketOption(SocketOptionLevel, SocketOptionName, Byte[]): PrivateScope, Public, HideBySig
-    SetSocketOption(SocketOptionLevel, SocketOptionName, Boolean): PrivateScope, Public, HideBySig
-    SetSocketOption(SocketOptionLevel, SocketOptionName, Object): PrivateScope, Public, HideBySig
-    GetSocketOption(SocketOptionLevel, SocketOptionName): PrivateScope, Public, HideBySig
-    GetSocketOption(SocketOptionLevel, SocketOptionName, Byte[]): PrivateScope, Public, HideBySig
-    GetSocketOption(SocketOptionLevel, SocketOptionName, Int32): PrivateScope, Public, HideBySig
-    Poll(Int32, SelectMode): PrivateScope, Public, HideBySig
-    Select(IList, IList, IList, Int32): PrivateScope, Public, Static, HideBySig
-    BeginSendFile(String, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    BeginConnect(EndPoint, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    DuplicateAndClose(Int32): PrivateScope, Public, HideBySig
-    UnsafeBeginConnect(EndPoint, AsyncCallback, Object): PrivateScope, Assembly, HideBySig
-    BeginConnect(String, Int32, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    BeginConnect(IPAddress, Int32, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    BeginConnect(IPAddress[], Int32, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    BeginDisconnect(Boolean, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    Disconnect(Boolean): PrivateScope, Public, HideBySig
-    EndConnect(IAsyncResult): PrivateScope, Public, HideBySig
-    EndDisconnect(IAsyncResult): PrivateScope, Public, HideBySig
-    BeginSend(Byte[], Int32, Int32, SocketFlags, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    BeginSend(Byte[], Int32, Int32, SocketFlags, SocketError&(Out), AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    UnsafeBeginSend(Byte[], Int32, Int32, SocketFlags, AsyncCallback, Object): PrivateScope, Assembly, HideBySig
-    BeginSendFile(String, Byte[], Byte[], TransmitFileOptions, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    BeginSend(IList`1, SocketFlags, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    BeginSend(IList`1, SocketFlags, SocketError&(Out), AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    EndSend(IAsyncResult): PrivateScope, Public, HideBySig
-    EndSend(IAsyncResult, SocketError&(Out)): PrivateScope, Public, HideBySig
-    EndSendFile(IAsyncResult): PrivateScope, Public, HideBySig
-    BeginSendTo(Byte[], Int32, Int32, SocketFlags, EndPoint, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    EndSendTo(IAsyncResult): PrivateScope, Public, HideBySig
-    BeginReceive(Byte[], Int32, Int32, SocketFlags, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    BeginReceive(Byte[], Int32, Int32, SocketFlags, SocketError&(Out), AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    UnsafeBeginReceive(Byte[], Int32, Int32, SocketFlags, AsyncCallback, Object): PrivateScope, Assembly, HideBySig
-    BeginReceive(IList`1, SocketFlags, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    BeginReceive(IList`1, SocketFlags, SocketError&(Out), AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
-    EndReceive(IAsyncResult): PrivateScope, Public, HideBySig
-    EndReceive(IAsyncResult, SocketError&(Out)): PrivateScope, Public, HideBySig
-    BeginReceiveMessageFrom(Byte[], Int32, Int32, SocketFlags, EndPoint&, AsyncCallback, Object): PrivateScope, Public, HideBySig
-    EndReceiveMessageFrom(IAsyncResult, SocketFlags&, EndPoint&, IPPacketInformation&(Out)): PrivateScope, Public, HideBySig
     BeginReceiveFrom(Byte[], Int32, Int32, SocketFlags, EndPoint&, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
     EndReceiveFrom(IAsyncResult, EndPoint&): PrivateScope, Public, HideBySig
     BeginAccept(AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
@@ -16213,6 +16158,18 @@ Class System.Net.Sockets.Socket: AutoLayout, AnsiClass, Class, Public, BeforeFie
     SendAsync(SocketAsyncEventArgs): PrivateScope, Public, HideBySig
     SendPacketsAsync(SocketAsyncEventArgs): PrivateScope, Public, HideBySig
     SendToAsync(SocketAsyncEventArgs): PrivateScope, Public, HideBySig
+    AcceptAsync(Socket): PrivateScope, Assembly, HideBySig
+    ConnectAsync(EndPoint): PrivateScope, Assembly, HideBySig
+    ConnectAsync(IPAddress, Int32): PrivateScope, Assembly, HideBySig
+    ConnectAsync(IPAddress[], Int32): PrivateScope, Assembly, HideBySig
+    ConnectAsync(String, Int32): PrivateScope, Assembly, HideBySig
+    ReceiveAsync(ArraySegment`1, SocketFlags, Boolean): PrivateScope, Assembly, HideBySig
+    ReceiveAsync(IList`1, SocketFlags): PrivateScope, Assembly, HideBySig
+    ReceiveFromAsync(ArraySegment`1, SocketFlags, EndPoint): PrivateScope, Assembly, HideBySig
+    ReceiveMessageFromAsync(ArraySegment`1, SocketFlags, EndPoint): PrivateScope, Assembly, HideBySig
+    SendAsync(ArraySegment`1, SocketFlags, Boolean): PrivateScope, Assembly, HideBySig
+    SendAsync(IList`1, SocketFlags): PrivateScope, Assembly, HideBySig
+    SendToAsync(ArraySegment`1, SocketFlags, EndPoint): PrivateScope, Assembly, HideBySig
     get_SupportsIPv4(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_OSSupportsIPv4(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_SupportsIPv6(): PrivateScope, Public, Static, HideBySig, SpecialName
@@ -16295,6 +16252,49 @@ Class System.Net.Sockets.Socket: AutoLayout, AnsiClass, Class, Public, BeforeFie
     ReceiveFrom(Byte[], SocketFlags, EndPoint&): PrivateScope, Public, HideBySig
     ReceiveFrom(Byte[], EndPoint&): PrivateScope, Public, HideBySig
     IOControl(Int32, Byte[], Byte[]): PrivateScope, Public, HideBySig
+    IOControl(IOControlCode, Byte[], Byte[]): PrivateScope, Public, HideBySig
+    IOControl(IOControlCode, IntPtr, Int32, IntPtr, Int32): PrivateScope, Assembly, HideBySig
+    SetIPProtectionLevel(IPProtectionLevel): PrivateScope, Public, HideBySig
+    SetSocketOption(SocketOptionLevel, SocketOptionName, Int32): PrivateScope, Public, HideBySig
+    SetSocketOption(SocketOptionLevel, SocketOptionName, Byte[]): PrivateScope, Public, HideBySig
+    SetSocketOption(SocketOptionLevel, SocketOptionName, Boolean): PrivateScope, Public, HideBySig
+    SetSocketOption(SocketOptionLevel, SocketOptionName, Object): PrivateScope, Public, HideBySig
+    GetSocketOption(SocketOptionLevel, SocketOptionName): PrivateScope, Public, HideBySig
+    GetSocketOption(SocketOptionLevel, SocketOptionName, Byte[]): PrivateScope, Public, HideBySig
+    GetSocketOption(SocketOptionLevel, SocketOptionName, Int32): PrivateScope, Public, HideBySig
+    Poll(Int32, SelectMode): PrivateScope, Public, HideBySig
+    Select(IList, IList, IList, Int32): PrivateScope, Public, Static, HideBySig
+    BeginSendFile(String, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    BeginConnect(EndPoint, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    DuplicateAndClose(Int32): PrivateScope, Public, HideBySig
+    UnsafeBeginConnect(EndPoint, AsyncCallback, Object): PrivateScope, Assembly, HideBySig
+    BeginConnect(String, Int32, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    BeginConnect(IPAddress, Int32, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    BeginConnect(IPAddress[], Int32, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    BeginDisconnect(Boolean, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    Disconnect(Boolean): PrivateScope, Public, HideBySig
+    EndConnect(IAsyncResult): PrivateScope, Public, HideBySig
+    EndDisconnect(IAsyncResult): PrivateScope, Public, HideBySig
+    BeginSend(Byte[], Int32, Int32, SocketFlags, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    BeginSend(Byte[], Int32, Int32, SocketFlags, SocketError&(Out), AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    UnsafeBeginSend(Byte[], Int32, Int32, SocketFlags, AsyncCallback, Object): PrivateScope, Assembly, HideBySig
+    BeginSendFile(String, Byte[], Byte[], TransmitFileOptions, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    BeginSend(IList`1, SocketFlags, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    BeginSend(IList`1, SocketFlags, SocketError&(Out), AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    EndSend(IAsyncResult): PrivateScope, Public, HideBySig
+    EndSend(IAsyncResult, SocketError&(Out)): PrivateScope, Public, HideBySig
+    EndSendFile(IAsyncResult): PrivateScope, Public, HideBySig
+    BeginSendTo(Byte[], Int32, Int32, SocketFlags, EndPoint, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    EndSendTo(IAsyncResult): PrivateScope, Public, HideBySig
+    BeginReceive(Byte[], Int32, Int32, SocketFlags, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    BeginReceive(Byte[], Int32, Int32, SocketFlags, SocketError&(Out), AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    UnsafeBeginReceive(Byte[], Int32, Int32, SocketFlags, AsyncCallback, Object): PrivateScope, Assembly, HideBySig
+    BeginReceive(IList`1, SocketFlags, AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    BeginReceive(IList`1, SocketFlags, SocketError&(Out), AsyncCallback, Object): PrivateScope, Public, HideBySig, HasSecurity
+    EndReceive(IAsyncResult): PrivateScope, Public, HideBySig
+    EndReceive(IAsyncResult, SocketError&(Out)): PrivateScope, Public, HideBySig
+    BeginReceiveMessageFrom(Byte[], Int32, Int32, SocketFlags, EndPoint&, AsyncCallback, Object): PrivateScope, Public, HideBySig
+    EndReceiveMessageFrom(IAsyncResult, SocketFlags&, EndPoint&, IPPacketInformation&(Out)): PrivateScope, Public, HideBySig
 Class System.Net.Sockets.ConnectAsyncResult: AutoLayout, AnsiClass, Class, BeforeFieldInit
   :System.Net.ContextAwareResult
     Void .ctor(System.Object, System.Net.EndPoint, System.Object, System.AsyncCallback): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
@@ -20165,12 +20165,6 @@ Class System.Security.Cryptography.CAPINative: AutoLayout, AnsiClass, Class, Abs
 Class System.Security.Cryptography.CAPISafe: AutoLayout, AnsiClass, Class, Abstract, BeforeFieldInit
   :System.Security.Cryptography.CAPINative
   Methods:
-    LsaNtStatusToWinError(Int32(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    CertVerifyTimeValidity(FILETIME&(In, Out), IntPtr(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    CertVerifyCertificateChainPolicy(IntPtr(In), SafeX509ChainHandle(In), CERT_CHAIN_POLICY_PARA&(In), CERT_CHAIN_POLICY_STATUS&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    CryptAcquireCertificatePrivateKey(SafeCertContextHandle(In), UInt32(In), IntPtr(In), SafeCryptProvHandle&(In, Out), UInt32&(In, Out), Boolean&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    CryptDecodeObject(UInt32(In), IntPtr(In), IntPtr(In), UInt32(In), UInt32(In), SafeLocalAllocHandle(In, Out), IntPtr(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    CryptDecodeObject(UInt32(In), IntPtr(In), Byte[](In), UInt32(In), UInt32(In), SafeLocalAllocHandle(In, Out), IntPtr(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     CryptEncodeObject(UInt32(In), IntPtr(In), IntPtr(In), SafeLocalAllocHandle(In, Out), IntPtr(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     CryptEncodeObject(UInt32(In), String(In, HasFieldMarshal), IntPtr(In), SafeLocalAllocHandle(In, Out), IntPtr(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     CryptFindOIDInfo(UInt32(In), IntPtr(In), OidGroup(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
@@ -20189,6 +20183,7 @@ Class System.Security.Cryptography.CAPISafe: AutoLayout, AnsiClass, Class, Abstr
     SetLastError(UInt32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     LocalFree(IntPtr): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     ZeroMemory(IntPtr, UInt32): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    LsaNtStatusToWinError(Int32(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     FormatMessage(UInt32(In), IntPtr(In), UInt32(In), UInt32(In), StringBuilder(In, Out), UInt32(In), IntPtr(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     FreeLibrary(IntPtr(In)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     GetProcAddress(IntPtr(In), String(In, HasFieldMarshal)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
@@ -20211,6 +20206,11 @@ Class System.Security.Cryptography.CAPISafe: AutoLayout, AnsiClass, Class, Abstr
     CertNameToStrW(UInt32(In), IntPtr(In), UInt32(In), SafeLocalAllocHandle(In, Out), UInt32(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     CertSerializeCertificateStoreElement(SafeCertContextHandle(In), UInt32(In), SafeLocalAllocHandle(In, Out), IntPtr(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     CertStrToNameW(UInt32(In), String(In), UInt32(In), IntPtr(In), IntPtr(In, Out), UInt32&(In, Out), IntPtr(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    CertVerifyTimeValidity(FILETIME&(In, Out), IntPtr(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    CertVerifyCertificateChainPolicy(IntPtr(In), SafeX509ChainHandle(In), CERT_CHAIN_POLICY_PARA&(In), CERT_CHAIN_POLICY_STATUS&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    CryptAcquireCertificatePrivateKey(SafeCertContextHandle(In), UInt32(In), IntPtr(In), SafeCryptProvHandle&(In, Out), UInt32&(In, Out), Boolean&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    CryptDecodeObject(UInt32(In), IntPtr(In), IntPtr(In), UInt32(In), UInt32(In), SafeLocalAllocHandle(In, Out), IntPtr(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    CryptDecodeObject(UInt32(In), IntPtr(In), Byte[](In), UInt32(In), UInt32(In), SafeLocalAllocHandle(In, Out), IntPtr(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
 Class System.Security.Cryptography.CAPIUnsafe: AutoLayout, AnsiClass, Class, Abstract, BeforeFieldInit
   :System.Security.Cryptography.CAPISafe
   Methods:
@@ -22777,18 +22777,6 @@ Class System.Diagnostics.Process: AutoLayout, AnsiClass, Class, Public, HasSecur
     System.Diagnostics.DataReceivedEventHandler ErrorDataReceived: 
     System.EventHandler Exited: 
   Methods:
-    Kill(): PrivateScope, Public, HideBySig
-    ToString(): PrivateScope, Public, Virtual, HideBySig
-    WaitForExit(Int32): PrivateScope, Public, HideBySig
-    WaitForExit(): PrivateScope, Public, HideBySig
-    WaitForInputIdle(Int32): PrivateScope, Public, HideBySig
-    WaitForInputIdle(): PrivateScope, Public, HideBySig
-    BeginOutputReadLine(): PrivateScope, Public, HideBySig
-    BeginErrorReadLine(): PrivateScope, Public, HideBySig
-    CancelOutputRead(): PrivateScope, Public, HideBySig
-    CancelErrorRead(): PrivateScope, Public, HideBySig
-    OutputReadNotifyUser(String): PrivateScope, Assembly, HideBySig
-    ErrorReadNotifyUser(String): PrivateScope, Assembly, HideBySig
     add_OutputDataReceived(DataReceivedEventHandler): PrivateScope, Public, HideBySig, SpecialName
     remove_OutputDataReceived(DataReceivedEventHandler): PrivateScope, Public, HideBySig, SpecialName
     add_ErrorDataReceived(DataReceivedEventHandler): PrivateScope, Public, HideBySig, SpecialName
@@ -22871,6 +22859,18 @@ Class System.Diagnostics.Process: AutoLayout, AnsiClass, Class, Public, HasSecur
     Start(String): PrivateScope, Public, Static, HideBySig
     Start(String, String): PrivateScope, Public, Static, HideBySig
     Start(ProcessStartInfo): PrivateScope, Public, Static, HideBySig
+    Kill(): PrivateScope, Public, HideBySig
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+    WaitForExit(Int32): PrivateScope, Public, HideBySig
+    WaitForExit(): PrivateScope, Public, HideBySig
+    WaitForInputIdle(Int32): PrivateScope, Public, HideBySig
+    WaitForInputIdle(): PrivateScope, Public, HideBySig
+    BeginOutputReadLine(): PrivateScope, Public, HideBySig
+    BeginErrorReadLine(): PrivateScope, Public, HideBySig
+    CancelOutputRead(): PrivateScope, Public, HideBySig
+    CancelErrorRead(): PrivateScope, Public, HideBySig
+    OutputReadNotifyUser(String): PrivateScope, Assembly, HideBySig
+    ErrorReadNotifyUser(String): PrivateScope, Assembly, HideBySig
 Class System.Diagnostics.ProcessInfo: AutoLayout, AnsiClass, Class, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -24798,8 +24798,6 @@ Class System.ComponentModel.MaskedTextProvider: AutoLayout, AnsiClass, Class, Pu
     Boolean SkipLiterals 'get set' : 
     Char Item [Int32] 'get ' : 
   Methods:
-    VerifyString(String): PrivateScope, Public, HideBySig
-    VerifyString(String, Int32&(Out), MaskedTextResultHint&(Out)): PrivateScope, Public, HideBySig
     get_AllowPromptAsInput(): PrivateScope, Public, HideBySig, SpecialName
     get_AssignedEditPositionCount(): PrivateScope, Public, HideBySig, SpecialName
     get_AvailableEditPositionCount(): PrivateScope, Public, HideBySig, SpecialName
@@ -24879,6 +24877,8 @@ Class System.ComponentModel.MaskedTextProvider: AutoLayout, AnsiClass, Class, Pu
     ToString(Boolean, Boolean, Boolean, Int32, Int32): PrivateScope, Public, HideBySig
     VerifyChar(Char, Int32, MaskedTextResultHint&(Out)): PrivateScope, Public, HideBySig
     VerifyEscapeChar(Char, Int32): PrivateScope, Public, HideBySig
+    VerifyString(String): PrivateScope, Public, HideBySig
+    VerifyString(String, Int32&(Out), MaskedTextResultHint&(Out)): PrivateScope, Public, HideBySig
 Struct System.ComponentModel.MaskedTextResultHint: AutoLayout, AnsiClass, Class, Public, Sealed
   :System.Enum
   Fields:
@@ -27801,10 +27801,10 @@ Class System.CodeDom.Compiler.CodeGenerator: AutoLayout, AnsiClass, Class, Publi
   Interfaces:
     System.CodeDom.Compiler.ICodeGenerator
   Methods:
+    GenerateCodeFromMember(CodeTypeMember, TextWriter, CodeGeneratorOptions): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
     IsValidLanguageIndependentIdentifier(String): PrivateScope, Public, Static, HideBySig
     IsValidLanguageIndependentTypeName(String): PrivateScope, Assembly, Static, HideBySig
     ValidateIdentifiers(CodeObject): PrivateScope, Public, Static, HideBySig
-    GenerateCodeFromMember(CodeTypeMember, TextWriter, CodeGeneratorOptions): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
 Class System.CodeDom.Compiler.CodeGeneratorOptions: AutoLayout, AnsiClass, Class, Public, HasSecurity, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -28553,12 +28553,6 @@ Class System.Text.RegularExpressions.RegexCompiler: AutoLayout, AnsiClass, Class
     Int32 forejumpback = 9 : Assembly, Static, Literal, HasDefault
     Int32 uniquecount = 10 : Assembly, Static, Literal, HasDefault
   Methods:
-    GenerateInitTrackCount(): PrivateScope, Assembly, HideBySig
-    DeclareInt(): PrivateScope, Assembly, HideBySig
-    DeclareIntArray(): PrivateScope, Assembly, HideBySig
-    DeclareString(): PrivateScope, Assembly, HideBySig
-    GenerateGo(): PrivateScope, Assembly, HideBySig
-    GenerateOneCode(): PrivateScope, Assembly, HideBySig
     Compile(RegexCode, RegexOptions): PrivateScope, Assembly, Static, HideBySig
     CompileToAssembly(RegexCompilationInfo[], AssemblyName, CustomAttributeBuilder[], String): PrivateScope, Assembly, Static, HideBySig
     AddBacktrackNote(Int32, Label, Int32): PrivateScope, Assembly, HideBySig
@@ -28643,6 +28637,12 @@ Class System.Text.RegularExpressions.RegexCompiler: AutoLayout, AnsiClass, Class
     GenerateMiddleSection(): PrivateScope, Assembly, HideBySig
     GenerateBacktrackSection(): PrivateScope, Assembly, HideBySig
     GenerateFindFirstChar(): PrivateScope, Assembly, HideBySig
+    GenerateInitTrackCount(): PrivateScope, Assembly, HideBySig
+    DeclareInt(): PrivateScope, Assembly, HideBySig
+    DeclareIntArray(): PrivateScope, Assembly, HideBySig
+    DeclareString(): PrivateScope, Assembly, HideBySig
+    GenerateGo(): PrivateScope, Assembly, HideBySig
+    GenerateOneCode(): PrivateScope, Assembly, HideBySig
 Class System.Text.RegularExpressions.RegexTypeCompiler: AutoLayout, AnsiClass, Class, BeforeFieldInit
   :System.Text.RegularExpressions.RegexCompiler
     Void .ctor(System.Reflection.AssemblyName, System.Reflection.Emit.CustomAttributeBuilder[], System.String): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
@@ -29770,21 +29770,6 @@ Class System.Net.UnsafeNclNativeMethods+SafeNetHandles: AutoLayout, AnsiClass, C
     UnlockUrlCacheEntryFileW(Char*(In), Int32(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
 Class System.Net.UnsafeNclNativeMethods+OSSOCK: AutoLayout, AnsiClass, Class, NestedAssembly, Abstract, Sealed, BeforeFieldInit
   Methods:
-    WSAIoctl(SafeCloseSocket(In), Int32(In), Guid&(In, Out), Int32(In), IntPtr&(Out), Int32(In), Int32&(Out), IntPtr(In), IntPtr(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    WSAIoctl_Blocking(IntPtr(In), Int32(In), Byte[](In), Int32(In), Byte[](Out), Int32(In), Int32&(Out), SafeHandle(In), IntPtr(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    WSAIoctl_Blocking_Internal(IntPtr(In), UInt32(In), IntPtr(In), Int32(In), IntPtr(Out), Int32(In), Int32&(Out), SafeHandle(In), IntPtr(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    WSAEnumNetworkEvents(SafeCloseSocket(In), SafeWaitHandle(In), NetworkEvents&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    WSADuplicateSocket(SafeCloseSocket(In), UInt32(In), Byte*(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    WSAGetOverlappedResult(SafeCloseSocket(In), SafeHandle(In), UInt32&(Out), Boolean(In), SocketFlags&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    WSAStringToAddress(String(In), AddressFamily(In), IntPtr(In), Byte[](Out), Int32&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    WSAAddressToString(Byte[](In), Int32(In), IntPtr(In), StringBuilder(Out), Int32&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    GetNameInfoW(Byte[](In), Int32(In), StringBuilder(In, Out), Int32(In), StringBuilder(In, Out), Int32(In), Int32(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    WSAEnumProtocols(Int32[](In, HasFieldMarshal), SafeLocalFree(In), UInt32&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    send(IntPtr(In), Byte*(In), Int32(In), SocketFlags(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    recv(IntPtr(In), Byte*(In), Int32(In), SocketFlags(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    listen(SafeCloseSocket(In), Int32(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    bind(SafeCloseSocket(In), Byte[](In), Int32(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
-    shutdown(SafeCloseSocket(In), Int32(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     sendto(IntPtr(In), Byte*(In), Int32(In), SocketFlags(In), Byte[](In), Int32(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     recvfrom(IntPtr(In), Byte*(In), Int32(In), SocketFlags(In), Byte[](Out), Int32&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     getsockname(SafeCloseSocket(In), Byte[](Out), Int32&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
@@ -29803,6 +29788,16 @@ Class System.Net.UnsafeNclNativeMethods+OSSOCK: AutoLayout, AnsiClass, Class, Ne
     WSARecvFrom(SafeCloseSocket(In), WSABuffer[](In, Out), Int32(In), Int32&(Out), SocketFlags&(In, Out), IntPtr(In), IntPtr(In), SafeNativeOverlapped(In), IntPtr(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     WSAEventSelect(SafeCloseSocket(In), SafeHandle(In), AsyncEventBits(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     WSAEventSelect(SafeCloseSocket(In), IntPtr(In), AsyncEventBits(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    WSAIoctl(SafeCloseSocket(In), Int32(In), Guid&(In, Out), Int32(In), IntPtr&(Out), Int32(In), Int32&(Out), IntPtr(In), IntPtr(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    WSAIoctl_Blocking(IntPtr(In), Int32(In), Byte[](In), Int32(In), Byte[](Out), Int32(In), Int32&(Out), SafeHandle(In), IntPtr(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    WSAIoctl_Blocking_Internal(IntPtr(In), UInt32(In), IntPtr(In), Int32(In), IntPtr(Out), Int32(In), Int32&(Out), SafeHandle(In), IntPtr(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    WSAEnumNetworkEvents(SafeCloseSocket(In), SafeWaitHandle(In), NetworkEvents&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    WSADuplicateSocket(SafeCloseSocket(In), UInt32(In), Byte*(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    WSAGetOverlappedResult(SafeCloseSocket(In), SafeHandle(In), UInt32&(Out), Boolean(In), SocketFlags&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    WSAStringToAddress(String(In), AddressFamily(In), IntPtr(In), Byte[](Out), Int32&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    WSAAddressToString(Byte[](In), Int32(In), IntPtr(In), StringBuilder(Out), Int32&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    GetNameInfoW(Byte[](In), Int32(In), StringBuilder(In, Out), Int32(In), StringBuilder(In, Out), Int32(In), Int32(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    WSAEnumProtocols(Int32[](In, HasFieldMarshal), SafeLocalFree(In), UInt32&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     WSASocket(AddressFamily(In), SocketType(In), ProtocolType(In), IntPtr(In), UInt32(In), SocketConstructorFlags(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     WSASocket(AddressFamily(In), SocketType(In), ProtocolType(In), Byte*(In), UInt32(In), SocketConstructorFlags(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     WSAStartup(Int16(In), WSAData&(Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
@@ -29826,6 +29821,11 @@ Class System.Net.UnsafeNclNativeMethods+OSSOCK: AutoLayout, AnsiClass, Class, Ne
     TransmitFile2(SafeCloseSocket(In), IntPtr(In), Int32(In), Int32(In), SafeHandle(In), TransmitFileBuffers(In), TransmitFileOptions(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     TransmitFile_Blocking(IntPtr(In), SafeHandle(In), Int32(In), Int32(In), SafeHandle(In), TransmitFileBuffers(In), TransmitFileOptions(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     TransmitFile_Blocking2(IntPtr(In), IntPtr(In), Int32(In), Int32(In), SafeHandle(In), TransmitFileBuffers(In), TransmitFileOptions(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    send(IntPtr(In), Byte*(In), Int32(In), SocketFlags(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    recv(IntPtr(In), Byte*(In), Int32(In), SocketFlags(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    listen(SafeCloseSocket(In), Int32(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    bind(SafeCloseSocket(In), Byte[](In), Int32(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
+    shutdown(SafeCloseSocket(In), Int32(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
 Class System.Net.UnsafeNclNativeMethods+NativePKI: AutoLayout, AnsiClass, Class, NestedAssembly, Abstract, Sealed, BeforeFieldInit
   Methods:
     CertVerifyCertificateChainPolicy(IntPtr(In), SafeFreeCertChain(In), ChainPolicyParameter&(In), ChainPolicyStatus&(In, Out)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
@@ -29866,10 +29866,6 @@ Class System.Net.UnsafeNclNativeMethods+HttpApi: AutoLayout, AnsiClass, Class, N
     Boolean ExtendedProtectionSupported 'get ' : 
     Boolean Supported 'get ' : 
   Methods:
-    GetRemoteEndPoint(Byte[], IntPtr): PrivateScope, Assembly, Static, HideBySig
-    GetLocalEndPoint(Byte[], IntPtr): PrivateScope, Assembly, Static, HideBySig
-    GetTlsTokenBindingRequestInfo(Byte[], IntPtr): PrivateScope, Assembly, Static, HideBySig
-    GetTlsTokenBindingRequestInfo_V1(Byte[], IntPtr): PrivateScope, Assembly, Static, HideBySig
     HttpInitialize(HTTPAPI_VERSION, UInt32, Void*): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     HttpReceiveRequestEntityBody(CriticalHandle, UInt64, UInt32, Void*, UInt32, UInt32&(Out), NativeOverlapped*): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
     HttpReceiveRequestEntityBody2(CriticalHandle, UInt64, UInt32, Void*, UInt32, UInt32&(Out), SafeHandle(In)): PrivateScope, Assembly, Static, HideBySig, PinvokeImpl
@@ -29901,6 +29897,10 @@ Class System.Net.UnsafeNclNativeMethods+HttpApi: AutoLayout, AnsiClass, Class, N
     GetVerb(Byte[], IntPtr): PrivateScope, Assembly, Static, HideBySig
     GetKnownVerb(Byte[], IntPtr): PrivateScope, Assembly, Static, HideBySig
     GetChunks(Byte[], IntPtr, Int32&, UInt32&, Byte[], Int32, Int32): PrivateScope, Assembly, Static, HideBySig
+    GetRemoteEndPoint(Byte[], IntPtr): PrivateScope, Assembly, Static, HideBySig
+    GetLocalEndPoint(Byte[], IntPtr): PrivateScope, Assembly, Static, HideBySig
+    GetTlsTokenBindingRequestInfo(Byte[], IntPtr): PrivateScope, Assembly, Static, HideBySig
+    GetTlsTokenBindingRequestInfo_V1(Byte[], IntPtr): PrivateScope, Assembly, Static, HideBySig
 Class System.Net.UnsafeNclNativeMethods+SecureStringHelper: AutoLayout, AnsiClass, Class, NestedAssembly, Abstract, Sealed, BeforeFieldInit
   Methods:
     CreateString(SecureString): PrivateScope, Assembly, Static, HideBySig

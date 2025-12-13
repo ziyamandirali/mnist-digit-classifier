@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|solutionrelative:Collect\\Form1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|solutionrelative:Collect\\Network.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|solutionrelative:Collect\\Network.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|solutionrelative:Collect\\Network.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AF7AB78E-9D58-401C-BD96-1BA620A28960}|Collect.vcxproj|C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Process.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -38,7 +38,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Network.cpp",
               "DocumentMoniker": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.cpp",
               "RelativeDocumentMoniker": "Collect\\Network.cpp",
@@ -50,15 +50,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Network.h",
               "DocumentMoniker": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.h",
               "RelativeDocumentMoniker": "Collect\\Network.h",
               "ToolTip": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Network.h",
               "RelativeToolTip": "Collect\\Network.h",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-09T18:02:34.079Z"
+              "WhenOpened": "2025-12-09T18:02:34.079Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -92,7 +93,7 @@
               "RelativeDocumentMoniker": "Collect\\Form1.h",
               "ToolTip": "C:\\Users\\Emre\\source\\repos\\Collect\\Collect\\Form1.h",
               "RelativeToolTip": "Collect\\Form1.h",
-              "ViewState": "AgIAAB4FAAAAAAAAAAAewDMFAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAABcHAAAAAAAAAAAewBkHAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-12-09T14:41:54.824Z",
               "EditorCaption": ""
